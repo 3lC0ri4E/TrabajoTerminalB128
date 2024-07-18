@@ -19,7 +19,7 @@ import {
 import useValidation from '../hooks/useValidation';
 import validateLoginForm from '../hooks/validation/LoginForm';
 
-export default function LogIn() {
+export default function SignUp() {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const initialState = {
@@ -77,25 +77,7 @@ export default function LogIn() {
                             fontSize={[24, 30, 30, 40]}
                             m={[1, 2, 4, 5]}
                         >
-                            ¡Bienvenido!
-                        </Text>
-                        <Text
-                            fontSize={[14, 18, 20, 20]}
-                            fontWeight={450}
-                            m={[1, 2, 4, 5]}
-                        >
-                            Por favor, inicia sesión para continuar
-                        </Text>
-                        <Text
-                            fontSize={[12, 16, 15, 16]}
-                        >
-                            <Box
-                                as="span"
-                                color="#FFA000"
-                            >
-                                ¿No tienes cuenta?&nbsp;
-                            </Box>
-                            Regístrate
+                            ¡Bienvenido a CryptoPredict!
                         </Text>
                     </Box>
 
@@ -113,31 +95,76 @@ export default function LogIn() {
                             fontWeight={450}
                             mb={[2, 2, 3, 3]}
                         >
-                            Iniciar Sesión
+                            Crear Cuenta
                         </Text>
                         <Divider />
                         <form id='login-form'>
-                            <Stack
-                            // spacing={10}
-                            // w='90%'
-                            >
+                            <Stack>
                                 <FormControl isInvalid={errors.email || errors.password}>
-                                    <FormLabel
-                                        htmlFor="email"
-                                        mt={[3, 5, 10, 10]}
-                                        fontSize={[12, 12, 15, 15]}
-                                        fontWeight="normal"
-                                    >
-                                        Correo Electrónico
-                                    </FormLabel>
+                                    <Input
+                                        mt={6}
+                                        size={['xs', 'xs', 'sm', 'md']}
+                                        padding="15px"
+                                        variant="flushed"
+                                        name="name"
+                                        id="name"
+                                        type="text"
+                                        placeholder="Nombre(s)"
+                                        onChange={handleChange}
+                                        value={values.name}
+                                        mb={[2, 2, 5, 5]}
+                                    />
+                                    {errors.name && (
+                                        <FormErrorMessage mt="-15px" mb="10px" ml="10px">
+                                            {errors.name}
+                                        </FormErrorMessage>
+                                    )}
+
+                                    <Input
+                                        size={['xs', 'xs', 'sm', 'md']}
+                                        padding="15px"
+                                        variant="flushed"
+                                        name="lastname"
+                                        id="lastname"
+                                        type="text"
+                                        placeholder="Apellido(s)"
+                                        onChange={handleChange}
+                                        value={values.lastname}
+                                        mb={[2, 2, 5, 5]}
+                                    />
+                                    {errors.lastname && (
+                                        <FormErrorMessage mt="-15px" mb="10px" ml="10px">
+                                            {errors.lastname}
+                                        </FormErrorMessage>
+                                    )}
+
+
+                                    <Input
+                                        size={['xs', 'xs', 'sm', 'md']}
+                                        padding="15px"
+                                        variant="flushed"
+                                        name="username"
+                                        id="username"
+                                        type="text"
+                                        placeholder="Nombre de Usuario"
+                                        onChange={handleChange}
+                                        value={values.username}
+                                        mb={[2, 2, 5, 5]}
+                                    />
+                                    {errors.username && (
+                                        <FormErrorMessage mt="-15px" mb="10px" ml="10px">
+                                            {errors.username}
+                                        </FormErrorMessage>
+                                    )}
+
                                     <Input
                                         size={['xs', 'xs', 'sm', 'md']}
                                         padding="15px"
                                         variant="flushed"
                                         name="email"
-                                        id="login_email"
+                                        id="email"
                                         type="email"
-                                        placeholder="ejemplo@ejemplo.com"
+                                        placeholder="Correo Electrónico"
                                         onChange={handleChange}
                                         value={values.email}
                                         mb={[2, 2, 5, 5]}
@@ -147,14 +174,6 @@ export default function LogIn() {
                                             {errors.email}
                                         </FormErrorMessage>
                                     )}
-                                    <FormLabel
-                                        htmlFor="password"
-                                        mt={1}
-                                        fontSize={[12, 12, 15, 15]}
-                                        fontWeight="normal"
-                                    >
-                                        Contraseña
-                                    </FormLabel>
                                     <InputGroup>
                                         <Input
 
@@ -162,58 +181,71 @@ export default function LogIn() {
                                             padding="15px"
                                             variant="flushed"
                                             name="password"
-                                            id="login_password"
+                                            id="password"
                                             // type="password"
                                             type={show ? 'text' : 'password'}
-                                            placeholder="*********"
+                                            placeholder="Contraseña"
                                             value={values.password}
                                             onChange={handleChange}
                                             mb={[2, 2, 5, 5]}
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button
-                                                h='1.75rem'
+                                                h={['20px', '20px', '22px', '35px']}
                                                 size='sm'
                                                 onClick={handleClick}
                                                 bg='#3d3d3d'
                                                 color='#ffffff'
                                                 _hover={{ bg: '#505967' }}
+                                                fontSize={[10, 10, 10, 12]}
                                             >
                                                 {show ? 'Esconder' : 'Mostrar'}
                                             </Button>
                                         </InputRightElement>
+                                        {errors.password && (
+                                            <FormErrorMessage mt="-15px" mb="10px" ml="10px">
+                                                {errors.password}
+                                            </FormErrorMessage>
+                                        )}
                                     </InputGroup>
-                                    {errors.password && (
+
+                                    <Input
+                                        size={['xs', 'xs', 'sm', 'md']}
+                                        padding="15px"
+                                        variant="flushed"
+                                        name="password"
+                                        id="confirm_password"
+                                        // type="password"
+                                        type={show ? 'text' : 'password'}
+                                        placeholder="Confirmar Contraseña"
+                                        value={values.confirmpassword}
+                                        onChange={handleChange}
+                                        mb={[2, 2, 5, 5]}
+                                    />
+                                    {errors.confirmpassword && (
                                         <FormErrorMessage mt="-15px" mb="10px" ml="10px">
-                                            {errors.password}
+                                            {errors.confirmpassword}
                                         </FormErrorMessage>
                                     )}
+
+
                                 </FormControl>
                             </Stack>
                         </form>
-                        <Text
-                            m={[2, 3, 4, 5]}
-                            fontSize={[10, 10, 12, 18]}
-                        >
-                            Olvidé mi Contraseña
-                        </Text>
-                        <Box alignContent='center'>
+                        <Box
+                            alignContent='center'
+                            pt={5}>
                             <Button
-
                                 fontSize={[15, 15, 15, 22]}
                                 bg='#FFA000'
                                 w="50%"
-                                // h="45"
-                                // mb="20px"
-                                // color="white"
-                                // mt="20px"
                                 _hover={{
                                     bg: '#D84226'
                                 }}
                                 form="login-form"
                                 onClick={handleSubmit}
                             >
-                                Iniciar Sesión
+                                Registrarse
                             </Button>
                         </Box>
                     </Box>
