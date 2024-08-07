@@ -1,8 +1,6 @@
-/** @format */
-
 // Layout.jsx
-import React from 'react';
-import { Box } from '@chakra-ui/react';
+import React from 'react'
+import { Box } from '@chakra-ui/react'
 
 const Layout = ({ children }) => {
     return (
@@ -15,11 +13,10 @@ const Layout = ({ children }) => {
             fontFamily='Montserrat'
             fontStyle="normal"
             bgGradient='linear(to-r,#1294FF, #022C4F)'
-
         >
             {children}
         </Box>
-    );
-};
+    )
+}
 
-export default Layout;
+export default Layout
