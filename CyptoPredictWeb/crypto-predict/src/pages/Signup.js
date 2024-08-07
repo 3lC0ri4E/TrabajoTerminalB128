@@ -17,18 +17,22 @@ import {
     InputRightElement
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
-import validateLoginForm from '../hooks/validation/LoginForm';
+import validateSignupForm from '../hooks/validation/SignupForm';
 
 export default function SignUp() {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const initialState = {
+        name: '',
+        lastname: '',
+        username: '',
         email: '',
         password: '',
+        confirmpassword: ''
     };
 
     const { values, errors, submitForm, handleSubmit, handleChange } =
-        useValidation(initialState, validateLoginForm, onSubmit);
+        useValidation(initialState, validateSignupForm, onSubmit);
 
     async function onSubmit() {
         try {
@@ -202,19 +206,19 @@ export default function SignUp() {
                                                 {show ? 'Esconder' : 'Mostrar'}
                                             </Button>
                                         </InputRightElement>
-                                        {errors.password && (
-                                            <FormErrorMessage mt="-15px" mb="10px" ml="10px">
-                                                {errors.password}
-                                            </FormErrorMessage>
-                                        )}
                                     </InputGroup>
+                                    {errors.password && (
+                                        <FormErrorMessage mt="-15px" mb="10px" ml="10px">
+                                            {errors.password}
+                                        </FormErrorMessage>
+                                    )}
 
                                     <Input
                                         size={['xs', 'xs', 'sm', 'md']}
                                         padding="15px"
                                         variant="flushed"
-                                        name="password"
-                                        id="confirm_password"
+                                        name="confirmpassword"
+                                        id="confirm password"
                                         // type="password"
                                         type={show ? 'text' : 'password'}
                                         placeholder="Confirmar Contraseña"

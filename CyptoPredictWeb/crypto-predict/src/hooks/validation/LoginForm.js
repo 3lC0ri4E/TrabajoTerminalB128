@@ -3,9 +3,9 @@ export default function validateLoginForm(values) {
     const errors = {};
     // Validar email
     if (!values.email) {
-        errors.email = 'El email es obligatorio';
+        errors.email = 'El correo es obligatorio';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-        errors.email = 'Email no válido';
+        errors.email = 'Correo no válido';
     }
     // Validar password
     if (!values.password) {

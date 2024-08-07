@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from 'react';
 import {
     Input,
@@ -199,14 +197,13 @@ export default function LogIn() {
                         </Text>
                         <Box alignContent='center'>
                             <Button
-
                                 fontSize={[15, 15, 15, 22]}
                                 bg='#FFA000'
                                 w="50%"
                                 // h="45"
                                 // mb="20px"
                                 // color="white"
-                                // mt="20px"
+                                // mt="20px"    
                                 _hover={{
                                     bg: '#D84226'
                                 }}
