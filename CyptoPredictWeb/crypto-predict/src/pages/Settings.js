@@ -1,25 +1,25 @@
-/** @format */
-
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
-    Input,
-    Stack,
+    Box,
     Text,
     Button,
-    Divider,
-    Box,
+    Input,
     FormErrorMessage,
+    InputRightElement,
+    Stack,
     FormControl,
-    Image,
-    InputGroup,
-    InputRightElement
+    InputGroup
 } from '@chakra-ui/react'
-import useValidation from '../hooks/useValidation'
-import validateSignupForm from '../hooks/validation/SignupForm'
+import SideBar from './Sidebar.js'
 
-export default function SignUp() {
-    const [show, setShow] = useState(false);
-    const handleClick = () => setShow(!show);
+import useValidation from '../hooks/useValidation'
+import validateSettingsForm from '../hooks/validation/SettingsForm'
+
+
+export default function Settings() {
+
+    const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show)
     const initialState = {
         name: '',
         lastname: '',
@@ -28,77 +28,66 @@ export default function SignUp() {
         password: '',
         confirmpassword: ''
     };
-
     const { values, errors, submitForm, handleSubmit, handleChange } =
-        useValidation(initialState, validateSignupForm, onSubmit)
-
+        useValidation(initialState, validateSettingsForm, onSubmit);
     async function onSubmit() {
         try {
-            console.log(values);
+            console.log(values)
         } catch {
-            console.log('No Pasa');
+            console.log('No Pasa')
         }
     }
 
     return (
         <Box
-            // w='85%'
-            h='100vh'
-            display="flex"
+            display={'flex'}
             flexDirection={{ base: 'column', md: 'row' }}
+
+            //  w={[0, 0, '70%', '80%', '75%']}
+            h='100vh'
+
+        // bg='#ffffff'
+
         >
+            <SideBar />
             <Box
-                display={{ md: 'flex' }}
-                borderRadius='30px'
-                h='80%'
-                w='85%'
-                overflow='auto'
-                p={4}
-                justifyContent="center"
-                alignItems="center"
+                // p={5}
+                // m={'auto'}
+                flex={{ md: 1 }}
+                h='100vh'
+                // alignItems='center'
                 alignContent='center'
-                m='auto'
-                bg='#3d3d3d'
+            // justifyContent='space-between'
+
+            // justifyItems='center'
+            // bg='#ffffff'
             >
+
                 <Box
-                    flexShrink={0}
-                    flex='1'
-                    textAlign='center'
-                    justifyContent='center'
-                    pb={5}
-                >
-                    <Image
-                        src='/images/Logo.jpg'
-                        alt='CryptoPredict Logo'
-                        borderRadius='20px'
-                        boxSize='25%'
-                        display='block'
-                        m='auto'
-                    />
-                    <Text
-                        fontWeight={450}
-                        fontSize={{ base: 25, md: 35, xl: 45 }}
-                        mt={[1, 2, 4, 5]}
-                    >
-                        ¡Bienvenido a CryptoPredict!
-                    </Text>
-                </Box>
-                <Box
-                    flex='1'
-                    // p={{ md: 10 }}
-                    display='flex'
+                    m='auto'
+                    // p={3}
+                    borderRadius='30px'
+                    bg='#3c3c3c'
+                    w={'80%'}
+                    // h={'80%'}
+
+                    // h={{ base: '90%', md: '75%' }}
+                    overflow='auto'
                     flexDirection='column'
-                    justifyContent="center"
+                    justifyContent='space-between'
+                    alignContent='center'
+
                 >
                     <Text
-                        // bg='#3d3d3d'
-                        fontSize={[16, 18, 20, 24]}
+                        pt={4}
                         fontWeight={450}
-                        mb={[2, 2, 3, 3]}
+                        // fontSize='300%'
+                        fontSize={{ base: 15, md: 20, xl: 30 }}
+                    // m={[1, 2, 4, 5]}
                     >
-                        Crear Cuenta
+                        Información de Perfil
                     </Text>
-                    <Divider />
+
                     <form id='login-form'>
                         <Stack
                             pl={'10%'}
@@ -106,7 +95,7 @@ export default function SignUp() {
                         >
                             <FormControl isInvalid={errors.email || errors.password}>
                                 <Input
-                                    mt={3}
+                                    // mt={6}
                                     size={['xs', 'xs', 'sm', 'md']}
                                     padding="15px"
                                     variant="flushed"
@@ -116,14 +105,15 @@ export default function SignUp() {
                                     placeholder="Nombre(s)"
                                     onChange={handleChange}
                                     value={values.name}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
+                                // w={{ base: '90%', md: '75%' }}
                                 />
                                 {errors.name && (
                                     <FormErrorMessage
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.name}
                                     </FormErrorMessage>
@@ -139,13 +129,15 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     value={values.lastname}
                                     mb={[2, 2, 5, 5]}
+                                // w={{ base: '90%', md: '75%' }}
+
                                 />
                                 {errors.lastname && (
                                     <FormErrorMessage
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.lastname}
                                     </FormErrorMessage>
@@ -161,13 +153,15 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     value={values.username}
                                     mb={[2, 2, 5, 5]}
+                                // w={{ base: '90%', md: '75%' }}
+
                                 />
                                 {errors.username && (
                                     <FormErrorMessage
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.username}
                                     </FormErrorMessage>
@@ -183,17 +177,28 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     value={values.email}
                                     mb={[2, 2, 5, 5]}
+                                // w={{ base: '90%', md: '75%' }}
+
                                 />
                                 {errors.email && (
                                     <FormErrorMessage
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.email}
                                     </FormErrorMessage>
                                 )}
+
+                                <Text
+                                    fontWeight={450}
+                                    fontSize={{ base: 15, md: 20, xl: 30 }}
+
+                                    m={[1, 2, 4, 5]}
+                                >
+                                    Confirmación de Contraseña
+                                </Text>
                                 <InputGroup>
                                     <Input
                                         size={['xs', 'xs', 'sm', 'md']}
@@ -207,6 +212,8 @@ export default function SignUp() {
                                         value={values.password}
                                         onChange={handleChange}
                                         mb={[2, 2, 5, 5]}
+                                    // w={{ base: '90%', md: '75%' }}
+
                                     />
                                     <InputRightElement width='4.5rem'>
                                         <Button
@@ -216,7 +223,8 @@ export default function SignUp() {
                                             bg='#3d3d3d'
                                             color='#ffffff'
                                             _hover={{ bg: '#505967' }}
-                                            fontSize={[10, 10, 10, 12]}
+                                            fontSize={{ base: 10, lg: 12 }}
+                                        // w={{ base: '90%', md: '75%' }}
                                         >
                                             {show ? 'Esconder' : 'Mostrar'}
                                         </Button>
@@ -227,7 +235,7 @@ export default function SignUp() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.password}
                                     </FormErrorMessage>
@@ -243,14 +251,15 @@ export default function SignUp() {
                                     placeholder="Confirmar Contraseña"
                                     value={values.confirmpassword}
                                     onChange={handleChange}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
+                                // w={{ base: '90%', md: '75%' }}
                                 />
                                 {errors.confirmpassword && (
                                     <FormErrorMessage
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15 }}
+                                        fontSize={{ base: 10, md: 15, xl: 20 }}
                                     >
                                         {errors.confirmpassword}
                                     </FormErrorMessage>
@@ -258,38 +267,34 @@ export default function SignUp() {
                             </FormControl>
                         </Stack>
                     </form>
+
                     <Box
                         alignContent='center'
-                        pt={3}
+                        pt={5}
+                        mb={4}
                     >
-                        <Text
-                            fontSize={[10, 10, 12, 18]}
-                        >
-                            ¿Tienes una cuenta?&nbsp;
-                            <Box
-                                as="span"
-                                color="#FFA000"
-                            >
-                                Entrar
-                            </Box>
-                        </Text>
                         <Button
-                            mt={2}
                             fontSize={{ base: 12, md: 15, xl: 18 }}
+
                             bg='#FFA000'
                             w="50%"
                             h={{ base: '35', lg: '45' }}
+
                             _hover={{
                                 bg: '#D84226'
                             }}
-                            form="signup-form"
+                            form="login-form"
                             onClick={handleSubmit}
                         >
-                            Registrarse
+                            Guardar Cambios
                         </Button>
                     </Box>
+
                 </Box>
             </Box>
-        </Box >
+
+
+
+        </ Box >
     )
 }

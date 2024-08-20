@@ -28,14 +28,15 @@ export default function SideBar() {
 
     return (
         <>
+            {/* SideBar */}
             <Box
                 alignItems='center'
-                justifyContent='left'
                 w={[0, 0, '30%', '20%', '25%']}
                 h='100vh'
                 display={{ base: 'none', md: 'flex' }}
                 bgGradient='linear(to-t,#1294FF, #022C4F)'
                 flexDirection='column'
+                justifyContent='space-between'
             >
                 <Box
                     w='100%'
@@ -47,7 +48,7 @@ export default function SideBar() {
                         alt='CryptoPredict Logo'
                         borderRadius='20px'
                         // boxSize='40%'
-                        w='40%'
+                        w='25%'
                         display='block'
                         m='auto'
                     />
@@ -102,11 +103,13 @@ export default function SideBar() {
                     mb={5}
                 >
                     <Button
-                        fontSize={[0, 0, 12, 15, 15]}
+                        // fontSize={[0, 0, 12, 15, 15]}
+                        fontSize={{ md: 15, xl: 18 }}
 
                         bg='#FFA000'
                         w="70%"
-                        h="45"
+                        h={{ base: '35', lg: '45' }}
+
                         color='black'
                         _hover={{ bg: '#D84226' }}
                         transition='0.3s'
@@ -117,21 +120,26 @@ export default function SideBar() {
                 </Box>
             </Box>
 
+
+
+            {/* PopBar */}
             <Box
-                px={4}>
+                display={{ md: 'none' }}
+                bgGradient='linear(to-r,#1294FF, #022C4F)'
+                px={4}
+            >
                 <Flex
                     alignItems={'center'}
                     justifyContent={'space-between'}
                     p={5}
                 >
                     <Flex
-                        display={{ md: 'none' }}
                     >
                         {isOpen ?
                             <Image
                                 src='/icons/close.png'
                                 alt='Close'
-                                w={20}
+                                w={{ base: '50%' }}
                                 onClick={isOpen ? onClose : onOpen}
                                 display='block'
                                 m='auto'
@@ -158,7 +166,7 @@ export default function SideBar() {
                             src='/images/Logo.jpg'
                             alt='CryptoPredict Logo'
                             borderRadius={['10px', '20px']}
-                            boxSize='20%'
+                            w='15%'
                             display='block'
                             m='auto'
                         />
