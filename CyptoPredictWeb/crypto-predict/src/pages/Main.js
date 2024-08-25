@@ -1,40 +1,79 @@
 import React, { useEffect } from 'react';
+import {
+    Box,
+    Text,
+    Button,
+    Input,
+    FormErrorMessage,
+    InputRightElement,
+    Stack,
+    FormControl,
+    InputGroup,
+    SimpleGrid,
+    Wrap,
+    WrapItem
+} from '@chakra-ui/react'
+import Navbar from './Navbar'
+import BitcoinChart from './Bitcoinchart';
+import BitcoinLineChart from './Bitcoinlinechart';
 
 export default function Main() {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://co-in.io/es/widget/pricelist.js?items=BTC';
-        // script.async = true;
-
-        script.onload = () => {
-            if (window.crCryptocoinPriceWidget) {
-                window.crCryptocoinPriceWidget.init({
-                    base: "USD,MXN",
-                    items: "BTC",
-                    backgroundColor: "3C3C3C",
-                    streaming: "1",
-                    rounded: "1",
-                    boxShadow: "1",
-                    border: "1"
-                });
-            }
-        };
-
-
-        document.body.appendChild(script);
-
-        // Limpieza del script para evitar múltiples cargas
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
 
     return (
-        <div>
-            <div id="crypto-price-widget"></div>
-            {/* <a href="https://currencyrate.today/" rel="noopener" target="_blank"> */}
-            {/* CurrencyRate.Today */}
-            {/* </a> */}
-        </div>
+        <Box
+        // overflow='auto'
+        >
+            <Navbar />
+            <Wrap
+                align='center'
+                justify='center'
+                spacing={5}
+            >
+                <WrapItem>
+                    <Box
+                        w={{ base: '80vw', md: '45vw' }}
+                        // h='70vh'
+                        m={6}
+                    // m='auto'
+                    // bg='#ffffff'
+                    >
+                        <Text
+                            fontWeight={600}
+                            fontSize={{ base: 25, md: 35, xl: 50 }}
+                            p={[1, 2, 4, 5]}
+                            textAlign='left'
+                        >
+                            El futuro de las
+                            <Box
+                                as="span"
+                                color="#64e400 "
+                            >
+                                &nbsp;inversiones&nbsp;
+                            </Box>
+                            está aquí
+                        </Text>
+                        <Text
+                            fontSize={{ base: 15, md: 20, xl: 30 }}
+                            fontWeight={450}
+                            p={[1, 2, 4, 5]}
+                            textAlign='left'
+
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget sollicitudin purus, sed tincidunt urna.
+                        </Text>
+                    </Box>
+                </WrapItem>
+                <WrapItem>
+                    <Box
+                        w={{ base: '90vw', md: '45vw' }}
+                        h={{ base: '50vh', md: '70vh' }}
+                        mb={6}
+                    >
+                        {/* <BitcoinChart /> */}
+                        <BitcoinLineChart />
+                    </Box>
+                </WrapItem>
+            </Wrap>
+        </Box >
     );
 }

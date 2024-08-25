@@ -16,10 +16,14 @@ import {
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
 import validateLoginForm from '../hooks/validation/LoginForm';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function LogIn() {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
+    const navigate = useNavigate();
+
     const initialState = {
         email: '',
         password: '',
@@ -45,9 +49,9 @@ export default function LogIn() {
             <Box
                 display={{ md: 'flex' }}
                 borderRadius='30px'
-                h='80%'
+                h='85vh'
                 w='85%'
-                overflow='auto'
+                // overflow='auto'
                 p={4}
                 justifyContent="center"
                 alignItems="center"
@@ -70,6 +74,7 @@ export default function LogIn() {
                         boxSize='25%'
                         display='block'
                         m='auto'
+                        onClick={() => navigate('/')}
                     />
                     <Text
                         fontWeight={450}
@@ -137,7 +142,7 @@ export default function LogIn() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.email}
                                     </FormErrorMessage>
@@ -183,7 +188,7 @@ export default function LogIn() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.password}
                                     </FormErrorMessage>

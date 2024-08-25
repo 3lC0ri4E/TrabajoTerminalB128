@@ -19,7 +19,7 @@ const menuItems = names.map((name, index) => ({
     link: links[index]
 }))
 
-export default function SideBar() {
+const SideBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     function onClick() {
@@ -133,8 +133,7 @@ export default function SideBar() {
                     justifyContent={'space-between'}
                     p={5}
                 >
-                    <Flex
-                    >
+                    <Flex>
                         {isOpen ?
                             <Image
                                 src='/icons/close.png'
@@ -192,6 +191,9 @@ export default function SideBar() {
                         w={{ base: '60%', sm: '50%' }}
                         display={{ md: 'none' }}
                         bg='#ffffff'
+                        position='absolute'
+                        zIndex={1000}
+
                     >
                         <HStack
                             spacing={8}
@@ -225,3 +227,5 @@ export default function SideBar() {
         </>
     )
 }
+
+export default SideBar
