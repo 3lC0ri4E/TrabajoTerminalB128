@@ -8,20 +8,18 @@ import {
     useDisclosure,
     Link
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 
-const names = ['Dashboard', 'Noticias', 'Ajustes']
-const icons = ['/icons/dashboard.png', '/icons/news.png', '/icons/settings.png']
-const links = ['dashboard', 'noticias', 'ajustes']
 
-const menuItems = names.map((name, index) => ({
-    name: name,
-    icon: icons[index],
-    link: links[index]
-}))
+const menuItems = [
+    { name: 'Dashboard', link: '/dashboard', icon: '/icons/dashboard.png' },
+    { name: 'Noticias', link: '/noticias', icon: '/icons/news.png' },
+    { name: 'Ajustes', link: '/ajustes', icon: '/icons/settings.png' },
+]
 
 const SideBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const navigate = useNavigate();
     function onClick() {
         console.log("cierra sesion")
     }
@@ -51,6 +49,7 @@ const SideBar = () => {
                         w='25%'
                         display='block'
                         m='auto'
+                        onClick={() => navigate('/')}
                     />
                 </Box>
                 <HStack
@@ -168,6 +167,7 @@ const SideBar = () => {
                             w='15%'
                             display='block'
                             m='auto'
+                            onClick={() => navigate('/')}
                         />
                     </Flex>
                     <Flex
@@ -208,15 +208,24 @@ const SideBar = () => {
                             >
                                 {menuItems.map((item, index) => (
                                     <Box>
-                                        <Link
+                                        <Button
+                                            // as={Link}
+                                            // leftIcon={
+                                            // <Image
+                                            // w={[0, 0, 7, 8, 10]}
+                                            // src={item.icon}
+                                            // m={3}
+                                            // />}
+                                            onClick={() => navigate(item.link)}
                                             key={index}
-                                            fontWeight={650}
-                                            fontSize={[15, 18, 20]}
-                                            href={item.link}
+                                            fontWeight={600}
+                                            fontSize={[15, 18]}
                                             color='#085799'
+                                            variant='ghost'
+                                            w='100%'
                                         >
                                             {item.name}
-                                        </Link>
+                                        </Button>
                                     </Box>
                                 ))}
                             </HStack>
