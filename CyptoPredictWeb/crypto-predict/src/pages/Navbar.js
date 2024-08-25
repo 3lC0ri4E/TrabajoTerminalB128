@@ -10,11 +10,8 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 
-// const names = ['Inicio', '¿Quiénes Somos?', 'Propósito', 'Misión', 'Visión']
-// const links = ['inicio', 'quienessomos', 'proposito', 'mision', 'vision']
-
 const menuItems = [
-    { name: 'Inicio', link: '/inicio' },
+    { name: 'Inicio', link: '/' },
     { name: '¿Quiénes Somos?', link: '/quienessomos' },
     { name: 'Propósito', link: '/proposito' },
     { name: 'Misión', link: '/mision' },
@@ -107,7 +104,6 @@ const Navbar = () => {
                             _hover={{ bg: '#D84226' }}
                             transition='0.3s'
                             onClick={() => navigate('signup')}
-
                         >
                             Registrarse
                         </Button>
@@ -177,8 +173,7 @@ const Navbar = () => {
                             w='15%'
                             display='block'
                             m='auto'
-                            onClick={() => navigate('/login')}
-
+                            onClick={() => navigate('/')}
                         />
                     </Flex>
                     <Flex
