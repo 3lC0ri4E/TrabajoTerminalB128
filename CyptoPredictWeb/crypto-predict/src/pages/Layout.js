@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
             fontFamily='Montserrat'
             fontStyle="normal"
             bgGradient='linear(to-r,#1294FF, #022C4F)'
+            overflow='auto'
         >
             {children}
         </Box>

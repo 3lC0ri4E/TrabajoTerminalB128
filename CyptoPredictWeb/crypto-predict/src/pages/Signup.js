@@ -16,10 +16,13 @@ import {
 } from '@chakra-ui/react'
 import useValidation from '../hooks/useValidation'
 import validateSignupForm from '../hooks/validation/SignupForm'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function SignUp() {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
+    const navigate = useNavigate();
     const initialState = {
         name: '',
         lastname: '',
@@ -50,7 +53,7 @@ export default function SignUp() {
             <Box
                 display={{ md: 'flex' }}
                 borderRadius='30px'
-                h='80%'
+                h='85vh'
                 w='85%'
                 overflow='auto'
                 p={4}
@@ -74,6 +77,8 @@ export default function SignUp() {
                         boxSize='25%'
                         display='block'
                         m='auto'
+                        onClick={() => navigate('/')}
+
                     />
                     <Text
                         fontWeight={450}
