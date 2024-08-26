@@ -46,16 +46,9 @@ export default function Settings() {
         >
             <SideBar />
             <Box
-                // p={5}
-                // m={'auto'}
                 flex={{ md: 1 }}
                 h='100vh'
-                // alignItems='center'
                 alignContent='center'
-            // justifyContent='space-between'
-
-            // justifyItems='center'
-            // bg='#ffffff'
             >
 
                 <Box
@@ -73,9 +66,7 @@ export default function Settings() {
                     <Text
                         pt={4}
                         fontWeight={450}
-                        // fontSize='300%'
                         fontSize={{ base: 15, md: 20, xl: 30 }}
-                    // m={[1, 2, 4, 5]}
                     >
                         Información de Perfil
                     </Text>
@@ -87,7 +78,6 @@ export default function Settings() {
                         >
                             <FormControl isInvalid={errors.email || errors.password}>
                                 <Input
-                                    // mt={6}
                                     size={['xs', 'xs', 'sm', 'md']}
                                     padding="15px"
                                     variant="flushed"
@@ -98,7 +88,6 @@ export default function Settings() {
                                     onChange={handleChange}
                                     value={values.name}
                                     mb={{ base: 2, md: 5 }}
-                                // w={{ base: '90%', md: '75%' }}
                                 />
                                 {errors.name && (
                                     <FormErrorMessage
@@ -121,8 +110,6 @@ export default function Settings() {
                                     onChange={handleChange}
                                     value={values.lastname}
                                     mb={{ base: 2, md: 5 }}
-                                // w={{ base: '90%', md: '75%' }}
-
                                 />
                                 {errors.lastname && (
                                     <FormErrorMessage
@@ -145,8 +132,6 @@ export default function Settings() {
                                     onChange={handleChange}
                                     value={values.username}
                                     mb={{ base: 2, md: 5 }}
-                                // w={{ base: '90%', md: '75%' }}
-
                                 />
                                 {errors.username && (
                                     <FormErrorMessage
@@ -169,8 +154,6 @@ export default function Settings() {
                                     onChange={handleChange}
                                     value={values.email}
                                     mb={{ base: 2, md: 5 }}
-                                // w={{ base: '90%', md: '75%' }}
-
                                 />
                                 {errors.email && (
                                     <FormErrorMessage
@@ -197,14 +180,11 @@ export default function Settings() {
                                         variant="flushed"
                                         name="password"
                                         id="password"
-                                        // type="password"
                                         type={show ? 'text' : 'password'}
                                         placeholder="Contraseña"
                                         value={values.password}
                                         onChange={handleChange}
                                         mb={{ base: 2, md: 5 }}
-                                    // w={{ base: '90%', md: '75%' }}
-
                                     />
                                     <InputRightElement width='4.5rem'>
                                         <Button
@@ -215,7 +195,6 @@ export default function Settings() {
                                             color='#ffffff'
                                             _hover={{ bg: '#505967' }}
                                             fontSize={{ base: 10, lg: 12 }}
-                                        // w={{ base: '90%', md: '75%' }}
                                         >
                                             {show ? 'Esconder' : 'Mostrar'}
                                         </Button>
@@ -237,13 +216,11 @@ export default function Settings() {
                                     variant="flushed"
                                     name="confirmpassword"
                                     id="confirm password"
-                                    // type="password"
                                     type={show ? 'text' : 'password'}
                                     placeholder="Confirmar Contraseña"
                                     value={values.confirmpassword}
                                     onChange={handleChange}
                                     mb={{ base: 2, md: 5 }}
-                                // w={{ base: '90%', md: '75%' }}
                                 />
                                 {errors.confirmpassword && (
                                     <FormErrorMessage
