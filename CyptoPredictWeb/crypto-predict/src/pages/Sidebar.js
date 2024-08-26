@@ -104,11 +104,9 @@ const SideBar = () => {
                     <Button
                         // fontSize={[0, 0, 12, 15, 15]}
                         fontSize={{ md: 15, xl: 18 }}
-
                         bg='#FFA000'
                         w="70%"
                         h={{ base: '35', lg: '45' }}
-
                         color='black'
                         _hover={{ bg: '#D84226' }}
                         transition='0.3s'
@@ -123,7 +121,7 @@ const SideBar = () => {
 
             {/* PopBar */}
             <Box
-                display={{ md: 'none' }}
+                display={{ base: 'flex', md: 'none' }}
                 bgGradient='linear(to-r,#1294FF, #022C4F)'
                 px={4}
             >
@@ -184,7 +182,7 @@ const SideBar = () => {
                         />
                     </Flex>
                 </Flex>
-                {isOpen ? (
+                {isOpen && (
                     <Box
                         borderRadius='20px'
                         m={3}
@@ -231,7 +229,7 @@ const SideBar = () => {
                             </HStack>
                         </HStack>
                     </Box>
-                ) : null}
+                )}
             </Box>
         </>
     )
