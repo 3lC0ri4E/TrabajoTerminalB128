@@ -119,8 +119,8 @@ export default function LogIn() {
                             <FormControl isInvalid={errors.email || errors.password}>
                                 <FormLabel
                                     htmlFor="email"
-                                    mt={[3, 5, 10, 10]}
-                                    fontSize={[12, 12, 15, 15]}
+                                    mt={[3, 5, 10]}
+                                    fontSize={{ base: 12, md: 15 }}
                                     fontWeight="normal"
                                 >
                                     Correo Electrónico
@@ -135,7 +135,7 @@ export default function LogIn() {
                                     placeholder="ejemplo@ejemplo.com"
                                     onChange={handleChange}
                                     value={values.email}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
                                 />
                                 {errors.email && (
                                     <FormErrorMessage
@@ -150,7 +150,7 @@ export default function LogIn() {
                                 <FormLabel
                                     htmlFor="password"
                                     mt={1}
-                                    fontSize={[12, 12, 15, 15]}
+                                    fontSize={{ base: 12, md: 15 }}
                                     fontWeight="normal"
                                 >
                                     Contraseña
@@ -163,12 +163,11 @@ export default function LogIn() {
                                         variant="flushed"
                                         name="password"
                                         id="login_password"
-                                        // type="password"
                                         type={show ? 'text' : 'password'}
                                         placeholder="*********"
                                         value={values.password}
                                         onChange={handleChange}
-                                        mb={[2, 2, 5, 5]}
+                                        mb={{ base: 2, md: 5 }}
                                     />
                                     <InputRightElement width='4.5rem'>
                                         <Button

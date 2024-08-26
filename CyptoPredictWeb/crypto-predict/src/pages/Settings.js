@@ -42,12 +42,7 @@ export default function Settings() {
         <Box
             display={'flex'}
             flexDirection={{ base: 'column', md: 'row' }}
-
-            //  w={[0, 0, '70%', '80%', '75%']}
             h='100vh'
-
-        // bg='#ffffff'
-
         >
             <SideBar />
             <Box
@@ -65,13 +60,10 @@ export default function Settings() {
 
                 <Box
                     m='auto'
-                    // p={3}
                     borderRadius='30px'
                     bg='#3c3c3c'
-                    w={'80%'}
-                    // h={'80%'}
-
-                    // h={{ base: '90%', md: '75%' }}
+                    w={{ base: '80vw', md: '60vw' }}
+                    h={{ base: '75vh', md: '85vh' }}
                     overflow='auto'
                     flexDirection='column'
                     justifyContent='space-between'
@@ -113,7 +105,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.name}
                                     </FormErrorMessage>
@@ -128,7 +120,7 @@ export default function Settings() {
                                     placeholder="Apellido(s)"
                                     onChange={handleChange}
                                     value={values.lastname}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
                                 // w={{ base: '90%', md: '75%' }}
 
                                 />
@@ -137,7 +129,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.lastname}
                                     </FormErrorMessage>
@@ -152,7 +144,7 @@ export default function Settings() {
                                     placeholder="Nombre de Usuario"
                                     onChange={handleChange}
                                     value={values.username}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
                                 // w={{ base: '90%', md: '75%' }}
 
                                 />
@@ -161,7 +153,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.username}
                                     </FormErrorMessage>
@@ -176,7 +168,7 @@ export default function Settings() {
                                     placeholder="Correo Electrónico"
                                     onChange={handleChange}
                                     value={values.email}
-                                    mb={[2, 2, 5, 5]}
+                                    mb={{ base: 2, md: 5 }}
                                 // w={{ base: '90%', md: '75%' }}
 
                                 />
@@ -185,7 +177,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.email}
                                     </FormErrorMessage>
@@ -194,7 +186,6 @@ export default function Settings() {
                                 <Text
                                     fontWeight={450}
                                     fontSize={{ base: 15, md: 20, xl: 30 }}
-
                                     m={[1, 2, 4, 5]}
                                 >
                                     Confirmación de Contraseña
@@ -211,7 +202,7 @@ export default function Settings() {
                                         placeholder="Contraseña"
                                         value={values.password}
                                         onChange={handleChange}
-                                        mb={[2, 2, 5, 5]}
+                                        mb={{ base: 2, md: 5 }}
                                     // w={{ base: '90%', md: '75%' }}
 
                                     />
@@ -235,7 +226,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.password}
                                     </FormErrorMessage>
@@ -259,7 +250,7 @@ export default function Settings() {
                                         mt={{ base: "-5px", md: '-15px' }}
                                         mb="10px"
                                         ml="10px"
-                                        fontSize={{ base: 10, md: 15, xl: 20 }}
+                                        fontSize={{ base: 10, md: 15 }}
                                     >
                                         {errors.confirmpassword}
                                     </FormErrorMessage>
