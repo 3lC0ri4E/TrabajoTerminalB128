@@ -18,6 +18,8 @@ import useValidation from '../hooks/useValidation'
 import validateSignupForm from '../hooks/validation/SignupForm'
 import { useNavigate } from 'react-router-dom';
 
+import { signUp } from "../supabase/supabase_functions"
+
 
 export default function SignUp() {
     const [show, setShow] = useState(false);
@@ -38,6 +40,11 @@ export default function SignUp() {
     async function onSubmit() {
         try {
             console.log(values);
+            const { data, error } = await signUp(values);
+            if (data) {
+                navigate('/dashboard')
+            }
+
         } catch {
             console.log('No Pasa');
         }
