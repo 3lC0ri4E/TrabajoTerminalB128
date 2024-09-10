@@ -3,14 +3,6 @@ import {
     Box,
     Wrap,
     WrapItem,
-    Text,
-    Button,
-    Input,
-    FormErrorMessage,
-    InputRightElement,
-    Stack,
-    FormControl,
-    InputGroup
 } from '@chakra-ui/react'
 import SideBar from './Sidebar.js'
 import Bitcoinchart from './Bitcoinchart.js';
@@ -77,7 +69,6 @@ export default function Dashboard() {
                         alignContent='center'
                     >
 
-
                     </WrapItem>
 
                     <WrapItem
@@ -92,7 +83,6 @@ export default function Dashboard() {
                         alignContent='center'
                         mb={{ base: 5, lg: 0 }}
                     >
-
 
                     </WrapItem>
                 </Wrap>

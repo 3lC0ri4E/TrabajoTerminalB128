@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Text,
@@ -16,7 +16,15 @@ import useValidation from '../hooks/useValidation'
 import validateSettingsForm from '../hooks/validation/SettingsForm'
 
 
+
+
 export default function Settings() {
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+    // const [name, setName] = useState('')
+    // const [lastname, setLastname] = useState('')
+    // const [username, setUsername] = useState('')
+
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -257,12 +265,8 @@ export default function Settings() {
                             Guardar Cambios
                         </Button>
                     </Box>
-
                 </Box>
             </Box>
-
-
-
         </ Box >
     )
 }

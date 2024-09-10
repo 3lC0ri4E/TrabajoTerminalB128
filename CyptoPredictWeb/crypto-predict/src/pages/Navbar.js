@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Flex,
@@ -7,8 +7,11 @@ import {
     Link,
     Button,
     useDisclosure,
+    Text
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
+import { getSession, getUser, signOut } from '../supabase/supabase_functions'
+
 
 const menuItems = [
     { name: 'Inicio', link: '/' },
@@ -24,12 +27,33 @@ const menuItems = [
 // }))
 
 const Navbar = () => {
+    const [session, setSession] = useState()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const navigate = useNavigate();
 
     function onClick() {
         console.log("inicia sesion")
     }
+
+    async function signout() {
+        try {
+            await signOut()
+            setSession()
+            console.log('cierra sesion')
+        } catch {
+            console.log('error')
+        }
+    }
+
+    useEffect(() => {
+        const sesion = async () => {
+            setSession(await getSession())
+            console.log(session)
+        }
+        sesion()
+    }
+    )
+
 
     return (
         <>
@@ -90,37 +114,62 @@ const Navbar = () => {
                         </HStack>
                     </Flex>
 
-                    <Flex
-                        m={'auto'}
+                    {!session ? (
+                        <Flex
+                            m={'auto'}
 
-                    >
-                        {/* <Divider orientation='vertical' /> */}
-                        <Button
-                            fontSize={{ md: 12, lg: 15 }}
-                            bg='#FFA000'
-                            w={{ md: '10vw', lg: "12vw" }}
-                            h={{ md: '30', lg: '35' }}
-                            color='black'
-                            _hover={{ bg: '#D84226' }}
-                            transition='0.3s'
-                            onClick={() => navigate('signup')}
                         >
-                            Registrarse
-                        </Button>
-                        <Button
-                            ml={5}
-                            variant='ghost'
-                            fontSize={{ md: 12, lg: 15 }}
-                            w={{ md: '10vw', lg: "12vw" }}
-                            h={{ md: '30', lg: '35' }}
-                            color='white'
-                            _hover={{ bg: '#000000' }}
-                            transition='0.3s'
-                            onClick={() => navigate('/login')}
+                            {/* <Divider orientation='vertical' /> */}
+                            <Button
+                                fontSize={{ md: 12, lg: 15 }}
+                                bg='#FFA000'
+                                w={{ md: '10vw', lg: "12vw" }}
+                                h={{ md: '30', lg: '35' }}
+                                color='black'
+                                _hover={{ bg: '#D84226' }}
+                                transition='0.3s'
+                                onClick={() => navigate('signup')}
+                            >
+                                Registrarse
+                            </Button>
+                            <Button
+                                ml={5}
+                                variant='ghost'
+                                fontSize={{ md: 12, lg: 15 }}
+                                w={{ md: '10vw', lg: "12vw" }}
+                                h={{ md: '30', lg: '35' }}
+                                color='white'
+                                _hover={{ bg: '#000000' }}
+                                transition='0.3s'
+                                onClick={() => navigate('/login')}
+                            >
+                                Iniciar Sesión
+                            </Button>
+                        </Flex>
+                    ) : (
+                        <Flex
+                            m={'auto'}
                         >
-                            Iniciar Sesión
-                        </Button>
-                    </Flex>
+                            <Text
+                                fontSize={{ md: 15, lg: 20 }}
+                            >
+                                Bienvenido {session.data.user.id}</Text>
+                            <Button
+                                fontSize={{ md: 12, lg: 15 }}
+                                bg='#FFA000'
+                                w={{ md: '10vw', lg: "12vw" }}
+                                h={{ md: '30', lg: '35' }}
+                                color='black'
+                                _hover={{ bg: '#D84226' }}
+                                transition='0.3s'
+                                onClick={signout}
+                            >
+                                Cerrar Sesión
+                            </Button>
+                        </Flex>
+
+                    )
+                    }
                 </Flex>
             </Box>
 

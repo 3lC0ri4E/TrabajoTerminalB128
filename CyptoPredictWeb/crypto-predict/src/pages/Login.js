@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
     Input,
     Stack,
@@ -13,30 +13,36 @@ import {
     Image,
     InputGroup,
     InputRightElement
-} from '@chakra-ui/react';
-import useValidation from '../hooks/useValidation';
-import validateLoginForm from '../hooks/validation/LoginForm';
-import { useNavigate } from 'react-router-dom';
+} from '@chakra-ui/react'
+import useValidation from '../hooks/useValidation'
+import validateLoginForm from '../hooks/validation/LoginForm'
+import { useNavigate } from 'react-router-dom'
+import { signIn } from '../supabase/supabase_functions'
+
 
 
 export default function LogIn() {
-    const [show, setShow] = useState(false);
-    const handleClick = () => setShow(!show);
-    const navigate = useNavigate();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show)
+    const navigate = useNavigate()
 
     const initialState = {
-        email: '',
-        password: '',
-    };
+        email: email,
+        password: password,
+    }
 
     const { values, errors, submitForm, handleSubmit, handleChange } =
-        useValidation(initialState, validateLoginForm, onSubmit);
+        useValidation(initialState, validateLoginForm, onSubmit)
 
     async function onSubmit() {
         try {
-            console.log(values);
+            await signIn(values.email, values.password);
+            console.log(values)
         } catch {
-            console.log('No Pasa');
+            console.log('No Pasa')
         }
     }
 
