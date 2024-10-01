@@ -44,39 +44,48 @@ export default function SignUp() {
 
 	async function onSubmit() {
 		const toastId = toast({
-			title: 'Enviando correo',
-			description: 'Por favor, espera...',
+			title: 'Registrando usuario',
+			description: 'Por favor, espera mientras creamos tu cuenta...',
 			status: 'info',
 			duration: null,
 			isClosable: true,
 			position: 'top',
 		});
-		try {
-			console.log(values);
-			const { user, error } = await signUp(values);
 
-			if (error) {
+		try {
+			// Intento de registro
+			const { data, error } = await signUp({
+				email: values.email,
+				password: values.password,
+			});
+			const user = data?.user; // Asegurarse de que estamos accediendo correctamente al usuario
+
+			// Si hay un error o el usuario no se creó
+			if (error || !user) {
 				toast.update(toastId, {
-					title: 'Error al registrar el usuario',
-					description: error.message,
+					title: 'Error al registrar usuario',
+					description:
+						error?.message || 'No se pudo crear la cuenta. Intenta nuevamente.',
 					status: 'error',
 					duration: 5000,
 					isClosable: true,
 				});
+				return; // Detenemos la ejecución si el registro falla
 			}
+
+			// Si el registro es exitoso
 			toast.update(toastId, {
-				title: 'Correo de confirmación enviado',
-				description:
-					'Por favor, confirma tu correo para completar el registro.',
+				title: 'Usuario registrado',
+				description: 'Tu cuenta ha sido creada exitosamente. Bienvenido!',
 				status: 'success',
 				duration: 5000,
 				isClosable: true,
 			});
-			navigate('/');
+			navigate('/'); // Navegar solo si el registro fue exitoso
 		} catch (error) {
 			toast.update(toastId, {
-				title: 'Error al registrar el usuario',
-				description: error.message,
+				title: 'Error al registrar usuario',
+				description: error.message || 'Ocurrió un error inesperado',
 				status: 'error',
 				duration: 5000,
 				isClosable: true,
