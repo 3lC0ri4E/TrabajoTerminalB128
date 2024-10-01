@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { getUser, signOut } from '../supabase/supabase_functions';
-import CustomAlertDialog from './CustomAlertDialog';
 
 const menuItems = [
 	{ name: 'Inicio', link: '/' },
@@ -36,15 +35,10 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 
-	function onClick() {
-		console.log('inicia sesion');
-	}
-
 	async function signout() {
 		try {
 			await signOut();
 			setUser();
-			console.log('cierra sesion');
 		} catch {
 			console.log('error');
 		}
@@ -54,7 +48,6 @@ const Navbar = () => {
 		const fetchUser = async () => {
 			try {
 				const userData = await getUser();
-				console.log('User data fetched:', userData);
 				if (userData) {
 					setUser(userData);
 				}

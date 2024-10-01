@@ -47,6 +47,33 @@ export async function signOut() {
 	return error;
 }
 
+// Obtener información del usuario autenticado
+export const getUserInfo = async () => {
+	try {
+		const { data, error } = await supabase.auth.getUser();
+		if (error) throw error;
+		return data.user;
+	} catch (error) {
+		console.error('Error al obtener el usuario:', error.message);
+		return null;
+	}
+};
+
+// Actualizar la información del usuario
+export const updateUserInfo = async (email, password, user_metadata) => {
+	try {
+		const { data, error } = await supabase.auth.updateUser({
+			email, // Actualiza el email si es necesario
+			password: password || undefined, // Solo actualiza la contraseña si hay una nueva
+			data: user_metadata, // Actualiza los datos personalizados del usuario
+		});
+		if (error) throw error;
+		return data;
+	} catch (error) {
+		console.error('Error al actualizar el usuario:', error.message);
+		return null;
+	}
+};
 // export const resetPassword = async (email) => {
 
 //     let { user, error } = await supabase.auth.resetPasswordForEmail(email)

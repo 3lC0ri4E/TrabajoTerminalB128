@@ -15,6 +15,7 @@ import {
 	Image,
 	InputGroup,
 	InputRightElement,
+	useToast,
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
 import validateLoginForm from '../hooks/validation/LoginForm';
@@ -27,6 +28,7 @@ export default function LogIn() {
 	const [show, setShow] = useState(false);
 	const handleClick = () => setShow(!show);
 	const navigate = useNavigate();
+	const toast = useToast();
 
 	const initialState = {
 		email: email,
@@ -40,12 +42,46 @@ export default function LogIn() {
 	);
 
 	async function onSubmit() {
+		const toastId = toast({
+			title: 'Iniciando Sesión',
+			description: 'Por favor, espera...',
+			status: 'info',
+			duration: null,
+			isClosable: true,
+			position: 'top',
+		});
+
 		try {
-			await signIn(values.email, values.password);
+			const { data, error } = await signIn(values.email, values.password);
+			const user = data?.user;
+
+			if (error || !user) {
+				toast.update(toastId, {
+					title: 'Error al iniciar sesión',
+					description: error?.message || 'Credenciales incorrectas',
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+				return;
+			}
+
+			toast.update(toastId, {
+				title: 'Sesión iniciada',
+				description: 'Bienvenido de nuevo!',
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			});
 			navigate('/');
-			console.log(values);
-		} catch {
-			console.log('No Pasa');
+		} catch (error) {
+			toast.update(toastId, {
+				title: 'Error iniciar sesión',
+				description: error.message,
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			});
 		}
 	}
 
@@ -59,7 +95,6 @@ export default function LogIn() {
 				borderRadius='30px'
 				h='85vh'
 				w='85%'
-				// overflow='auto'
 				p={4}
 				justifyContent='center'
 				alignItems='center'
