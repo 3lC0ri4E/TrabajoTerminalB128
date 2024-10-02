@@ -18,6 +18,11 @@ import {
 	AlertDialogBody,
 	AlertDialogFooter,
 	FormLabel,
+	Tabs,
+	TabList,
+	Tab,
+	TabPanels,
+	TabPanel,
 } from '@chakra-ui/react';
 import { getUserInfo, updateUserInfo } from '../supabase/supabase_functions'; // Importa tus funciones
 import useValidation from '../hooks/useValidation'; // Importa el hook
@@ -130,201 +135,235 @@ export default function Settings() {
 					bg='#3c3c3c'
 					w={{ base: '80vw', md: '60vw' }}
 					h={{ base: '75vh', md: '85vh' }}
-					overflow='auto'
-					flexDirection='column'
-					justifyContent='space-between'
-					alignContent='center'>
+					overflow='auto'>
 					{loading ? (
 						<div>Cargando información del usuario...</div>
 					) : (
-						<>
-							<Text
-								pt={4}
-								fontWeight={450}
-								fontSize={{ base: 15, md: 20, xl: 30 }}>
-								Información de Perfil
-							</Text>
+						<Box>
+							<Tabs
+								isFitted
+								variant='line'
+								colorScheme='yellow'>
+								<Box>
+									<TabList>
+										<Tab>Perfil</Tab>
+										<Tab>Cambiar contraseña</Tab>
+									</TabList>
+								</Box>
 
-							<form
-								id='settings-form'
-								onSubmit={handleSubmit}>
-								<Stack px={'10%'}>
-									<FormControl isInvalid={errors.email}>
-										<FormLabel
-											htmlFor='email'
-											mt={3}
-											fontSize={{ base: 12, md: 15 }}
-											fontWeight='normal'>
-											Correo Electrónico
-										</FormLabel>
-										<Input
-											size={['xs', 'xs', 'sm', 'md']}
-											isDisabled={true}
-											padding='15px'
-											variant='flushed'
-											name='email'
-											id='email'
-											type='email'
-											placeholder='Correo Electrónico'
-											onChange={handleChange}
-											value={values.email}
-										/>
-										{errors.email && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 15 }}>
-												{errors.email}
-											</FormErrorMessage>
-										)}
-									</FormControl>
-									<FormControl isInvalid={errors.name}>
-										<FormLabel
-											htmlFor='name'
-											fontSize={{ base: 12, md: 15 }}
-											fontWeight='normal'>
-											Nombre
-										</FormLabel>
-										<Input
-											size={['xs', 'xs', 'sm', 'md']}
-											padding='15px'
-											variant='flushed'
-											name='name'
-											id='name'
-											type='text'
-											placeholder='Nombre(s)'
-											onChange={handleChange}
-											value={values.name}
-										/>
-										{errors.name && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 15 }}>
-												{errors.name}
-											</FormErrorMessage>
-										)}
-									</FormControl>
+								<TabPanels>
+									{/* Perfil */}
+									<TabPanel>
+										<Box
+											h={{ base: '60vh', md: '70vh' }}
+											alignContent='center'>
+											<Text
+												fontWeight={450}
+												fontSize={{ base: 15, md: 20, xl: 30 }}>
+												Información de Perfil
+											</Text>
 
-									<FormControl isInvalid={errors.lastname}>
-										<FormLabel
-											htmlFor='lastname'
-											fontSize={{ base: 12, md: 15 }}
-											fontWeight='normal'>
-											Apellido
-										</FormLabel>
-										<Input
-											size={['xs', 'xs', 'sm', 'md']}
-											padding='15px'
-											variant='flushed'
-											name='lastname'
-											id='lastname'
-											type='text'
-											placeholder='Apellido(s)'
-											onChange={handleChange}
-											value={values.lastname}
-										/>
-										{errors.lastname && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 15 }}>
-												{errors.lastname}
-											</FormErrorMessage>
-										)}
-									</FormControl>
+											<form
+												id='settings-form'
+												onSubmit={handleSubmit}>
+												<Stack px={'10%'}>
+													<FormControl isInvalid={errors.email}>
+														<FormLabel
+															htmlFor='email'
+															mt={3}
+															fontSize={{ base: 10, md: 12, xl: 15 }}
+															fontWeight='normal'>
+															Correo Electrónico
+														</FormLabel>
+														<Input
+															size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+															isDisabled={true}
+															padding='15px'
+															variant='flushed'
+															name='email'
+															id='email'
+															type='email'
+															placeholder='Correo Electrónico'
+															onChange={handleChange}
+															value={values.email}
+														/>
+														{errors.email && (
+															<FormErrorMessage
+																mt={{ base: '-5px', md: '-15px' }}
+																mb='10px'
+																ml='10px'
+																fontSize={{ base: 10, md: 15 }}>
+																{errors.email}
+															</FormErrorMessage>
+														)}
+													</FormControl>
+													<FormControl isInvalid={errors.name}>
+														<FormLabel
+															htmlFor='name'
+															fontSize={{ base: 10, md: 12, xl: 15 }}
+															fontWeight='normal'>
+															Nombre
+														</FormLabel>
+														<Input
+															size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+															padding='15px'
+															variant='flushed'
+															name='name'
+															id='name'
+															type='text'
+															placeholder='Nombre(s)'
+															onChange={handleChange}
+															value={values.name}
+														/>
+														{errors.name && (
+															<FormErrorMessage
+																mt={{ base: '-5px', md: '-15px' }}
+																mb='10px'
+																ml='10px'
+																fontSize={{ base: 10, md: 15 }}>
+																{errors.name}
+															</FormErrorMessage>
+														)}
+													</FormControl>
 
-									<FormControl isInvalid={errors.username}>
-										<FormLabel
-											htmlFor='username'
-											fontSize={{ base: 12, md: 15 }}
-											fontWeight='normal'>
-											Nombre de Usuario
-										</FormLabel>
-										<Input
-											size={['xs', 'xs', 'sm', 'md']}
-											padding='15px'
-											variant='flushed'
-											name='username'
-											id='username'
-											type='text'
-											placeholder='Nombre de Usuario'
-											onChange={handleChange}
-											value={values.username}
-										/>
-										{errors.username && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 15 }}>
-												{errors.username}
-											</FormErrorMessage>
-										)}
-									</FormControl>
-								</Stack>
-							</form>
+													<FormControl isInvalid={errors.lastname}>
+														<FormLabel
+															htmlFor='lastname'
+															fontSize={{ base: 10, md: 12, xl: 15 }}
+															fontWeight='normal'>
+															Apellido
+														</FormLabel>
+														<Input
+															size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+															padding='15px'
+															variant='flushed'
+															name='lastname'
+															id='lastname'
+															type='text'
+															placeholder='Apellido(s)'
+															onChange={handleChange}
+															value={values.lastname}
+														/>
+														{errors.lastname && (
+															<FormErrorMessage
+																mt={{ base: '-5px', md: '-15px' }}
+																mb='10px'
+																ml='10px'
+																fontSize={{ base: 10, md: 15 }}>
+																{errors.lastname}
+															</FormErrorMessage>
+														)}
+													</FormControl>
 
-							<Box
-								alignContent='center'
-								pt={5}
-								mb={4}>
-								<Button
-									fontSize={{ base: 12, md: 15, xl: 18 }}
-									bg='#FFA000'
-									w='50%'
-									h={{ base: '35', lg: '45' }}
-									_hover={{
-										bg: '#D84226',
-									}}
-									form='settings-form'
-									onClick={onOpen}>
-									Guardar Cambios
-								</Button>
-							</Box>
-							<AlertDialog
-								isOpen={isOpen}
-								onClose={onClose}
-								leastDestructiveRef={cancelRef}>
-								<AlertDialogOverlay>
-									<AlertDialogContent
-										maxW={{ base: '90%', sm: '80%', md: '60%', lg: '40%' }} // Ancho responsivo
-										mx='auto' // Centra el diálogo
-									>
-										<AlertDialogHeader
-											fontSize='lg'
-											fontWeight='bold'>
-											Confirmar Cambios
-										</AlertDialogHeader>
-										<AlertDialogBody>
-											¿Estás seguro de que deseas guardar los cambios realizados
-											en tu perfil?
-										</AlertDialogBody>
-										<AlertDialogFooter>
-											<Button
-												ref={cancelRef}
-												onClick={onClose}>
-												Cancelar
-											</Button>
-											<Button
-												colorScheme='teal'
-												onClick={handleSubmit}
-												bg='#D84226'
-												h={{ base: '35px', lg: '45px' }} // Altura responsiva
-												_hover={{
-													bg: '#FFA000',
-												}}
-												ml={3}>
-												Confirmar
-											</Button>
-										</AlertDialogFooter>
-									</AlertDialogContent>
-								</AlertDialogOverlay>
-							</AlertDialog>
-						</>
+													<FormControl isInvalid={errors.username}>
+														<FormLabel
+															htmlFor='username'
+															fontSize={{ base: 10, md: 12, xl: 15 }}
+															fontWeight='normal'>
+															Nombre de Usuario
+														</FormLabel>
+														<Input
+															size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+															padding='15px'
+															variant='flushed'
+															name='username'
+															id='username'
+															type='text'
+															placeholder='Nombre de Usuario'
+															onChange={handleChange}
+															value={values.username}
+														/>
+														{errors.username && (
+															<FormErrorMessage
+																mt={{ base: '-5px', md: '-15px' }}
+																mb='10px'
+																ml='10px'
+																fontSize={{ base: 10, md: 15 }}>
+																{errors.username}
+															</FormErrorMessage>
+														)}
+													</FormControl>
+												</Stack>
+											</form>
+
+											<Box
+												alignContent='center'
+												pt={4}
+												mt={4}>
+												<Button
+													fontSize={{ base: 12, md: 15, xl: 18 }}
+													bg='#FFA000'
+													w='50%'
+													h={{ base: '35', lg: '45' }}
+													_hover={{
+														bg: '#D84226',
+													}}
+													form='settings-form'
+													onClick={onOpen}>
+													Guardar Cambios
+												</Button>
+											</Box>
+											<AlertDialog
+												isOpen={isOpen}
+												onClose={onClose}
+												leastDestructiveRef={cancelRef}>
+												<AlertDialogOverlay>
+													<AlertDialogContent
+														maxW={{
+															base: '90%',
+															sm: '80%',
+															md: '60%',
+															lg: '40%',
+														}} // Ancho responsivo
+														mx='auto' // Centra el diálogo
+													>
+														<AlertDialogHeader
+															fontSize='lg'
+															fontWeight='bold'>
+															Confirmar Cambios
+														</AlertDialogHeader>
+														<AlertDialogBody>
+															¿Estás seguro de que deseas guardar los cambios
+															realizados en tu perfil?
+														</AlertDialogBody>
+														<AlertDialogFooter>
+															<Button
+																ref={cancelRef}
+																onClick={onClose}>
+																Cancelar
+															</Button>
+															<Button
+																colorScheme='teal'
+																onClick={handleSubmit}
+																bg='#D84226'
+																h={{ base: '35px', lg: '45px' }} // Altura responsiva
+																_hover={{
+																	bg: '#FFA000',
+																}}
+																ml={3}>
+																Confirmar
+															</Button>
+														</AlertDialogFooter>
+													</AlertDialogContent>
+												</AlertDialogOverlay>
+											</AlertDialog>
+										</Box>
+									</TabPanel>
+									{/* Cambiar contraseña */}
+									<TabPanel>
+										<Box
+											h={{ base: '60vh', md: '70vh' }}
+											alignContent='center'>
+											<Text
+												fontWeight={450}
+												fontSize={{ base: 15, md: 20, xl: 30 }}>
+												Cambiar Contraseña
+											</Text>
+										</Box>
+									</TabPanel>
+								</TabPanels>
+							</Tabs>
+						</Box>
 					)}
 				</Box>
 			</Box>

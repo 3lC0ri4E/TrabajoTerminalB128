@@ -154,7 +154,7 @@ export default function SignUp() {
 							<FormControl isInvalid={errors.email || errors.password}>
 								<Input
 									mt={3}
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 									padding='15px'
 									variant='flushed'
 									name='name'
@@ -170,12 +170,12 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.name}
 									</FormErrorMessage>
 								)}
 								<Input
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 									padding='15px'
 									variant='flushed'
 									name='lastname'
@@ -191,12 +191,12 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.lastname}
 									</FormErrorMessage>
 								)}
 								<Input
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 									padding='15px'
 									variant='flushed'
 									name='username'
@@ -212,12 +212,12 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.username}
 									</FormErrorMessage>
 								)}
 								<Input
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 									padding='15px'
 									variant='flushed'
 									name='email'
@@ -233,13 +233,13 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.email}
 									</FormErrorMessage>
 								)}
 								<InputGroup>
 									<Input
-										size={['xs', 'xs', 'sm', 'md']}
+										size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 										padding='15px'
 										variant='flushed'
 										name='password'
@@ -253,13 +253,13 @@ export default function SignUp() {
 									/>
 									<InputRightElement width='4.5rem'>
 										<Button
-											h={['20px', '20px', '22px', '35px']}
+											h={{ base: '20px', xl: '35px' }}
 											size='sm'
 											onClick={handleClick}
 											bg='#3d3d3d'
 											color='#ffffff'
 											_hover={{ bg: '#505967' }}
-											fontSize={[10, 10, 10, 12]}>
+											fontSize={{ base: 10, xl: 15 }}>
 											{show ? 'Esconder' : 'Mostrar'}
 										</Button>
 									</InputRightElement>
@@ -269,12 +269,12 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.password}
 									</FormErrorMessage>
 								)}
 								<Input
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
 									padding='15px'
 									variant='flushed'
 									name='confirmpassword'
@@ -291,7 +291,7 @@ export default function SignUp() {
 										mt={{ base: '-5px', md: '-15px' }}
 										mb='10px'
 										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
+										fontSize={{ base: 10, md: 12, xl: 15 }}>
 										{errors.confirmpassword}
 									</FormErrorMessage>
 								)}
