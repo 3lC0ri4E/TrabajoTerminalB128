@@ -10,6 +10,13 @@ import {
 	useDisclosure,
 	Link,
 	Text,
+	useToast,
+	AlertDialog,
+	AlertDialogOverlay,
+	AlertDialogContent,
+	AlertDialogHeader,
+	AlertDialogBody,
+	AlertDialogFooter,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from '../supabase/supabase_functions';
@@ -25,17 +32,58 @@ const SideBar = (selectedInde) => {
 	const [selectedIndex, setSelectedIndex] = useState(
 		Object.values(selectedInde)[0]
 	);
+	const {
+		isOpen: isDialogOpen,
+		onOpen: onDialogOpen,
+		onClose: onDialogClose,
+	} = useDisclosure();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
+	const toast = useToast();
+	const [user, setUser] = useState(null); // Guarda el usuario autenticado
+	const cancelRef = React.useRef();
 
-	async function signout() {
+	const handleSignOut = async () => {
+		const toastId = toast({
+			title: 'Cerrando Sesión',
+			description: 'Por favor, espera...',
+			status: 'info',
+			duration: null,
+			isClosable: true,
+			position: 'top',
+		});
+
 		try {
 			await signOut();
+
+			toast.update(toastId, {
+				title: 'Sesión cerrada',
+				description: 'Hasta luego!',
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			});
+			setUser();
 			navigate('/');
 		} catch (error) {
-			console.log(error);
+			toast.update(toastId, {
+				title: 'Error al cerrar sesión',
+				description: 'No se pudo cerrar sesión',
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			});
 		}
-	}
+	};
+
+	const signout = () => {
+		onDialogOpen(); // Abre el diálogo de confirmación
+	};
+
+	const confirmSignOut = () => {
+		handleSignOut(); // Llama a la función que cierra la sesión
+		onDialogClose(); // Cierra el diálogo
+	};
 
 	const sidebar = (index, link) => {
 		setSelectedIndex(index);
@@ -226,6 +274,37 @@ const SideBar = (selectedInde) => {
 						</HStack>
 					</Box>
 				)}
+				{/* AlertDialog para confirmar cierre de sesión */}
+				<AlertDialog
+					isOpen={isDialogOpen}
+					onClose={onDialogClose}
+					leastDestructiveRef={cancelRef}>
+					<AlertDialogOverlay>
+						<AlertDialogContent>
+							<AlertDialogHeader
+								fontSize='lg'
+								fontWeight='bold'>
+								Confirmar Cierre de Sesión
+							</AlertDialogHeader>
+							<AlertDialogBody>
+								¿Estás seguro de que deseas cerrar sesión?
+							</AlertDialogBody>
+							<AlertDialogFooter>
+								<Button
+									ref={cancelRef}
+									onClick={onDialogClose}>
+									Cancelar
+								</Button>
+								<Button
+									colorScheme='red'
+									onClick={confirmSignOut}
+									ml={3}>
+									Cerrar Sesión
+								</Button>
+							</AlertDialogFooter>
+						</AlertDialogContent>
+					</AlertDialogOverlay>
+				</AlertDialog>
 			</Box>
 		</>
 	);
