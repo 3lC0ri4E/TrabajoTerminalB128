@@ -43,7 +43,7 @@ export default function Settings() {
 		lastname: '',
 		username: '',
 		email: '',
-		password: '', // Campo de contraseña eliminado
+		password: '',
 	};
 
 	const { values, errors, handleSubmit, handleChange, setValues } =
