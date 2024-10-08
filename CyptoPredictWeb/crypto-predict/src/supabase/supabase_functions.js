@@ -74,18 +74,21 @@ export const updateUserInfo = async (email, password, user_metadata) => {
 		return null;
 	}
 };
-// export const resetPassword = async (email) => {
 
-//     let { user, error } = await supabase.auth.resetPasswordForEmail(email)
+export const updatePassword = async (email, password) => {
+	try {
+		const { data, error } = await supabase.auth.updateUser({
+			email,
+			password: password,
+		});
 
-//     if (error) {
-//         console.error('Error resetting password:', error.message)
-//         throw error
-//     }
-
-//     return user
-
-// }
+		if (error) throw error;
+		return data;
+	} catch (error) {
+		console.error('Error al actualizar el usuario:', error.message);
+		return null;
+	}
+};
 
 // export const updateUser = async (email, password, data) => {
 
