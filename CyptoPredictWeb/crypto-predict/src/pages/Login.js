@@ -7,8 +7,8 @@ import {
 	Text,
 	Button,
 	Divider,
-	AbsoluteCenter,
 	Box,
+	Link,
 	FormLabel,
 	FormErrorMessage,
 	FormControl,
@@ -227,12 +227,16 @@ export default function LogIn() {
 					<Text
 						mt={{ base: 2, md: 4 }}
 						fontSize={{ base: 12, lg: 15 }}>
+						¿No tienes cuenta?&nbsp;
 						<Box
 							as='span'
 							color='#FFA000'>
-							¿No tienes cuenta?&nbsp;
+							<Link
+								key={1}
+								onClick={() => navigate('/signup')}>
+								Regístrate
+							</Link>
 						</Box>
-						Regístrate
 					</Text>
 
 					<Text

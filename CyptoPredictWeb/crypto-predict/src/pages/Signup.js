@@ -14,6 +14,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	useToast,
+	Link,
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
 import validateSignupForm from '../hooks/validation/SignupForm';
@@ -54,14 +55,11 @@ export default function SignUp() {
 
 		try {
 			// Intento de registro
-			const { data, error } = await signUp({
-				email: values.email,
-				password: values.password,
-			});
+			const { data, error } = await signUp(values);
 			const user = data?.user; // Asegurarse de que estamos accediendo correctamente al usuario
 
 			// Si hay un error o el usuario no se creó
-			if (error || !user) {
+			if (error) {
 				toast.update(toastId, {
 					title: 'Error al registrar usuario',
 					description:
@@ -301,12 +299,19 @@ export default function SignUp() {
 					<Box
 						alignContent='center'
 						pt={3}>
-						<Text fontSize={[10, 10, 12, 18]}>
+						<Text fontSize={{ base: 12, lg: 15 }}>
 							¿Tienes una cuenta?&nbsp;
 							<Box
 								as='span'
 								color='#FFA000'>
-								Entrar
+								<Link
+									key={1}
+									// fontSize={{ md: 12, lg: 15 }}
+									onClick={() => navigate('/login')}
+									// color='#085799'
+								>
+									Entrar
+								</Link>
 							</Box>
 						</Text>
 						<Button
