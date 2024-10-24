@@ -2,29 +2,42 @@
 
 import { supabase } from './client';
 
-export async function signIn(email, password) {
-	const { data, error } = await supabase.auth.signInWithPassword({
-		email,
-		password,
-	});
-
-	return { data, error };
-}
-
 export async function signUp(data) {
+	// const { user, error } = await supabase.auth.signInWithOtp({
+	// 	email: data.email,
+	// 	options: {
+	// 		// set this to false if you do not want the user to be automatically signed up
+	// 		shouldCreateUser: false,
+	// 		emailRedirectTo: 'http://localhost:3000/',
+	// 	},
+	// });
+
+	// const { user, error } = await supabase.auth.signUp({
+	// 	phone: '+525536733498',
+	// 	password: data.password,
+	// 	options: {
+	// 		data: {
+	// 			name: data.name,
+	// 			lastname: data.last_name,
+	// 			username: data.username,
+	// 			num_visita: 0,
+	// 		},
+	// 	},
+	// });
+
 	const { user, error } = await supabase.auth.signUp({
 		email: data.email,
 		password: data.password,
 		options: {
 			data: {
 				name: data.name,
-				lastname: data.last_name,
+				lastname: data.lastname,
 				username: data.username,
 				num_visita: 0,
 			},
 		},
 	});
-
+	console.log(data, error);
 	return { user, error };
 }
 
@@ -63,7 +76,7 @@ export const getUserInfo = async () => {
 export const updateUserInfo = async (email, password, user_metadata) => {
 	try {
 		const { data, error } = await supabase.auth.updateUser({
-			email, // Actualiza el email si es necesario
+			email: email || undefined, // Actualiza el email si es necesario
 			password: password || undefined, // Solo actualiza la contraseña si hay una nueva
 			data: user_metadata, // Actualiza los datos personalizados del usuario
 		});
@@ -90,18 +103,16 @@ export const updatePassword = async (email, password) => {
 	}
 };
 
-// export const updateUser = async (email, password, data) => {
-
-//     const { user, error } = await supabase.auth.updateUser({
-//         email,
-//         password,
-//         data
-//     })
-
-//     if (error) {
-//         console.error('Error resetting password:', error.message)
-//         throw error
-//     }
-
-//     return user
-// }
+export async function signIn(email, password) {
+	const { data, error } = await supabase.auth.signInWithPassword({
+		email,
+		password,
+	});
+	if (!error) {
+		// console.log(data.user.user_metadata.num_visita);
+		await updateUserInfo(undefined, undefined, {
+			num_visita: data.user.user_metadata.num_visita + 1,
+		});
+	}
+	return { data, error };
+}

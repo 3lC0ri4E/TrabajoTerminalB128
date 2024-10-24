@@ -1,5 +1,5 @@
 /** @format */
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	Button,
@@ -17,6 +17,8 @@ import {
 	AlertDialogFooter,
 	FormLabel,
 	useToast,
+	InputRightElement,
+	InputGroup,
 } from '@chakra-ui/react';
 import validatePasswordForm from '../hooks/validation/ChangePasswordForm'; // Validador específico
 import useValidation from '../hooks/useValidation';
@@ -24,6 +26,8 @@ import { updatePassword } from '../supabase/supabase_functions'; // Asegúrate d
 import { useNavigate } from 'react-router-dom';
 
 export default function ChangePassword() {
+	const [show, setShow] = useState(false);
+	const handleClick = () => setShow(!show);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const cancelRef = React.useRef();
 	const toast = useToast();
@@ -147,17 +151,31 @@ export default function ChangePassword() {
 							fontWeight='normal'>
 							Nueva Contraseña
 						</FormLabel>
-						<Input
-							size={{ base: 'xs', md: 'sm', xl: 'xl' }}
-							padding='15px'
-							variant='flushed'
-							name='password'
-							id='password'
-							type='password'
-							placeholder='Nueva Contraseña'
-							onChange={handleChange}
-							value={values.password}
-						/>
+						<InputGroup>
+							<Input
+								size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+								padding='15px'
+								variant='flushed'
+								name='password'
+								id='password'
+								type={show ? 'text' : 'password'}
+								placeholder='Nueva Contraseña'
+								onChange={handleChange}
+								value={values.password}
+							/>
+							<InputRightElement width='4.5rem'>
+								<Button
+									h={{ base: '20px', xl: '35px' }}
+									size='sm'
+									onClick={handleClick}
+									bg='#3d3d3d'
+									color='#ffffff'
+									_hover={{ bg: '#505967' }}
+									fontSize={{ base: 10, xl: 15 }}>
+									{show ? 'Esconder' : 'Mostrar'}
+								</Button>
+							</InputRightElement>
+						</InputGroup>
 						{errors.password && (
 							<FormErrorMessage
 								mt={{ base: '2px', md: '5px' }}
@@ -176,26 +194,28 @@ export default function ChangePassword() {
 							fontWeight='normal'>
 							Confirmar Nueva Contraseña
 						</FormLabel>
-						<Input
-							size={{ base: 'xs', md: 'sm', xl: 'xl' }}
-							padding='15px'
-							variant='flushed'
-							name='confirmpassword'
-							id='confirmpassword'
-							type='password'
-							placeholder='Confirmar Nueva Contraseña'
-							onChange={handleChange}
-							value={values.confirmpassword}
-						/>
-						{errors.confirmpassword && (
-							<FormErrorMessage
-								mt={{ base: '2px', md: '5px' }}
-								mb='10px'
-								ml='10px'
-								fontSize={{ base: 10, md: 15 }}>
-								{errors.confirmpassword}
-							</FormErrorMessage>
-						)}
+						<InputGroup>
+							<Input
+								size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+								padding='15px'
+								variant='flushed'
+								name='confirmpassword'
+								id='confirmpassword'
+								type={show ? 'text' : 'password'}
+								placeholder='Confirmar Nueva Contraseña'
+								onChange={handleChange}
+								value={values.confirmpassword}
+							/>
+							{errors.confirmpassword && (
+								<FormErrorMessage
+									mt={{ base: '2px', md: '5px' }}
+									mb='10px'
+									ml='10px'
+									fontSize={{ base: 10, md: 15 }}>
+									{errors.confirmpassword}
+								</FormErrorMessage>
+							)}
+						</InputGroup>
 					</FormControl>
 				</Stack>
 			</form>
