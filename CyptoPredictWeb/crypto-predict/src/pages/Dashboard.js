@@ -25,12 +25,13 @@ export default function Dashboard() {
 	const Overlay = () => (
 		<Box
 			position='absolute'
+
 			top='0'
 			left='0'
 			right='0'
 			bottom='0'
-			bg='rgba(0, 0, 0, 0.5)' // Fondo semitransparente
-			backdropFilter='blur(10px)' // Aplicar el blur
+			bg='rgba(0, 0, 0, 0.5)'
+			backdropFilter='blur(10px)'
 			zIndex='1'
 		/>
 	);
@@ -65,7 +66,7 @@ export default function Dashboard() {
 				alignContent='center'
 				justifyItems='center'
 				overflow='auto'
-				position='relative' // Necesario para posicionar el overlay
+				position='relative'
 			>
 				{isOpen && overlay}
 				<Wrap

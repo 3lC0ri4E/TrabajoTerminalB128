@@ -13,6 +13,8 @@ import {
 	InputGroup,
 } from '@chakra-ui/react';
 import SideBar from './Sidebar.js';
+import NewsReader from './NewsReader.js';
+
 
 export default function News() {
 	return (
@@ -36,7 +38,10 @@ export default function News() {
 					overflow='auto'
 					flexDirection='column'
 					justifyContent='space-between'
-					alignContent='center'></Box>
+					alignContent='center'>
+
+					<NewsReader />
+				</Box>
 			</Box>
 		</Box>
 	);
