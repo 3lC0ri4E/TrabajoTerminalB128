@@ -12,6 +12,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	useToast,
+	Link
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
 import validateSignupForm from '../hooks/validation/SignupForm';
@@ -304,17 +305,35 @@ export default function SignUp() {
 									</FormControl>
 								</Stack>
 							</form>
-							<Box alignContent='center' pt={3}>
+							<Box
+								alignContent='center'
+								pt={3}>
+								<Text fontSize={{ base: 12, lg: 15 }}>
+									¿Tienes una cuenta?&nbsp;
+									<Box
+										as='span'
+										color='#FFA000'>
+										<Link
+											key={1}
+											// fontSize={{ md: 12, lg: 15 }}
+											onClick={() => navigate('/login')}
+										// color='#085799'
+										>
+											Entrar
+										</Link>
+									</Box>
+								</Text>
 								<Button
 									mt={2}
 									fontSize={{ base: 12, md: 15, xl: 18 }}
 									bg='#FFA000'
 									w='50%'
 									h={{ base: '35', lg: '45' }}
-									_hover={{ bg: '#D84226' }}
+									_hover={{
+										bg: '#D84226',
+									}}
 									form='signup-form'
-									onClick={handleSubmit}
-								>
+									onClick={handleSubmit}>
 									Registrarse
 								</Button>
 							</Box>

@@ -36,22 +36,21 @@ export default function Settings() {
 						<Tabs
 							isFitted
 							variant='line'
+							mt={5}
 							colorScheme='yellow'>
 							<Box>
 								<TabList>
-									<Tab>Perfil</Tab>
 									<Tab>Cambiar contraseña</Tab>
+									<Tab>Perfil</Tab>
 								</TabList>
 							</Box>
 
 							<TabPanels>
-								{/* Perfil */}
-								<TabPanel>
-									<UserInfo />
-								</TabPanel>
-								{/* Cambiar contraseña */}
 								<TabPanel>
 									<ChangePassword />
+								</TabPanel>
+								<TabPanel>
+									<UserInfo />
 								</TabPanel>
 							</TabPanels>
 						</Tabs>

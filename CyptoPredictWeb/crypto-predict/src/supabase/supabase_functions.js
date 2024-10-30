@@ -93,3 +93,9 @@ export async function signIn(email, password) {
 	}
 	return { data, error };
 }
+
+
+export async function sendResetPasswordEmail(email) {
+	const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: 'http://localhost:3000/ajustes', })
+	return { error };
+}
