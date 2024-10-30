@@ -239,11 +239,14 @@ export default function LogIn() {
 						</Box>
 					</Text>
 
-					<Text
+					<Link
 						m={[2, 3, 4, 5]}
-						fontSize={{ base: 12, lg: 15 }}>
+						fontSize={{ base: 12, lg: 15 }}
+						color='#D84226'
+						onClick={() => navigate('/forgotpassword')}>
 						Olvidé mi Contraseña
-					</Text>
+					</Link>
+
 					<Box alignContent='center'>
 						<Button
 							fontSize={{ base: 12, md: 15, xl: 18 }}

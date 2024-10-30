@@ -3,28 +3,6 @@
 import { supabase } from './client';
 
 export async function signUp(data) {
-	// const { user, error } = await supabase.auth.signInWithOtp({
-	// 	email: data.email,
-	// 	options: {
-	// 		// set this to false if you do not want the user to be automatically signed up
-	// 		shouldCreateUser: false,
-	// 		emailRedirectTo: 'http://localhost:3000/',
-	// 	},
-	// });
-
-	// const { user, error } = await supabase.auth.signUp({
-	// 	phone: '+525536733498',
-	// 	password: data.password,
-	// 	options: {
-	// 		data: {
-	// 			name: data.name,
-	// 			lastname: data.last_name,
-	// 			username: data.username,
-	// 			num_visita: 0,
-	// 		},
-	// 	},
-	// });
-
 	const { user, error } = await supabase.auth.signUp({
 		email: data.email,
 		password: data.password,
@@ -37,7 +15,6 @@ export async function signUp(data) {
 			},
 		},
 	});
-	console.log(data, error);
 	return { user, error };
 }
 
@@ -76,9 +53,9 @@ export const getUserInfo = async () => {
 export const updateUserInfo = async (email, password, user_metadata) => {
 	try {
 		const { data, error } = await supabase.auth.updateUser({
-			email: email || undefined, // Actualiza el email si es necesario
-			password: password || undefined, // Solo actualiza la contraseña si hay una nueva
-			data: user_metadata, // Actualiza los datos personalizados del usuario
+			email: email || undefined,
+			password: password || undefined,
+			data: user_metadata,
 		});
 		if (error) throw error;
 		return data;

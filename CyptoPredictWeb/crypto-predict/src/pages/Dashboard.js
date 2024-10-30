@@ -44,7 +44,7 @@ export default function Dashboard() {
 			const userData = await getUser();
 			if (userData) {
 				setUser(userData);
-				if (userData.user_metadata.num_visita >= 1) {
+				if (userData.user_metadata.num_visita >= 4) {
 					setOverlay(<Overlay />);
 					onOpen(); // Abre el modal
 				}

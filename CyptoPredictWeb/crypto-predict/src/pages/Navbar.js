@@ -154,7 +154,7 @@ const Navbar = () => {
 								// flex={1}
 								// display='flex'
 								flexDirection='row'
-								// m={5}
+							// m={5}
 							>
 								{menuItems.map((item, index) => (
 									<Box>
@@ -163,7 +163,7 @@ const Navbar = () => {
 											key={index}
 											fontSize={{ md: 12, lg: 15 }}
 											href={item.link}
-											// color='#085799'
+										// color='#085799'
 										>
 											{item.name}
 										</Link>
@@ -223,9 +223,11 @@ const Navbar = () => {
 									label='Cerrar sesión'
 									fontSize='md'>
 									<Image
+										w={[0, 0, 8, 8, 8, 10]}
+
 										src='/icons/logout.png'
 										alt='Logout'
-										w='2vw'
+
 										display='block'
 										m='auto'
 										_hover={{ opacity: '0.5' }}

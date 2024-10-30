@@ -163,7 +163,6 @@ const SideBar = (selectedInde) => {
 					w='100%'
 					mb={5}>
 					<Button
-						// fontSize={[0, 0, 12, 15, 15]}
 						fontSize={{ md: 15, xl: 18 }}
 						bg='#FFA000'
 						w='70%'

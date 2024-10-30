@@ -52,7 +52,7 @@ function NewsReader() {
     };
 
     // Determinar el tamaño de los elementos por página según el tamaño de la pantalla
-    const itemsPerPage = useBreakpointValue({ base: 3, sm: 3, md: 5, xl: 7 });
+    const itemsPerPage = useBreakpointValue({ base: 3, sm: 4, md: 5, lg: 5, xl: 6 });
 
     // Dividir las noticias en grupos según el tamaño de la pantalla
     const chunkArray = (array, size) => {
@@ -108,15 +108,22 @@ function NewsReader() {
                                             cursor: 'pointer',
                                             opacity: 0.3,
                                         }}>
-                                        <Td>
+                                        <Td
+                                            fontSize={{ base: 12, md: 15, xl: 18 }}
+
+                                        >
                                             <Box whiteSpace="normal" wordWrap="break-word" lineHeight="1.2em">
                                                 <strong>{row.title}</strong>
-                                                <Box fontSize="sm" color="#FFA000">
+                                                <Box
+                                                    fontSize={{ base: 10, md: 12, xl: 15 }}
+                                                    color="#FFA000">
                                                     {row.site}
                                                 </Box>
                                             </Box>
                                         </Td>
-                                        <Td>{new Date(row.pubDate).toLocaleDateString()}</Td>
+                                        <Td
+                                            fontSize={{ base: 12, md: 15, xl: 18 }}
+                                        >{new Date(row.pubDate).toLocaleDateString()}</Td>
                                     </Tr>
                                 ))}
                             </Tbody>
