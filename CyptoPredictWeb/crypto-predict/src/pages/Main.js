@@ -49,8 +49,9 @@ export default function Main() {
 							fontWeight={450}
 							p={[1, 2, 4, 5]}
 							textAlign='left'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-							eget sollicitudin purus, sed tincidunt urna.
+                            Descubre el futuro de las inversiones en criptomonedas con
+                            nuestro sistema inteligente que predice tendencias del mercado,
+                            ayudándote a tomar decisiones estratégicas en un entorno en constante cambio.
 						</Text>
 					</Box>
 				</WrapItem>
