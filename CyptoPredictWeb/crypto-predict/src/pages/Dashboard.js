@@ -18,6 +18,7 @@ import {
 import SideBar from './Sidebar.js';
 import Bitcoinchart from './Bitcoinchart.js';
 import { getUser } from '../supabase/supabase_functions';
+import RNNPrediction from './RNN.js';
 
 export default function Dashboard() {
 	const [user, setUser] = useState();
@@ -82,7 +83,10 @@ export default function Dashboard() {
 						overflow='auto'
 						flexDirection='column'
 						justifyContent='space-between'
-						alignContent='center'></WrapItem>
+						alignContent='center'>
+						<RNNPrediction/>
+
+						</WrapItem>
 
 					<WrapItem
 						borderRadius='30px'
