@@ -7,17 +7,18 @@ const useValidation = (initialState, validate, func) => {
 	const [errors, saveErrors] = useState({});
 	const [submitForm, saveSubmitForm] = useState(false);
 
+	// Memoriza la función `func` para evitar recrearla en cada renderizado
 	const memoizedFunc = useCallback(func, [func]);
 
 	useEffect(() => {
 		if (submitForm) {
 			const noErrors = Object.keys(errors).length === 0;
 			if (noErrors) {
-				memoizedFunc(); 
+				memoizedFunc(); // Usar la versión memoizada de `func`
 			}
 			saveSubmitForm(false);
 		}
-	}, [errors, memoizedFunc]); 
+	}, [errors, memoizedFunc, submitForm]); // Agregar `submitForm` a las dependencias
 
 	const handleChange = (e) => {
 		if (e && e.target) {
