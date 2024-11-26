@@ -31,7 +31,7 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "CyptoPredictWeb/crypto-predict"
-          output_location: "CyptoPredictWeb/crypto-predict/build"
+          output_location: "build"
           app_build_command: 'NODE_OPTIONS=--openssl-legacy-provider npm run build'
           ###### End of Repository/Build Configurations ######
 
