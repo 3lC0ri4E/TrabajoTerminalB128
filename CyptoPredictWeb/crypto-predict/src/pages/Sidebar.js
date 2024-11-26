@@ -8,7 +8,6 @@ import {
 	Flex,
 	HStack,
 	useDisclosure,
-	Link,
 	Text,
 	useToast,
 	AlertDialog,
@@ -40,7 +39,6 @@ const SideBar = (selectedInde) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
 	const toast = useToast();
-	const [user, setUser] = useState(null); // Guarda el usuario autenticado
 	const cancelRef = React.useRef();
 
 	const handleSignOut = async () => {
@@ -63,7 +61,6 @@ const SideBar = (selectedInde) => {
 				duration: 5000,
 				isClosable: true,
 			});
-			setUser();
 			navigate('/');
 		} catch (error) {
 			toast.update(toastId, {

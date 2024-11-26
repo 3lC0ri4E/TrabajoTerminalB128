@@ -1,16 +1,8 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
-	Box,
-	Text,
-	Button,
-	Input,
-	FormErrorMessage,
-	InputRightElement,
-	Stack,
-	FormControl,
-	InputGroup,
+	Box
 } from '@chakra-ui/react';
 import SideBar from './Sidebar.js';
 import NewsReader from './NewsReader.js';

@@ -10,7 +10,6 @@ import {
 	ModalHeader,
 	ModalFooter,
 	ModalBody,
-	ModalCloseButton,
 	useDisclosure,
 	Text,
 	Button,
@@ -45,7 +44,7 @@ export default function Dashboard() {
 			const userData = await getUser();
 			if (userData) {
 				setUser(userData);
-				if (userData.user_metadata.num_visita >= 4) {
+				if (user.user_metadata.num_visita >= 4) {
 					setOverlay(<Overlay />);
 					onOpen(); // Abre el modal
 				}

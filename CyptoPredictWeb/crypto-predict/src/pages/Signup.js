@@ -52,7 +52,7 @@ export default function SignUp() {
 		});
 
 		try {
-			const { data, error } = await signUp(values);
+			const { error } = await signUp(values);
 
 			if (error) {
 				toast.update(toastId, {

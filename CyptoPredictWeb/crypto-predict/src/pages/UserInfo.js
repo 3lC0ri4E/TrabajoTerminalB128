@@ -17,8 +17,6 @@ import {
 	AlertDialogBody,
 	AlertDialogFooter,
 	FormLabel,
-	SkeletonCircle,
-	SkeletonText,
 	useToast,
 	Skeleton,
 } from '@chakra-ui/react';

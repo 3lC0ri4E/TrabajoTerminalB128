@@ -35,7 +35,7 @@ export default function validateSignupForm(values) {
     } else if (values.password.length < 6) {
         errors.confirmpassword = 'La contraseña debe ser de al menos 6 caracteres';
     }
-    if (values.password != values.confirmpassword) {
+    if (values.password !== values.confirmpassword) {
         errors.confirmpassword = 'Las contraseñas no coinciden';
     }
 
