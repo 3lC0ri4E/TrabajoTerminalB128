@@ -1,21 +1,23 @@
 /** @format */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const useValidation = (initialState, validate, func) => {
 	const [values, saveValues] = useState(initialState);
 	const [errors, saveErrors] = useState({});
 	const [submitForm, saveSubmitForm] = useState(false);
 
+	const memoizedFunc = useCallback(func, [func]);
+
 	useEffect(() => {
 		if (submitForm) {
 			const noErrors = Object.keys(errors).length === 0;
 			if (noErrors) {
-				func();
+				memoizedFunc(); 
 			}
 			saveSubmitForm(false);
 		}
-	}, [errors]);
+	}, [errors, memoizedFunc]); 
 
 	const handleChange = (e) => {
 		if (e && e.target) {

@@ -20,7 +20,6 @@ import { getUser } from '../supabase/supabase_functions';
 import RNNPrediction from './RNN.js';
 
 export default function Dashboard() {
-	const [user, setUser] = useState();
 
 	const Overlay = () => (
 		<Box
@@ -43,8 +42,7 @@ export default function Dashboard() {
 		const fetchUser = async () => {
 			const userData = await getUser();
 			if (userData) {
-				setUser(userData);
-				if (user.user_metadata.num_visita >= 4) {
+				if (userData.user_metadata.num_visita >= 4) {
 					setOverlay(<Overlay />);
 					onOpen(); // Abre el modal
 				}
