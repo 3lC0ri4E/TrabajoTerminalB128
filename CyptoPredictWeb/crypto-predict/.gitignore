@@ -4,14 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
-../CryptoPredictModel/myenv/
 
 
 # testing
 /coverage
-
-# production
-/build
 
 # misc
 .DS_Store
