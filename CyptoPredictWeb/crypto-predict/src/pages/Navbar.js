@@ -78,12 +78,12 @@ const Navbar = () => {
 	};
 
 	const signout = () => {
-		onDialogOpen(); // Abre el diálogo de confirmación
+		onDialogOpen();
 	};
 
 	const confirmSignOut = () => {
-		handleSignOut(); // Llama a la función que cierra la sesión
-		onDialogClose(); // Cierra el diálogo
+		handleSignOut();
+		onDialogClose(); 
 	};
 
 	useEffect(() => {
@@ -127,14 +127,8 @@ const Navbar = () => {
 					pt='3vh'
 					h='20vh'>
 					<Flex
-						// bg='blue'
-						// pt={4}
 						pl={{ md: 10, lg: 12 }}>
-						<Box
-						// m={'aut }o'}
-						// w={'10%'}
-						// bg={'red'}
-						>
+						<Box>
 							<Image
 								src='/images/Logo.jpg'
 								alt='CryptoPredict Logo'
@@ -150,20 +144,15 @@ const Navbar = () => {
 							m={'auto'}
 							justifyContent={'space-between'}>
 							<HStack
-								spacing={{ md: '10', lg: '15', xl: '20' }}
-								// flex={1}
-								// display='flex'
+								spacing={{ md: '5', lg: '12', xl: '18' }}
 								flexDirection='row'
-							// m={5}
 							>
 								{menuItems.map((item, index) => (
 									<Box>
-										<Link
-											// fontWeight={650}
+										<Link						
 											key={index}
 											fontSize={{ md: 12, lg: 15 }}
 											href={item.link}
-										// color='#085799'
 										>
 											{item.name}
 										</Link>
@@ -175,8 +164,7 @@ const Navbar = () => {
 						{!user ? (
 							<Flex m={'auto'}>
 								{/* <Divider orientation='vertical' /> */}
-								<Button
-									fontSize={{ md: 12, lg: 15 }}
+								<Button  
 									bg='#FFA000'
 									w={{ md: '10vw', lg: '12vw' }}
 									h={{ md: '30', lg: '35' }}
@@ -202,10 +190,11 @@ const Navbar = () => {
 						) : (
 							<Flex m={'auto'}>
 								<Text
-									fontSize={{ md: 15, lg: 20 }}
-									mr={5}>
-									Bienvenido {user.user_metadata.name}{' '}
-									{user.user_metadata.lastname}
+									fontSize={{ md: 12, lg: 15 }}
+										mr={5}
+										alignContent={'center'}
+									>
+									Bienvenido {user.user_metadata.name}
 								</Text>
 								<Button
 									fontSize={{ md: 12, lg: 15 }}
@@ -216,14 +205,15 @@ const Navbar = () => {
 									color='black'
 									_hover={{ bg: '#D84226' }}
 									transition='0.3s'
+									
 									onClick={() => navigate('/dashboard')}>
 									Dashboard
 								</Button>
 								<Tooltip
-									label='Cerrar sesión'
-									fontSize='md'>
+										label='Cerrar sesión'
+										fontSize={{ md: 'xs', lg: 'sm' }}>
 									<Image
-										w={[0, 0, 8, 8, 8, 10]}
+										w={{base: 0, md: 5, lg: 8 }}
 
 										src='/icons/logout.png'
 										alt='Logout'

@@ -137,11 +137,12 @@ export default function LogIn() {
 				h='85vh'
 				w='85%'
 				p={4}
-				justifyContent="center"
+				justifyContent="space-between"
 				alignItems="center"
 				alignContent='center'
 				m='auto'
 				bg='#3d3d3d'
+				overflow='auto'
 			>
 				<Box flexShrink={0} flex='1' textAlign='center' justifyContent='center' m='auto' p={[5]}>
 					<Image
@@ -153,16 +154,16 @@ export default function LogIn() {
 						m='auto'
 						onClick={() => navigate('/')}
 					/>
-					<Text fontWeight={450} fontSize={{ base: 25, md: 35, xl: 45 }} mt={[1, 2, 4, 5]}>
+					<Text fontWeight={450} fontSize={{ base: 25, md: 30, xl: 40 }} m={[3, 3, 4, 5]}>
 						¡Bienvenido!
 					</Text>
-					<Text fontSize={{ base: 15, md: 20, xl: 30 }} fontWeight={450} m={[1, 2, 4, 5]}>
+					<Text fontSize={{ base: 15, md: 20, xl: 25 }} fontWeight={450} m={[1, 2, 4, 5]}>
 						{isForgotPassword ? 'Recupera tu contraseña' : 'Por favor, inicia sesión para continuar'}
 					</Text>
 				</Box>
 
 				<Box flex='1' p={{ md: 10 }} display='flex' flexDirection='column' justifyContent="center">
-					<Text fontSize={[16, 18, 20, 24]} fontWeight={450} mb={[2, 2, 3, 3]}>
+					<Text fontSize={{ base: 18, xl: 20 }} fontWeight={450} mb={[2, 2, 3, 3]}>
 						{isForgotPassword ? 'Recuperar Contraseña' : 'Iniciar Sesión'}
 					</Text>
 					<Divider />
@@ -172,13 +173,12 @@ export default function LogIn() {
 								<FormLabel
 									htmlFor="email"
 									mt={[3, 5, 10, 10]}
-									fontSize={[12, 12, 15, 15]}
-									fontWeight="normal"
+									fontSize={{ base: 12, md: 15}}
 								>
 									Correo Electrónico
 								</FormLabel>
 								<Input
-									size={['xs', 'xs', 'sm', 'md']}
+									size={{ base: 'sm' }}
 									padding="15px"
 									variant="flushed"
 									name="email"
@@ -204,8 +204,8 @@ export default function LogIn() {
 										<FormLabel
 											htmlFor="password"
 											mt={1}
-											fontSize={[12, 12, 15, 15]}
-											fontWeight="normal"
+											fontSize={{ base: 12, md: 15}}
+											
 										>
 											Contraseña
 										</FormLabel>
@@ -224,8 +224,8 @@ export default function LogIn() {
 											/>
 											<InputRightElement width='4.5rem'>
 												<Button
-													h='1.75rem'
-													size='sm'
+													h={{ base: '20px', xl: '35px' }}
+													size='xs'
 													onClick={handleClick}
 													bg='#3d3d3d'
 													color='#ffffff'
@@ -264,8 +264,8 @@ export default function LogIn() {
 						<Box>
 
 							<Text
-								mt={{ base: 2, md: 4 }}
-								fontSize={{ base: 12, lg: 15 }}>
+								my={{ base : 4 }}
+								fontSize={{ base: 14 }}>
 								¿No tienes cuenta?&nbsp;
 								<Box
 									as='span'
@@ -279,8 +279,8 @@ export default function LogIn() {
 							</Text>
 							<Text
 								mt={4}
-								fontSize={{ base: 12, lg: 15 }}
-								color='#FFA000'
+								fontSize={{ base: 14 }}
+								color='#c0c0c0'
 								cursor='pointer'
 								onClick={() => setIsForgotPassword(true)}
 							>
@@ -290,10 +290,11 @@ export default function LogIn() {
 					)}
 					<Box alignContent='center' mt={4}>
 						<Button
-							fontSize={{ base: 12, md: 15, xl: 18 }}
+							mt={3}
+							fontSize={{ md: 12, lg: 15}}
 							bg='#FFA000'
-							w="50%"
-							h={{ base: '35', lg: '45' }}
+							w={{ base:'40vw', md: '15vw', lg: '17vw' }}
+							h={{ base: '35' }}
 							_hover={{ bg: '#D84226' }}
 							form="login-form"
 							onClick={handleSubmit}

@@ -35,7 +35,7 @@ export default function Settings() {
 						<Tabs
 							isFitted
 							variant='line'
-							mt={5}
+							mt={2}
 							colorScheme='yellow'>
 							<Box>
 								<TabList>

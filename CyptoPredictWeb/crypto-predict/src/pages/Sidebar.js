@@ -126,7 +126,7 @@ const SideBar = (selectedInde) => {
 								key={index}
 								w='100%'
 								onClick={() => sidebar(index, item.link)}
-								my={6}
+								my={4}
 								py={1}
 								px={[0, 0, 3, 5]}
 								display='flex'
@@ -139,14 +139,14 @@ const SideBar = (selectedInde) => {
 								ml={selectedIndex === index ? '20px' : '0px'}
 								cursor='pointer'>
 								<Image
-									w={[0, 0, 7, 8, 10]}
+									w={{ md: 5, lg: 8 }}
 									src={item.icon}
 									alt={item.name}
 								/>
 								<Text
 									pl={5}
 									fontWeight={650}
-									fontSize={[0, 0, 13, 14, 15]}
+									fontSize={{ md: 10, lg: 15 }}
 									alignContent='center'
 									_focus={{ outline: 'none' }}>
 									{item.name}
@@ -160,10 +160,10 @@ const SideBar = (selectedInde) => {
 					w='100%'
 					mb={5}>
 					<Button
-						fontSize={{ md: 15, xl: 18 }}
+						fontSize={{ md: 12, lg: 15 }}
 						bg='#FFA000'
-						w='70%'
-						h={{ base: '35', lg: '45' }}
+						w={{ base:'35vw', md: '15vw', lg: '17vw' }}
+						h={{ base: '35' }	}
 						color='black'
 						_hover={{ bg: '#D84226' }}
 						transition='0.3s'

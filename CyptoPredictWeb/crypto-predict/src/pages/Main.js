@@ -25,7 +25,7 @@ export default function Main() {
 						m={6}>
 						<Text
 							fontWeight={600}
-							fontSize={{ base: 25, md: 35, xl: 50 }}
+							fontSize={{ base: 25, md: 35 }}
 							p={[1, 2, 4, 5]}
 							textAlign='left'>
 							El futuro de las
@@ -37,7 +37,7 @@ export default function Main() {
 							está aquí
 						</Text>
 						<Text
-							fontSize={{ base: 15, md: 20, xl: 30 }}
+							fontSize={{ base: 15, xl: 20 }}
 							fontWeight={450}
 							p={[1, 2, 4, 5]}
 							textAlign='left'>

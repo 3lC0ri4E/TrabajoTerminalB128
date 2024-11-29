@@ -18,14 +18,13 @@ import {
 function NewsReader() {
     const [csvData, setCsvData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [isLoading, setIsLoading] = useState(true); // Estado de carga
+    const [isLoading, setIsLoading] = useState(true); 
 
     // Función para leer el archivo CSV localmente
     useEffect(() => {
         const fetchData = async () => {
-            setIsLoading(true); // Iniciar carga
+            setIsLoading(true); 
 
-            // Fetch del archivo y conversión a texto completo con Blob
             const response = await fetch('./docs/news_data.csv');
             const blob = await response.blob();
             const text = await blob.text();
@@ -52,7 +51,7 @@ function NewsReader() {
     };
 
     // Determinar el tamaño de los elementos por página según el tamaño de la pantalla
-    const itemsPerPage = useBreakpointValue({ base: 3, sm: 4, md: 5, lg: 5, xl: 6 });
+    const itemsPerPage = useBreakpointValue({ base: 4, sm: 4, md: 4});
 
     // Dividir las noticias en grupos según el tamaño de la pantalla
     const chunkArray = (array, size) => {
@@ -93,9 +92,11 @@ function NewsReader() {
                                 <Tr>
                                     <Th
                                         color={'white'}
+                                        fontSize={{ base: 7,md: 10, lg: 12 }}
                                     >Título</Th>
                                     <Th
                                         color={'white'}
+                                          fontSize={{ base: 7,md: 10, lg: 12 }}
                                     >Fecha</Th>
                                 </Tr>
                             </Thead>
@@ -109,13 +110,12 @@ function NewsReader() {
                                             opacity: 0.3,
                                         }}>
                                         <Td
-                                            fontSize={{ base: 12, md: 15, xl: 18 }}
-
+                                           fontSize={{ base: 10,md: 12, lg: 15 }}
                                         >
                                             <Box whiteSpace="normal" wordWrap="break-word" lineHeight="1.2em">
                                                 <strong>{row.title}</strong>
                                                 <Box
-                                                    fontSize={{ base: 10, md: 12, xl: 15 }}
+                                                  fontSize={{ base: 7,md: 10, lg: 12 }}
                                                     color="#FFA000">
                                                     {row.site}
                                                 </Box>
@@ -135,16 +135,27 @@ function NewsReader() {
                         <Button
                             onClick={goToPreviousPage}
                             isDisabled={currentPage === 0}
-                            colorScheme="blue"
+                            fontSize={{ md: 12, lg: 15 }}
+                            bg='#FFA000'
+                            w={{ md: '15vw', lg: '12vw' }}
+                            color='black'
+                            _hover={{ bg: '#D84226' }}
+                            transition='0.3s'
                         >
-                            Anterior
+                            {'<<'}
                         </Button>
                         <Button
                             onClick={goToNextPage}
                             isDisabled={currentPage === paginatedData.length - 1}
-                            colorScheme="blue"
+                            fontSize={{ md: 12, lg: 15 }}
+                            bg='#FFA000'
+                            w={{ md: '15vw', lg: '12vw' }}
+                            color='black'
+                            _hover={{ bg: '#D84226' }}
+                            transition='0.3s'
+                            
                         >
-                            Siguiente
+                            {">>"}
                         </Button>
                     </Flex>
                 </>

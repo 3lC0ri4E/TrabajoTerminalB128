@@ -102,10 +102,14 @@ export default function ChangePassword() {
 	return (
 		<Box
 			h={{ base: '60vh', md: '70vh' }}
-			alignContent='center'>
+			alignContent='center'
+	justifyItems="space-between"
+		>
 			<Text
 				fontWeight={450}
-				fontSize={{ base: 15, md: 20, xl: 30 }}>
+				fontSize={{ base: 18, xl: 20 }}
+				mb={3}
+			>
 				Cambiar Contraseña
 			</Text>
 
@@ -118,12 +122,12 @@ export default function ChangePassword() {
 						<FormLabel
 							htmlFor='email'
 							mt={3}
-							fontSize={{ base: 10, md: 12, xl: 15 }}
+							fontSize={{ base: 12 }}
 							fontWeight='normal'>
 							Correo Electrónico
 						</FormLabel>
 						<Input
-							size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+							size={{ base: 'sm' }}
 							padding='15px'
 							variant='flushed'
 							name='email'
@@ -138,7 +142,7 @@ export default function ChangePassword() {
 								mt={{ base: '2px', md: '5px' }}
 								mb='10px'
 								ml='10px'
-								fontSize={{ base: 10, md: 15 }}>
+								fontSize={{ base: 10, md: 12 }}>
 								{errors.email}
 							</FormErrorMessage>
 						)}
@@ -146,14 +150,15 @@ export default function ChangePassword() {
 
 					<FormControl isInvalid={errors.password}>
 						<FormLabel
+							mt={3}
 							htmlFor='password'
-							fontSize={{ base: 10, md: 12, xl: 15 }}
+							fontSize={{ base: 12 }}
 							fontWeight='normal'>
 							Nueva Contraseña
 						</FormLabel>
 						<InputGroup>
 							<Input
-								size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+								size={{ base: 'sm' }}
 								padding='15px'
 								variant='flushed'
 								name='password'
@@ -165,13 +170,12 @@ export default function ChangePassword() {
 							/>
 							<InputRightElement width='4.5rem'>
 								<Button
-									h={{ base: '20px', xl: '35px' }}
-									size='sm'
+									h={{ base: '20px', sm : '10px', xl: '20px' }}
+									size='xs'
 									onClick={handleClick}
 									bg='#3d3d3d'
 									color='#ffffff'
-									_hover={{ bg: '#505967' }}
-									fontSize={{ base: 10, xl: 15 }}>
+									_hover={{ bg: '#505967' }}>
 									{show ? 'Esconder' : 'Mostrar'}
 								</Button>
 							</InputRightElement>
@@ -181,7 +185,7 @@ export default function ChangePassword() {
 								mt={{ base: '2px', md: '5px' }}
 								mb='10px'
 								ml='10px'
-								fontSize={{ base: 10, md: 15 }}>
+								fontSize={{ base: 10, md: 12 }}>
 								{errors.password}
 							</FormErrorMessage>
 						)}
@@ -189,14 +193,15 @@ export default function ChangePassword() {
 
 					<FormControl isInvalid={errors.confirmpassword}>
 						<FormLabel
+							mt={3}
 							htmlFor='confirmpassword'
-							fontSize={{ base: 10, md: 12, xl: 15 }}
+							fontSize={{ base: 12 }}
 							fontWeight='normal'>
 							Confirmar Nueva Contraseña
 						</FormLabel>
 						<InputGroup>
 							<Input
-								size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+								size={{ base: 'sm' }}
 								padding='15px'
 								variant='flushed'
 								name='confirmpassword'
@@ -211,7 +216,8 @@ export default function ChangePassword() {
 									mt={{ base: '2px', md: '5px' }}
 									mb='10px'
 									ml='10px'
-									fontSize={{ base: 10, md: 15 }}>
+									fontSize={{ base: 10, md: 12 }}	
+								>
 									{errors.confirmpassword}
 								</FormErrorMessage>
 							)}
@@ -222,13 +228,14 @@ export default function ChangePassword() {
 
 			<Box
 				alignContent='center'
-				pt={4}
-				mt={4}>
+				mt={3}
+			>
 				<Button
-					fontSize={{ base: 12, md: 15, xl: 18 }}
+					mt={3}
+					fontSize={{ md: 12, lg: 15 }}
 					bg='#FFA000'
-					w='50%'
-					h={{ base: '35', lg: '45' }}
+					w={{ base: '40vw', md: '15vw', lg: '17vw' }}
+					h={{ base: '35' }	}
 					_hover={{ bg: '#D84226' }}
 					form='password-form'
 					onClick={onOpen}>

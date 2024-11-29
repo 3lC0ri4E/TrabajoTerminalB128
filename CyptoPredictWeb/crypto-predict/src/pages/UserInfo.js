@@ -119,7 +119,7 @@ export default function UserInfo() {
 				<Skeleton isLoaded={!loading}>
 					<Text
 						fontWeight={450}
-						fontSize={{ base: 15, md: 20, xl: 30 }}>
+						fontSize={{ base: 18, xl: 20 }} 	>
 						Información de Perfil
 					</Text>
 
@@ -133,12 +133,12 @@ export default function UserInfo() {
 								<FormLabel
 									htmlFor='email'
 									mt={3}
-									fontSize={{ base: 10, md: 12, xl: 15 }}
+									fontSize={{ base: 12 }}
 									fontWeight='normal'>
 									Correo Electrónico
 								</FormLabel>
 								<Input
-									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+									size={{ base: 'sm' }}
 									isDisabled={true}
 									padding='15px'
 									variant='flushed'
@@ -164,12 +164,12 @@ export default function UserInfo() {
 							<Skeleton isLoaded={!loading}>
 								<FormLabel
 									htmlFor='name'
-									fontSize={{ base: 10, md: 12, xl: 15 }}
+									fontSize={{ base: 12 }}
 									fontWeight='normal'>
 									Nombre
 								</FormLabel>
 								<Input
-									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+									size={{ base: 'sm' }}
 									padding='15px'
 									variant='flushed'
 									name='name'
@@ -196,12 +196,12 @@ export default function UserInfo() {
 
 								<FormLabel
 									htmlFor='lastname'
-									fontSize={{ base: 10, md: 12, xl: 15 }}
+									fontSize={{ base: 12 }}
 									fontWeight='normal'>
 									Apellido
 								</FormLabel>
 								<Input
-									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+									size={{ base: 'sm' }}
 									padding='15px'
 									variant='flushed'
 									name='lastname'
@@ -228,12 +228,12 @@ export default function UserInfo() {
 
 								<FormLabel
 									htmlFor='username'
-									fontSize={{ base: 10, md: 12, xl: 15 }}
+									fontSize={{ base: 12 }}
 									fontWeight='normal'>
 									Nombre de Usuario
 								</FormLabel>
 								<Input
-									size={{ base: 'xs', md: 'sm', xl: 'xl' }}
+									size={{ base: 'sm' }}
 									padding='15px'
 									variant='flushed'
 									name='username'
@@ -258,22 +258,21 @@ export default function UserInfo() {
 				</form>
 
 				<Box
-					alignContent='center'
-					pt={4}
-					mt={4}>
-					<Button
-						fontSize={{ base: 12, md: 15, xl: 18 }}
-						bg='#FFA000'
-						w='50%'
-						h={{ base: '35', lg: '45' }}
-						_hover={{
-							bg: '#D84226',
-						}}
-						form='settings-form'
-						onClick={onOpen}>
-						Guardar Cambios
-					</Button>
-				</Box>
+				alignContent='center'
+				mt={3}
+			>
+				<Button
+					mt={3}
+					fontSize={{ md: 12, lg: 15 }}
+					bg='#FFA000'
+					w={{ base: '40vw', md: '15vw', lg: '17vw' }}
+					h={{ base: '35' }	}
+					_hover={{ bg: '#D84226' }}
+					form='settings-form'
+					onClick={onOpen}>
+					Guardar Cambios
+				</Button>
+			</Box>
 				<AlertDialog
 					isOpen={isOpen}
 					onClose={onClose}
