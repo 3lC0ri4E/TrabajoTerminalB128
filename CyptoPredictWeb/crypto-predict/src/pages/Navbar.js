@@ -34,7 +34,7 @@ const menuItems = [
 const Navbar = () => {
 	const [user, setUser] = useState();
 	const boxRef = useRef(); 
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen,  onClose } = useDisclosure();
 	const {
 		isOpen: isDialogOpen,
 		onOpen: onDialogOpen,
@@ -133,8 +133,6 @@ const Navbar = () => {
 			<>
 				{/* Navbar */}
 				<Box
-					// display={'flex'}
-					// bg='#ffffff'
 					bgGradient='linear(to-r,#1294FF, #022C4F)'
 					display={{ base: 'none', md: 'flow' }}
 					pt='3vh'
