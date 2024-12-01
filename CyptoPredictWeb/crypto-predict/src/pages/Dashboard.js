@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import {
 	Box,
 	Wrap,
@@ -29,12 +29,11 @@ export default function Dashboard() {
 			left='0'
 			right='0'
 			bottom='0'
-			bg='rgba(0, 0, 0, 0.5)'
+			bg='rgba(0, 0, 0, 0.7)'
 			backdropFilter='blur(10px)'
 			zIndex='1'
 		/>
 	);
-
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [overlay, setOverlay] = useState(<Overlay />);
 
@@ -49,7 +48,7 @@ export default function Dashboard() {
 			}
 		};
 		fetchUser();
-	}, [onOpen]); // onOpen como dependencia
+	}, [onOpen]); // 
 
 	return (
 		<Box
@@ -60,86 +59,97 @@ export default function Dashboard() {
 			{/* Aquí aplicamos el blur solo a este contenedor */}
 			<Box
 				flex={{ md: 1 }}
-				h='100vh'
-				alignContent='center'
-				justifyItems='center'
-				overflow='auto'
-				position='relative'
+				h="100vh"
+				alignContent="center"
+				justifyItems="center"
+				overflow="auto"
+				position="relative"
 			>
 				{isOpen && overlay}
-				<Wrap
-					align='center'
-					justify='center'
-					spacing='3vw'>
+
+				<Wrap align="center" justify="center" spacing="3vw">
 					<WrapItem
 						mt={{ base: 5, lg: 0 }}
-						borderRadius='30px'
-						bg='#3c3c3c'
+						borderRadius="30px"
+						bg="#3c3c3c"
 						w={{ base: '85vw', md: '70vh', lg: '32vw' }}
 						h={{ base: '30vh', sm: '50vh', md: '40vh' }}
-						overflow='auto'
-						flexDirection='column'
-						justifyContent='space-between'
-						alignContent='center'>
-						<RNNPrediction/>
-
-						</WrapItem>
+						overflow="auto"
+						flexDirection="column"
+						justifyContent="space-between"
+						alignContent="center"
+					>
+						<RNNPrediction />
+					</WrapItem>
 
 					<WrapItem
-						borderRadius='30px'
-						bg='#3c3c3c'
+						borderRadius="30px"
+						bg="#3c3c3c"
 						w={{ base: '85vw', md: '70vh', lg: '32vw' }}
 						h={{ base: '30vh', sm: '50vh', md: '40vh' }}
-						overflow='auto'
-						flexDirection='column'
-						justifyContent='space-between'
-						alignContent='center'
-						p={3}>
+						overflow="auto"
+						flexDirection="column"
+						justifyContent="space-between"
+						alignContent="center"
+						p={3}
+					>
 						<Bitcoinchart />
 					</WrapItem>
 
 					<WrapItem
-						borderRadius='30px'
-						bg='#3c3c3c'
+						borderRadius="30px"
+						bg="#3c3c3c"
 						w={{ base: '85vw', md: '70vh', lg: '32vw' }}
 						h={{ base: '30vh', sm: '50vh', md: '40vh' }}
-						overflow='auto'
-						flexDirection='column'
-						justifyContent='space-between'
-						alignContent='center'></WrapItem>
+						overflow="auto"
+						flexDirection="column"
+						justifyContent="space-between"
+						alignContent="center"
+					></WrapItem>
 
 					<WrapItem
-						borderRadius='30px'
-						bg='#3c3c3c'
+						borderRadius="30px"
+						bg="#3c3c3c"
 						w={{ base: '85vw', md: '70vh', lg: '32vw' }}
 						h={{ base: '30vh', sm: '50vh', md: '40vh' }}
-						overflow='auto'
-						flexDirection='column'
-						justifyContent='space-between'
-						alignContent='center'
-						mb={{ base: 5, lg: 0 }}></WrapItem>
+						overflow="auto"
+						flexDirection="column"
+						justifyContent="space-between"
+						alignContent="center"
+						mb={{ base: 5, lg: 0 }}
+					></WrapItem>
 				</Wrap>
+
+				{/* Modal centrado dentro del contenedor */}
+				<Modal
+					isOpen={isOpen}
+					onClose={onClose}
+					isCentered
+					size="lg"
+					closeOnOverlayClick={false} 
+					isClosable={true} 
+					>
+					<ModalContent
+						mx="auto"
+						position="absolute"
+						// top="50%"
+						// left="50%"
+						transform="translate(-50%, -50%)"
+						w={{ base: '90%', md: '70%', lg: '60%' }}
+						>
+						<ModalHeader textAlign="center">Visitas Excedidas</ModalHeader>
+						<ModalBody>
+						<Text textAlign="center">Has excedido el número permitido de visitas.</Text>
+						</ModalBody>
+						<ModalFooter justifyContent="center">
+						<Button onClick={onClose} colorScheme="blue">
+							Aceptar
+						</Button>
+						</ModalFooter>
+					</ModalContent>
+					</Modal>
 			</Box>
 
-			<Modal
-				isCentered
-				isOpen={isOpen}
-				onClose={onClose}
-				size={'xl'}
-				closeOnOverlayClick={false} // No cerrar el modal al hacer clic en el fondo
-				isClosable={false} // Deshabilitar el botón de cierre
-			>
-				<ModalContent>
-					<ModalHeader>Visitas Excedidas</ModalHeader>
-					<ModalBody>
-						<Text>Has excedido el número permitido de visitas.</Text>
-					</ModalBody>
-					<ModalFooter>
-						<Button onClick={onClose}>Aceptar</Button>
-						{/* Botón sin función para cerrar */}
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
 		</Box>
 	);
 }

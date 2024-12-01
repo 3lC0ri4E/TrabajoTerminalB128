@@ -20,7 +20,7 @@ const ProbabilitySlider = ({ probabilities }) => {
   // Adjust slider value dynamically based on probabilities
   React.useEffect(() => {
     if (probabilities) {
-      setSliderValue(parseFloat(probabilities.upwardProbability)); // Set initial value to upward probability
+      setSliderValue(parseFloat(probabilities.downwardProbability)); // Set initial value to upward probability
     }
   }, [probabilities]);
 
@@ -37,13 +37,13 @@ const ProbabilitySlider = ({ probabilities }) => {
         max={100}
       >
         <SliderMark value={0} {...labelStyles}>
-          0%
+          Baja
         </SliderMark>
         <SliderMark value={50} {...labelStyles}>
-          50%
+          0
         </SliderMark>
         <SliderMark value={100} {...labelStyles}>
-          100%
+          Sube
         </SliderMark>
         <SliderMark
           value={sliderValue}

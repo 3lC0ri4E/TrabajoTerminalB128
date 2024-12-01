@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
 	Box,
 	Flex,
@@ -33,6 +33,7 @@ const menuItems = [
 
 const Navbar = () => {
 	const [user, setUser] = useState();
+	const boxRef = useRef(); 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isDialogOpen,
@@ -43,6 +44,18 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 	const toast = useToast();
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (boxRef.current && !boxRef.current.contains(event.target) && isOpen) {
+				onClose();
+			}
+		};
+		document.addEventListener('mousedown', handleClickOutside);
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [isOpen, onClose]);
 
 	const handleSignOut = async () => {
 		const toastId = toast({
@@ -228,130 +241,159 @@ const Navbar = () => {
 						)}
 					</Flex>
 				</Box>
-
-				{/* Popbar */}
+				{/* PopBar */}
 				<Box
-					display={{ md: 'none' }}
-					bgGradient='linear(to-r,#1294FF, #022C4F)'
-					px={4}>
+					display={{ base: 'flex', md: 'none' }}
+					bgGradient="linear(to-r,#1294FF, #022C4F)"
+					px={4}
+					>
 					<Flex
-						alignItems={'center'}
-						justifyContent={'space-between'}
-						p={5}>
-						<Flex>
-							{isOpen ? (
-								<Image
-									src='/icons/close.png'
-									alt='Close'
-									w={{ base: '50%' }}
-									onClick={isOpen ? onClose : onOpen}
-									display='block'
-									m='auto'
-									_hover={{ opacity: '0.5' }}
-								/>
-							) : (
-								<Image
-									src='/icons/menu.png'
-									alt='Menu'
-									w='30vw'
-									onClick={isOpen ? onClose : onOpen}
-									display='block'
-									m='auto'
-									_hover={{ opacity: '0.5' }}></Image>
-							)}
+						alignItems="center"
+						justifyContent="space-between"
+						p={5}
+						w="100%"
+					>
+						{/* Logo a la Izquierda */}
+						<Flex justifyContent="flex-start" alignItems="center" gap={4}>
+
+						<Image
+							src="/images/Logo.jpg"
+							alt="CryptoPredict Logo"
+							borderRadius={["10px", "20px"]}
+							w="20%"
+							display="block"
+							onClick={() => navigate("/")}
+						/>
 						</Flex>
-						<Flex display={{ md: 'none' }}>
+
+						{/* Íconos a la Derecha */}
+						<Flex justifyContent="flex-end" >
+						{user ? (
+							<>
+							{/* Íconos para usuario autenticado */}
 							<Image
-								src='/images/Logo.jpg'
-								alt='CryptoPredict Logo'
-								borderRadius={['10px', '20px']}
-								w='20%'
-								display='block'
-								m='auto'
-								onClick={() => navigate('/')}
+								src="/icons/dashboard.png"
+								alt="Dashboard"
+								w='20vw'
+								mr={4}
+								_hover={{ opacity: "0.5" }}
+								onClick={() => navigate("/dashboard")}
 							/>
-						</Flex>
-						<Flex display={{ md: 'none' }}>
 							<Image
-								src='/icons/logout.png'
-								alt='Logout'
-								w='30vw'
-								display='block'
-								m='auto'
-								_hover={{ opacity: '0.5' }}
+								src="/icons/logout.png"
+								alt="Sign Out"
+								w='20vw'
+								_hover={{ opacity: "0.5" }}
 								onClick={signout}
 							/>
+							</>
+						) : (
+							<>
+							{/* Íconos para usuario no autenticado */}
+							<Image
+								src="/icons/login.png"
+								alt="Login"
+								w='20vw'
+								mr={4}
+								_hover={{ opacity: "0.5" }}
+								onClick={() => navigate("/login")}
+							/>
+							<Image
+								src="/icons/signup.png"
+								alt="Sign Up"
+								w='20vw'
+								mr={4}
+								_hover={{ opacity: "0.5" }}
+								onClick={() => navigate("/signup")}
+							/>
+							</>
+						)}
 						</Flex>
 					</Flex>
-					{isOpen ? (
+
+					{/* Menú desplegable */}
+					{isOpen && (
 						<Box
-							borderRadius='20px'
-							m={3}
-							w={{ base: '60%', sm: '50%' }}
-							display={{ md: 'none' }}
-							bg='#ffffff'
-							position='absolute'>
-							<HStack spacing={8}>
-								<HStack
-									as={'nav'}
-									spacing={10}
-									flex={1}
-									display='flex'
-									flexDirection='column'
-									m={5}>
-									{menuItems.map((item, index) => (
-										<Box w={'100%'}>
-											<Button
-												onClick={() => navigate(item.link)}
-												key={index}
-												fontWeight={650}
-												fontSize={[15, 18]}
-												// href={item.link}
-												color='#085799'
-												variant='ghost'
-												w='100%'>
-												{item.name}
-											</Button>
-										</Box>
-									))}
-								</HStack>
+						ref={boxRef}
+						borderRadius="20px"
+						m={3}
+						w={{ base: "60%", sm: "50%" }}
+						bg="#ffffff"
+						position="fixed"
+						zIndex={1000}
+						>
+						<HStack spacing={8}>
+							<HStack
+							as="nav"
+							spacing={10}
+							flex={1}
+							display="flex"
+							flexDirection="column"
+							m={5}
+							>
+							{menuItems.map((item, index) => (
+								<Box w="100%" key={index}>
+								<Button
+									onClick={() => navigate(item.link)}
+									fontWeight={600}
+									fontSize={[15, 18]}
+									color="#085799"
+									variant="ghost"
+									w="100%"
+								>
+									{item.name}
+								</Button>
+								</Box>
+							))}
 							</HStack>
+						</HStack>
 						</Box>
-					) : null}
+					)}
 				</Box>
 			</>
 
 			{/* AlertDialog para confirmar cierre de sesión */}
 			<AlertDialog
-				isOpen={isDialogOpen}
-				onClose={onDialogClose}
-				leastDestructiveRef={cancelRef}>
-				<AlertDialogOverlay>
-					<AlertDialogContent>
-						<AlertDialogHeader
-							fontSize='lg'
-							fontWeight='bold'>
-							Confirmar Cierre de Sesión
-						</AlertDialogHeader>
-						<AlertDialogBody>
-							¿Estás seguro de que deseas cerrar sesión?
-						</AlertDialogBody>
-						<AlertDialogFooter>
-							<Button
-								ref={cancelRef}
-								onClick={onDialogClose}>
-								Cancelar
-							</Button>
-							<Button
-								colorScheme='red'
-								onClick={confirmSignOut}
-								ml={3}>
-								Cerrar Sesión
-							</Button>
-						</AlertDialogFooter>
-					</AlertDialogContent>
-				</AlertDialogOverlay>
+			isOpen={isDialogOpen}
+			onClose={onDialogClose}
+			leastDestructiveRef={cancelRef}
+			>
+			<AlertDialogOverlay>
+				<AlertDialogContent
+				w="90%" 
+				maxW="500px"
+				mx="auto" 
+				>
+				<AlertDialogHeader
+					fontSize="lg"
+					fontWeight="bold"
+					textAlign="center" 
+				>
+					Confirmar Cierre de Sesión
+				</AlertDialogHeader>
+				<AlertDialogBody textAlign="center">
+					¿Estás seguro de que deseas cerrar sesión?
+				</AlertDialogBody>
+				<AlertDialogFooter display="flex" justifyContent="center">
+					<Button
+					ref={cancelRef}
+					onClick={onDialogClose}
+					variant="ghost"
+					>
+					Cancelar
+					</Button>
+					<Button
+					colorScheme="red"
+					onClick={confirmSignOut}
+					ml={3}
+					>
+					Cerrar Sesión
+					</Button>
+				</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialogOverlay>
 			</AlertDialog>
+
 		</>
 	);
 };

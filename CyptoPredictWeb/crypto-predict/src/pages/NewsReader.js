@@ -92,11 +92,11 @@ function NewsReader() {
                                 <Tr>
                                     <Th
                                         color={'white'}
-                                        fontSize={{ base: 7,md: 10, lg: 12 }}
+                                        fontSize={{ base: 12 }}
                                     >Título</Th>
                                     <Th
                                         color={'white'}
-                                          fontSize={{ base: 7,md: 10, lg: 12 }}
+                                          fontSize={{ base: 12 }}
                                     >Fecha</Th>
                                 </Tr>
                             </Thead>
@@ -110,19 +110,19 @@ function NewsReader() {
                                             opacity: 0.3,
                                         }}>
                                         <Td
-                                           fontSize={{ base: 10,md: 12, lg: 15 }}
+                                           fontSize={{ base: 12, lg: 15 }}
                                         >
                                             <Box whiteSpace="normal" wordWrap="break-word" lineHeight="1.2em">
                                                 <strong>{row.title}</strong>
                                                 <Box
-                                                  fontSize={{ base: 7,md: 10, lg: 12 }}
+                                                  fontSize={{ base: 10, lg: 12 }}
                                                     color="#FFA000">
                                                     {row.site}
                                                 </Box>
                                             </Box>
                                         </Td>
                                         <Td
-                                            fontSize={{ base: 12, md: 15, xl: 18 }}
+                                            fontSize={{ base: 12, md: 15 }}
                                         >{new Date(row.pubDate).toLocaleDateString()}</Td>
                                     </Tr>
                                 ))}
