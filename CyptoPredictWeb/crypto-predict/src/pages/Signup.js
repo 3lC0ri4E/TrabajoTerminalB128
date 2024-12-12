@@ -96,14 +96,9 @@ export default function SignUp() {
 				values.email,
 				values.password,
 			);
-
 			const user = data?.user;
-
-
 			if (user && user.confirmed_at) {
-				clearInterval(intervalId); // Detenemos el intervalo
-
-
+				clearInterval(intervalId); 
 				toast({
 					title: 'Cuenta confirmada',
 					description: '¡Tu cuenta ha sido confirmada exitosamente!',
@@ -112,9 +107,9 @@ export default function SignUp() {
 					isClosable: true,
 					position: 'top',
 				});
-				navigate('/dashboard'); // Redirige a la página principal
+				navigate('/dashboard'); 
 			}
-		}, 3000); // Verificar cada 3 segundos
+		}, 3000);
 	}
 	return (
 			<Box display={'flex'} flexDirection={{ base: 'column', md: 'row' }} h='100vh'>

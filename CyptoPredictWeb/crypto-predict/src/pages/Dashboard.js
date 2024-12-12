@@ -1,6 +1,8 @@
 /** @format */
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+
 import {
 	Box,
 	Wrap,
@@ -14,17 +16,18 @@ import {
 	Text,
 	Button,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import SideBar from './Sidebar.js';
 import Bitcoinchart from './Bitcoinchart.js';
 import { getUser } from '../supabase/supabase_functions';
 import RNNPrediction from './RNN.js';
 
 export default function Dashboard() {
-
+	initMercadoPago('YOUR_PUBLIC_KEY');
+	const navigate = useNavigate();
 	const Overlay = () => (
 		<Box
 			position='absolute'
-
 			top='0'
 			left='0'
 			right='0'
@@ -43,7 +46,7 @@ export default function Dashboard() {
 			if (userData) {
 				if (userData.user_metadata.num_visita >= 4) {
 					setOverlay(<Overlay />);
-					onOpen(); // Abre el modal
+					onOpen();
 				}
 			}
 		};
@@ -56,7 +59,6 @@ export default function Dashboard() {
 			flexDirection={{ base: 'column', md: 'row' }}
 			h='100vh'>
 			<SideBar selectedInde={1} />
-			{/* Aquí aplicamos el blur solo a este contenedor */}
 			<Box
 				flex={{ md: 1 }}
 				h="100vh"
@@ -119,8 +121,6 @@ export default function Dashboard() {
 						mb={{ base: 5, lg: 0 }}
 					></WrapItem>
 				</Wrap>
-
-				{/* Modal centrado dentro del contenedor */}
 				<Modal
 					isOpen={isOpen}
 					onClose={onClose}
@@ -131,20 +131,22 @@ export default function Dashboard() {
 					>
 					<ModalContent
 						mx="auto"
-						position="absolute"
-						// top="50%"
-						// left="50%"
+						position="absolute"	
 						transform="translate(-50%, -50%)"
 						w={{ base: '90%', md: '70%', lg: '60%' }}
 						>
 						<ModalHeader textAlign="center">Visitas Excedidas</ModalHeader>
 						<ModalBody>
-						<Text textAlign="center">Has excedido el número permitido de visitas.</Text>
+							<Text textAlign="center">Has excedido el número permitido de visitas.
+							</Text>
+							<Text textAlign="center">Adquiere una suscripción para poder continuar viendo nuestro análisis
+							</Text>
 						</ModalBody>
 						<ModalFooter justifyContent="center">
-						<Button onClick={onClose} colorScheme="blue">
-							Aceptar
-						</Button>
+						<Button onClick={() => navigate('/suscripcion')} colorScheme="blue">
+							Suscribirse
+						</Button>	
+						<Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} customization={{ texts:{ valueProp: 'smart_option'}}} />
 						</ModalFooter>
 					</ModalContent>
 					</Modal>

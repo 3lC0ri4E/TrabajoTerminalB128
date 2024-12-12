@@ -12,18 +12,12 @@ import QuienesSomos from './pages/QuienesSomos';
 import Mision from './pages/Mision';
 import Vision from './pages/Vision';
 import Proposito from './pages/Proposito';
+import Subscription from './pages/Subscription';
 
 function App() {
 	return (
 		<div className='App'>
-			{/* <Login /> */}
-			{/* <SignUp /> */}
-			{/* <SideBar /> */}
-			{/* <Settings /> */}
-			{/* <Main /> */}
-			{/* <Navbar /> */}
 			<Routes>
-				{/* Aqui se agregan las rutas para direccionar dentro de la pagina */}
 				<Route
 					path='/login'
 					element={<Login />}
@@ -63,6 +57,10 @@ function App() {
 				<Route
 					path='/proposito'
 					element={<Proposito />}
+				/>
+				<Route
+					path='/suscripcion'
+					element={<Subscription />}
 				/>
 			</Routes>
 		</div>

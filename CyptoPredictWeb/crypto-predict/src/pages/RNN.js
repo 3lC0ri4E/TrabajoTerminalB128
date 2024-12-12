@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import { Box, Button, Text, VStack,   Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow, 
-} from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Box, Text, VStack, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from "@chakra-ui/react";
 import * as tf from "@tensorflow/tfjs";
 import ProbabilitySlider from "./SliderProbaiblity";
 
@@ -15,7 +10,8 @@ const CryptoPrediction = () => {
   const [error, setError] = useState(null);
   const [model, setModel] = useState(null);
 
-  React.useEffect(() => {
+  // Cargar modelo TensorFlow
+  useEffect(() => {
     const loadModel = async () => {
       try {
         const loadedModel = await tf.loadLayersModel("/tfjs_model/model.json");
@@ -29,13 +25,23 @@ const CryptoPrediction = () => {
     loadModel();
   }, []);
 
+  // Automatizar la predicción cada 8 horas
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchPricesAndPredict();
+    }, 8 * 60 * 60 * 1000); // Cada 8 horas
+    fetchPricesAndPredict(); // Ejecutar inmediatamente al cargar
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar
+  }, [model]);
+
+  // Obtener datos de precios y realizar predicción
   const fetchPricesAndPredict = async () => {
     try {
       const url = "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=7";
       const response = await fetch(url);
       const data = await response.json();
 
-      // Extract closing prices (index 4 in each candlestick)
+      // Extraer precios de cierre
       const closingPrices = data.map((entry) => parseFloat(entry[4]));
       setPrices(closingPrices);
 
@@ -43,24 +49,24 @@ const CryptoPrediction = () => {
       const maxPrice = Math.max(...closingPrices);
 
       if (closingPrices.length === 7 && model) {
-        // Normalize the input prices
+        // Normalizar precios
         const normalizedPrices = closingPrices.map(
           (price) => (price - minPrice) / (maxPrice - minPrice)
         );
 
-        // Prepare input for the model
+        // Preparar entrada para el modelo
         const inputTensor = tf.tensor([normalizedPrices]).reshape([1, 7, 1]);
 
-        // Make prediction
+        // Hacer predicción
         const predictionTensor = model.predict(inputTensor);
         const predictionValue = await predictionTensor.data();
 
-        // Inverse transform the prediction to get the original scale
+        // Transformar a escala original
         const originalPrediction =
           predictionValue[0] * (maxPrice - minPrice) + minPrice;
         setPrediction(originalPrediction);
 
-        // Calculate probabilities
+        // Calcular probabilidades
         const { upwardProbability, downwardProbability } = calculateProbabilities(
           closingPrices,
           originalPrediction
@@ -74,27 +80,14 @@ const CryptoPrediction = () => {
   };
 
   const calculateProbabilities = (lastPrices, predictedPrice) => {
-    // Copy last 7 prices and append the predicted price
     const predictions = [...lastPrices, predictedPrice];
-
-    // Calculate differences between consecutive predictions
     const differences = predictions.slice(1).map((val, i) => val - predictions[i]);
-
-    // Find min and max differences for scaling
     const minDiff = Math.min(...differences);
     const maxDiff = Math.max(...differences);
-
-    // Scale differences to [0, 1]
     const scaledDifferences = differences.map(diff => (diff - minDiff) / (maxDiff - minDiff));
-
-    // Separate scaled upward and downward differences
     const scaledUpward = scaledDifferences.map((scaled, i) => (differences[i] > 0 ? scaled : 0));
     const scaledDownward = scaledDifferences.map((scaled, i) => (differences[i] <= 0 ? scaled : 0));
-
-    // Total sum of scaled differences
     const totalScaled = scaledDifferences.reduce((sum, val) => sum + val, 0);
-
-    // Calculate probabilities
     const upwardProbability = scaledUpward.reduce((sum, val) => sum + val, 0) / totalScaled;
     const downwardProbability = scaledDownward.reduce((sum, val) => sum + val, 0) / totalScaled;
 
@@ -107,22 +100,19 @@ const CryptoPrediction = () => {
   return (
     <Box maxWidth="600px" mx="auto" p="8">
       <VStack spacing={3}>
-        <Button colorScheme="teal" onClick={fetchPricesAndPredict}>
-        Análisis Técnico
-        </Button>
         {error && <Text color="red.500">{error}</Text>}
-          {prediction !== null && prices.length > 0 && (
-            <Text fontSize="lg" fontWeight="bold">
-              <Stat>
-                <StatLabel>Análisis Técnico</StatLabel>
-                <StatNumber>$ {prediction.toFixed(2)} </StatNumber>
-                <StatHelpText>
-                  <StatArrow type={prediction > prices[prices.length - 1] ? 'increase' : 'decrease'} />
-                  $ {(Math.abs(prediction - prices[prices.length - 1])).toFixed(2)}
-                </StatHelpText>
-              </Stat>
-            </Text>
-          )}
+        {prediction !== null && prices.length > 0 && (
+          <Text fontSize="lg" fontWeight="bold">
+            <Stat>
+              <StatLabel>Análisis Técnico</StatLabel>
+              <StatNumber>$ {prediction.toFixed(2)}</StatNumber>
+              <StatHelpText>
+                <StatArrow type={prediction > prices[prices.length - 1] ? 'increase' : 'decrease'} />
+                $ {(Math.abs(prediction - prices[prices.length - 1])).toFixed(2)}
+              </StatHelpText>
+            </Stat>
+          </Text>
+        )}
         {probabilities && <ProbabilitySlider probabilities={probabilities} />}
       </VStack>
     </Box>
