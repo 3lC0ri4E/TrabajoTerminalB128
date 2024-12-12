@@ -99,3 +99,22 @@ export async function sendResetPasswordEmail(email) {
 	const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: 'http://localhost:3000/ajustes', })
 	return { error };
 }
+
+
+
+export async function saveTA (label, probability) {
+    try {
+      const { data, error } = await supabase
+        .from("analisis_tecnico")
+        .insert([
+          {
+            label, 
+            probability,
+          },
+		]);
+		return { data, error };
+		
+    } catch (err) {
+      console.error("Error saving data to Supabase:", err);
+	}
+  };

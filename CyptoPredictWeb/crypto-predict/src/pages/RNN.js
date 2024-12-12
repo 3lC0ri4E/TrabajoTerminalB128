@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, VStack, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from "@chakra-ui/react";
 import * as tf from "@tensorflow/tfjs";
 import ProbabilitySlider from "./SliderProbaiblity";
+import ProbabilitySpeedometer from "./Speedometer";
+import { saveTA } from '../supabase/supabase_functions';
 
 const CryptoPrediction = () => {
   const [prices, setPrices] = useState([]);
@@ -16,9 +18,7 @@ const CryptoPrediction = () => {
       try {
         const loadedModel = await tf.loadLayersModel("/tfjs_model/model.json");
         setModel(loadedModel);
-        console.log("Model loaded successfully");
       } catch (err) {
-        console.error("Error loading model:", err);
         setError("Failed to load the prediction model.");
       }
     };
@@ -27,57 +27,71 @@ const CryptoPrediction = () => {
 
   // Automatizar la predicción cada 8 horas
   useEffect(() => {
+    const saveAndPredict = async () => {
+      await fetchPricesAndPredict();
+    };
+
+    // Ejecutar inmediatamente al cargar
+    saveAndPredict();
+
+    // Configurar intervalo para cada 8 horas
     const interval = setInterval(() => {
-      fetchPricesAndPredict();
+      saveAndPredict();
     }, 8 * 60 * 60 * 1000); // Cada 8 horas
-    fetchPricesAndPredict(); // Ejecutar inmediatamente al cargar
-    return () => clearInterval(interval); // Limpiar el intervalo al desmontar
-  }, [model]);
 
-  // Obtener datos de precios y realizar predicción
-  const fetchPricesAndPredict = async () => {
-    try {
-      const url = "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=7";
-      const response = await fetch(url);
-      const data = await response.json();
+  return () => clearInterval(interval); // Limpiar el intervalo al desmontar
+}, [model]);
 
-      // Extraer precios de cierre
-      const closingPrices = data.map((entry) => parseFloat(entry[4]));
-      setPrices(closingPrices);
+ // Modifica fetchPricesAndPredict para incluir el guardado
+const fetchPricesAndPredict = async () => {
+  try {
+    const url = "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=7";
+    const response = await fetch(url);
+    const data = await response.json();
 
-      const minPrice = Math.min(...closingPrices);
-      const maxPrice = Math.max(...closingPrices);
+    // Extraer precios de cierre
+    const closingPrices = data.map((entry) => parseFloat(entry[4]));
+    setPrices(closingPrices);
 
-      if (closingPrices.length === 7 && model) {
-        // Normalizar precios
-        const normalizedPrices = closingPrices.map(
-          (price) => (price - minPrice) / (maxPrice - minPrice)
-        );
+    const minPrice = Math.min(...closingPrices);
+    const maxPrice = Math.max(...closingPrices);
 
-        // Preparar entrada para el modelo
-        const inputTensor = tf.tensor([normalizedPrices]).reshape([1, 7, 1]);
+    if (closingPrices.length === 7 && model) {
+      // Normalizar precios
+      const normalizedPrices = closingPrices.map(
+        (price) => (price - minPrice) / (maxPrice - minPrice)
+      );
 
-        // Hacer predicción
-        const predictionTensor = model.predict(inputTensor);
-        const predictionValue = await predictionTensor.data();
+      // Preparar entrada para el modelo
+      const inputTensor = tf.tensor([normalizedPrices]).reshape([1, 7, 1]);
 
-        // Transformar a escala original
-        const originalPrediction =
-          predictionValue[0] * (maxPrice - minPrice) + minPrice;
-        setPrediction(originalPrediction);
+      // Hacer predicción
+      const predictionTensor = model.predict(inputTensor);
+      const predictionValue = await predictionTensor.data();
 
-        // Calcular probabilidades
-        const { upwardProbability, downwardProbability } = calculateProbabilities(
-          closingPrices,
-          originalPrediction
-        );
-        setProbabilities({ upwardProbability, downwardProbability });
-      }
-    } catch (err) {
-      console.error("Error fetching prices or predicting:", err);
-      setError("Failed to fetch prices or predict.");
+      // Transformar a escala original
+      const originalPrediction =
+        predictionValue[0] * (maxPrice - minPrice) + minPrice;
+      setPrediction(originalPrediction);
+
+      // Calcular probabilidades
+      const { upwardProbability, downwardProbability } = calculateProbabilities(
+        closingPrices,
+        originalPrediction
+      );
+      setProbabilities({ upwardProbability, downwardProbability });
+
+      // Determinar el label (Up o Down)
+      const label = originalPrediction > closingPrices[closingPrices.length - 1] ? "Up" : "Down";
+
+      // Guardar los resultados en Supabase
+      await saveTA(label, upwardProbability);
     }
-  };
+  } catch (err) {
+    console.error("Error fetching prices or predicting:", err);
+    setError("Failed to fetch prices or predict.");
+  }
+};
 
   const calculateProbabilities = (lastPrices, predictedPrice) => {
     const predictions = [...lastPrices, predictedPrice];
@@ -98,23 +112,21 @@ const CryptoPrediction = () => {
   };
 
   return (
-    <Box maxWidth="600px" mx="auto" p="8">
-      <VStack spacing={3}>
+    <Box m={'auto'}>
         {error && <Text color="red.500">{error}</Text>}
         {prediction !== null && prices.length > 0 && (
           <Text fontSize="lg" fontWeight="bold">
-            <Stat>
-              <StatLabel>Análisis Técnico</StatLabel>
-              <StatNumber>$ {prediction.toFixed(2)}</StatNumber>
-              <StatHelpText>
+            {/* <Stat> */}
+              {/* <StatLabel>Análisis Técnico</StatLabel> */}
+              {/* <StatNumber>$ {prediction.toFixed(2)}</StatNumber> */}
+              {/* <StatHelpText>
                 <StatArrow type={prediction > prices[prices.length - 1] ? 'increase' : 'decrease'} />
                 $ {(Math.abs(prediction - prices[prices.length - 1])).toFixed(2)}
-              </StatHelpText>
-            </Stat>
+              </StatHelpText> */}
+            {/* </Stat> */}
           </Text>
         )}
-        {probabilities && <ProbabilitySlider probabilities={probabilities} />}
-      </VStack>
+        {probabilities && <ProbabilitySpeedometer upwardProbability={probabilities.upwardProbability} texts={{down :'Bajista',middle: 'Lateral', up: 'Alcista'}} />}
     </Box>
   );
 };

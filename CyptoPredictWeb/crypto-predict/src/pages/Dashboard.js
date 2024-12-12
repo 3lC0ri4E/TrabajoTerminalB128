@@ -34,6 +34,8 @@ export default function Dashboard() {
 			bottom='0'
 			bg='rgba(0, 0, 0, 0.7)'
 			backdropFilter='blur(10px)'
+			display='flex'
+			flexDirection={{ base: 'column', md: 'row' }}
 			zIndex='1'
 		/>
 	);
@@ -44,7 +46,7 @@ export default function Dashboard() {
 		const fetchUser = async () => {
 			const userData = await getUser();
 			if (userData) {
-				if (userData.user_metadata.num_visita >= 4) {
+				if (userData.user_metadata.num_visita >= 100) {
 					setOverlay(<Overlay />);
 					onOpen();
 				}
@@ -127,7 +129,7 @@ export default function Dashboard() {
 					isCentered
 					size="lg"
 					closeOnOverlayClick={false} 
-					isClosable={true} 
+					isClosable={false} 
 					>
 					<ModalContent
 						mx="auto"
@@ -149,9 +151,8 @@ export default function Dashboard() {
 						<Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} customization={{ texts:{ valueProp: 'smart_option'}}} />
 						</ModalFooter>
 					</ModalContent>
-					</Modal>
+				</Modal>
 			</Box>
-
 		</Box>
 	);
 }
