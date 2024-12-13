@@ -122,7 +122,7 @@ const fetchPricesAndPredict = async () => {
                             $ {(Math.abs(prediction - prices[prices.length - 1])).toFixed(2)}*
                         </Text>
                     <VStack spacing={1} align="center">
-                        <Text as="span" fontSize={{ base: 12 }}>
+                        <Text mx={2} as="span" fontSize={{ base: 12 }}>
                             *Comparado con el último precio registrado de $ {(Math.abs(prices[prices.length - 1])).toFixed(2)}
                         </Text>
                     </VStack>

@@ -205,7 +205,7 @@ const Navbar = () => {
 										mr={5}
 										alignContent={'center'}
 									>
-									Bienvenido {user.user_metadata.name}
+									Bienvenid@ {user.user_metadata.name}
 								</Text>
 								<Button
 									fontSize={{ md: 12, lg: 15 }}

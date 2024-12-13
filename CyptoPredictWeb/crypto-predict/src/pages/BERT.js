@@ -4,7 +4,6 @@ import { Box, Stat, StatLabel } from "@chakra-ui/react";
 
 const FundamentalAnalysis = () => { 
 
-
      return (
     <Box m={'auto'}
        overflow={'auto'}

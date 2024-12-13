@@ -36,7 +36,7 @@ const ProbabilitySpeedometer = ({ probability, texts }) => {
     currentValueText={texts.label}
     labelFontSize="14" 
     valueTextFontSize="10" 
-    forceRender={true}
+    // forceRender={true}
     />
   );
 };

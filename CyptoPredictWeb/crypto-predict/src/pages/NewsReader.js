@@ -13,12 +13,24 @@ import {
     Flex,
     Spinner,
     useBreakpointValue,
+    Tooltip,
+    Image,
+    useDisclosure,
+    Modal,
+    ModalContent,
+    ModalBody,
+    Text,
+    UnorderedList,
+    ListItem,
+    ModalFooter,
+    ModalHeader
 } from '@chakra-ui/react';
 
 function NewsReader() {
     const [csvData, setCsvData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true); 
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Función para leer el archivo CSV localmente
     useEffect(() => {
@@ -85,7 +97,21 @@ function NewsReader() {
     return (
         <Box m="auto" w="100%" maxW="100%" overflow="auto" p={4}>
             {csvData.length > 0 && (
-                <>
+                <Box position="relative">
+                    <Box position="absolute" top="10px" right="10px">
+                        <Tooltip label="Información de la Sección de Noticias" fontSize={{ md: "xs" }}>
+                            <Image
+                            src="/icons/info.png"
+                            alt="Información del Modelo"
+                            w={{ base: "6vw", md: "2vw" }}
+                            display="block"
+                            // mr={2}
+                            mt={-7}
+                            _hover={{ opacity: "0.5" }}
+                            onClick={onOpen} // Abrir modal al hacer clic
+                            />
+                        </Tooltip>
+                    </Box>
                     <TableContainer display="block" overflowY="auto" overflowX="auto">
                         <Table variant="simple" size="md">
                             <Thead>
@@ -158,9 +184,88 @@ function NewsReader() {
                             {">>"}
                         </Button>
                     </Flex>
-                </>
+                </Box>
             )}
+        <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size="lg"
+        scrollBehavior="inside"	  
+        motionPreset="slideInBottom"
+        >
+        <ModalContent mx="auto" position="absolute" transform="translate(-50%, -50%)">
+            <ModalHeader>Noticias del Mercado de Criptomonedas</ModalHeader>
+            <ModalBody>
+            <Text>
+                Nuestro sistema recopila y actualiza automáticamente las noticias más relevantes relacionadas con Bitcoin y el mercado de criptomonedas. Esto permite a nuestros usuarios mantenerse informados sobre las tendencias, desarrollos y eventos más recientes que pueden influir en el mercado.
+            </Text>
+
+            <Text fontWeight="bold" my="1rem">Fuentes de Información</Text>
+            <Text>
+                Las noticias se obtienen de una selección de fuentes confiables y reconocidas en el sector de criptomonedas:
+            </Text>
+            <UnorderedList>
+                <ListItem>
+                <strong>Cointelegraph:</strong> Noticias, análisis y opiniones sobre el mercado de criptomonedas.{" "}
+                <a href="https://cointelegraph.com/" target="_blank" rel="noopener noreferrer">
+                    Ir al sitio
+                </a>
+                </ListItem>
+                <ListItem>
+                <strong>Bitcoin Magazine:</strong> Actualizaciones sobre Bitcoin, blockchain y su ecosistema.{" "}
+                <a href="https://bitcoinmagazine.com/" target="_blank" rel="noopener noreferrer">
+                    Ir al sitio
+                </a>
+                </ListItem>
+                <ListItem>
+                <strong>CryptoPotato:</strong> Cobertura de noticias globales sobre criptomonedas.{" "}
+                <a href="https://cryptopotato.com/" target="_blank" rel="noopener noreferrer">
+                    Ir al sitio
+                </a>
+                </ListItem>
+                <ListItem>
+                <strong>CryptoSlate:</strong> Noticias, análisis y datos de mercado.{" "}
+                <a href="https://cryptoslate.com/" target="_blank" rel="noopener noreferrer">
+                    Ir al sitio
+                </a>
+                </ListItem>
+                <ListItem>
+                <strong>CryptoNews:</strong> Actualizaciones rápidas sobre criptomonedas y tendencias del mercado.{" "}
+                <a href="https://cryptonews.com/" target="_blank" rel="noopener noreferrer">
+                    Ir al sitio
+                </a>
+                </ListItem>
+            </UnorderedList>
+
+            <Text fontWeight="bold" my="1rem">Ventajas de Esta Sección</Text>
+            <UnorderedList>
+                <ListItem>
+                <strong>Actualización en Tiempo Real:</strong> Acceso a las últimas noticias del mercado de criptomonedas.
+                </ListItem>
+                <ListItem>
+                <strong>Fuentes Confiables:</strong> La información proviene de medios reconocidos por su cobertura profesional y precisa.
+                </ListItem>
+                <ListItem>
+                <strong>Perspectiva Integral:</strong> Obtén una visión clara del panorama actual en el mercado de criptomonedas.
+                </ListItem>
+            </UnorderedList>
+
+            <Text fontWeight="bold" my="1rem">Nota Importante</Text>
+            <Text>
+                Esta sección es informativa y no debe considerarse asesoramiento financiero. Recomendamos analizar cuidadosamente la información antes de tomar decisiones relacionadas con inversiones.
+            </Text>
+            </ModalBody>
+            <ModalFooter justifyContent="center">
+            <Button onClick={onClose} colorScheme="blue">
+                Cerrar
+            </Button>
+            </ModalFooter>
+        </ModalContent>
+        </Modal>
         </Box>
+
+
     );
 }
 
