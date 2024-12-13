@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { getNews, combineFields , getCurrentNews, getCurrentSentiment } from "./sentimentNews.js";
+import { getNews, combineFields , getCurrentSentiment } from "./sentimentNews.js";
 import {
   Box,
   Wrap,
@@ -19,6 +19,7 @@ import {
   Tooltip,
   UnorderedList,
   ListItem,
+  Spinner
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./Sidebar.js";
@@ -75,6 +76,7 @@ export default function Dashboard() {
   }, [onOpen]);
 	
 	const [sentiment, setSentiment] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const getSentiment = async () => {
 		try {
@@ -89,16 +91,18 @@ export default function Dashboard() {
 				console.error('combineFields returned an invalid response:', combinedFields);
 				return;
 			}
-			
+			/*
 			const currentNews = await getCurrentNews(combinedFields);
 			if (!currentNews || !Array.isArray(currentNews)) {
 				console.error('getCurrentNews returned an invalid response:', currentNews);
 				return;
-			}
-			
-			const currentSentiment = await getCurrentSentiment(currentNews);
+			}*/
+			setIsLoading(true);
+			const currentSentiment = await getCurrentSentiment(combinedFields);
 			setSentiment(currentSentiment);
+			setIsLoading(false);
 		} catch (error) {
+			setIsLoading(false);
 			console.error('Error in getSentiment:', error);
 		}
 	};
@@ -106,7 +110,6 @@ export default function Dashboard() {
 	useEffect(() => {
 		getSentiment();
 	}, []); // Evitar bucles infinitos eliminando 'sentiment' de las dependencias
-
 
 
   return (
@@ -218,8 +221,14 @@ export default function Dashboard() {
                   onClick={onFundamentalOpen} // Abrir modal de análisis fundamental
                 />
               </Tooltip>
-            </Box>
-            <FundamentalAnalysis probability={sentiment} />
+					  </Box>
+					  {isLoading ? (
+              <Box display="flex" alignItems="center" justifyContent = "center" height="100%" width="100%">
+                <Spinner size="xl" />
+              </Box>
+            ) : (
+              <FundamentalAnalysis probability={sentiment} />
+            )}
           </WrapItem>
         </Wrap>
 

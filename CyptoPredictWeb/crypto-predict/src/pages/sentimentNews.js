@@ -99,9 +99,9 @@ async function getCurrentSentiment(newsData) {
 						errorData.error.includes('currently loading')
 					) {
 						console.log(
-							`Modelo cargando, reintentando en 5 segundos... (Intento ${attempt + 1})`
+							`Modelo cargando, reintentando en 1 segundo... (Intento ${attempt + 1})`
 						);
-						await sleep(5000); // Espera 5 segundos antes de reintentar
+						await sleep(1000); // Espera 1 segundo antes de reintentar
 						continue;
 					} else {
 						throw new Error(
@@ -117,7 +117,7 @@ async function getCurrentSentiment(newsData) {
 				if (attempt === 4) {
 					throw error; // Si es el último intento, lanza el error
 				}
-				await sleep(5000); // Espera 5 segundos antes de reintentar
+				await sleep(1000); // Espera 51 segundo antes de reintentar
 			}
 		}
 	}
@@ -244,4 +244,4 @@ async function getCurrentSentiment(newsData) {
 	return percentage;
 }
 
-export { getNews, combineFields, getCurrentNews, getCurrentSentiment };
+export { getNews, combineFields , getCurrentSentiment };
