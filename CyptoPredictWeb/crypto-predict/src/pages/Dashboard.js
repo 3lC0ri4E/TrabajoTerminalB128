@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-
+import { getNews, combineFields , getCurrentNews, getCurrentSentiment } from "./sentimentNews.js";
 import {
   Box,
   Wrap,
@@ -72,6 +72,22 @@ export default function Dashboard() {
     };
     fetchUser();
   }, [onOpen]);
+	
+	// Función para realizar el análisis de sentimientos
+	const [sentiment, setSentiment] = useState(null);
+	
+	const getSentiment = async () => {
+		const getnews = await getNews();
+		const combinedFileds = combineFields(getnews);
+		const currentNews = await getCurrentNews(combinedFileds);
+		const currentSentiment = await getCurrentSentiment(currentNews);
+		setSentiment(currentSentiment);
+	};
+	
+	useEffect(() => {
+		getSentiment();
+	}, [sentiment]);
+
 
   return (
     <Box display="flex" flexDirection={{ base: "column", md: "row" }} h="100vh">
@@ -183,7 +199,7 @@ export default function Dashboard() {
                 />
               </Tooltip>
             </Box>
-            <FundamentalAnalysis />
+            <FundamentalAnalysis percentage={sentiment} />
           </WrapItem>
         </Wrap>
 

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { parse, format } from 'date-fns';
-import { getnews, insertSentiment } from './supabase/supabase_functions.js';
+import { format } from 'date-fns';
+import { getnews, insertSentiment } from '../supabase/supabase_functions.js';
 
 // Función para obtener la fecha actual y formatearla
 function getCurrentDate() {
@@ -190,7 +190,7 @@ async function getCurrentSentiment(newsData) {
 
   // Calcular el sentimiento predominante general
   const generalSentiment = totalPositiveProb > totalNegativeProb ? 'Positive' : 'Negative';
-  const percentage = totalNewsCount > 0 ? (generalSentiment === 'Positive' ? totalPositiveProb : totalNegativeProb) / totalNewsCount : 0;
+  let percentage = totalNewsCount > 0 ? (generalSentiment === 'Positive' ? totalPositiveProb : totalNegativeProb) / totalNewsCount : 0;
   const currentDate = new Date().toISOString();  // Obtener la fecha actual en formato ISO
 
   // Almacenar el resultado en supabase
@@ -206,7 +206,8 @@ async function getCurrentSentiment(newsData) {
     percentage = 100 - percentage; // Invertimos el porcentaje para representarlo en el rango negativo
   }
   //console.log(`Valor final para el Speedometer: ${percentage.toFixed(2)}%`);
-
+  // Devolver el porcentaje final para el Speedometer
+  return percentage;
 }
 
-export { getCurrentDate, getNews, combineFields, getCurrentNews, getCurrentSentiment };
+export { getNews, combineFields, getCurrentNews, getCurrentSentiment };
