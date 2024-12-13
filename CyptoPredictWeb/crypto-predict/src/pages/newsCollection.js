@@ -172,26 +172,6 @@ async function saveData(newsData) {
 	await saveDataToSupabase(newsData);
 }
 
-async function analyzeSentiment() {
-	const newsData = await getNews();
-	console.log('Total de noticias de la fecha actual:', newsData.length);
-	await combineFields(newsData);
-	const currentNews = await getCurrentNews(newsData);
-	console.log('Total de noticias filtradas:', currentNews.length);
-	await getCurrentSentiment(currentNews);
-	/*
-    const newsAnalysisId = await getNewsAnalysisId();
-    console.log('Id de analisis_fundamental:', newsAnalysisId);
-
-    //Actualizar el analisis_id de las noticias
-    const updateError = await updateNewsAnalysisId(news.id, newsAnalysisId);
-    if (updateError) {
-      console.error(`Error al actualizar analisis_id para la noticia ${news.id}:`, updateError.message);
-    } else {  
-      console.log(`analisis_id actualizado para la noticia ${news.id}`); 
-    }*/
-}
-
 // Ejecutar el flujo
 /*async function run() {
       const newsData = await fetchNews();
