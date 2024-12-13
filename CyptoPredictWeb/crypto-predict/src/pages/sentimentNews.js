@@ -1,5 +1,3 @@
-import fs from 'fs';
-import csv from 'csv-parser';
 import fetch from 'node-fetch';
 import { parse, format } from 'date-fns';
 import { getnews, insertSentiment } from './supabase/supabase_functions.js';
@@ -191,7 +189,6 @@ async function getCurrentSentiment(newsData) {
   }
 
   // Calcular el sentimiento predominante general
-  //const totalProb = totalPositiveProb + totalNegativeProb;
   const generalSentiment = totalPositiveProb > totalNegativeProb ? 'Positive' : 'Negative';
   const percentage = totalNewsCount > 0 ? (generalSentiment === 'Positive' ? totalPositiveProb : totalNegativeProb) / totalNewsCount : 0;
   const currentDate = new Date().toISOString();  // Obtener la fecha actual en formato ISO
@@ -203,15 +200,13 @@ async function getCurrentSentiment(newsData) {
   } else {
     console.log('Sentimiento guardado en la base de datos.');
   }
-  /*
-  // Almacenar el resultado en un archivo JSON
-  const result = {
-    sentiment: generalSentiment,  // Ahora guarda 'Positive' o 'Negative'
-    percentage: percentage.toFixed(2)  // El porcentaje se guarda como número
-  };
 
-  fs.writeFileSync('predominant_sentiment.json', JSON.stringify(result, null, 2));
-  console.log('Sentimiento predominante general guardado en "predominant_sentiment.json".');*/
+  // Ajuste del porcentaje para el speedometer (0-50 negativo, 50-100 positivo)
+  if (generalSentiment === 'Negative') {
+    percentage = 100 - percentage; // Invertimos el porcentaje para representarlo en el rango negativo
+  }
+  //console.log(`Valor final para el Speedometer: ${percentage.toFixed(2)}%`);
+
 }
 
 export { getCurrentDate, getNews, combineFields, getCurrentNews, getCurrentSentiment };

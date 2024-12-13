@@ -127,24 +127,15 @@ export async function getnews(currentDate) {
 	return { data, error };
 };
 
+// Obtener las primeras 100 noticias de la base de datos de forma descendente
+export async function getNewsFromDatabase() {
+	const { data, error } = await supabase.from('news').select('*').order('pubDate', { ascending: false }).limit(100);
+	return { data, error };
+}
+
 // Insertar label de sentimiento y valor de probabilidad
 export async function insertSentiment(created_at, label, probability) {
 	const { data, error } = await supabase.from('analisis_fundamental').insert({ created_at, label, probability });
 	return { data, error };
 };
-/*
-// Obtener el id de analisis_fundamental
-export async function getNewsAnalysisId() {
-	const { data, error } = await supabase.from('analisis_fundamental').select('id');
-	return { data, error };
-}
 
-// Actualizar analisis_id de noticias
-export async function updateNewsAnalysisId(newsId, analisisId) {
-	const { data, error } = await supabase
-	  .from('news')
-	  .update({ analisis_id: analisisId })
-	  .eq('id', newsId);
-  
-	return { data, error };
-}*/

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import { getNewsFromDatabase } from '../supabase/supabase_functions.js';
 import {
     Table,
     Thead,
@@ -27,7 +28,8 @@ import {
 } from '@chakra-ui/react';
 
 function NewsReader() {
-    const [csvData, setCsvData] = useState([]);
+    //const [csvData, setCsvData] = useState([]);
+    const [newsData, setNewsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true); 
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,8 +37,15 @@ function NewsReader() {
     // Función para leer el archivo CSV localmente
     useEffect(() => {
         const fetchData = async () => {
-            setIsLoading(true); 
-
+            setIsLoading(true);
+            const { data, error } = await getNewsFromDatabase();
+            if (error) {
+                console.error('Error al obtener las noticias de la base de datos:', error.message);
+            } else {
+                setNewsData(data);
+            }
+            setIsLoading(false);
+            /*
             const response = await fetch('./docs/news_data.csv');
             const blob = await response.blob();
             const text = await blob.text();
@@ -52,7 +61,7 @@ function NewsReader() {
                     setIsLoading(false); // Terminar carga
                 },
                 skipEmptyLines: true,
-            });
+            });*/
         };
 
         fetchData();
@@ -74,7 +83,8 @@ function NewsReader() {
         return result;
     };
 
-    const paginatedData = chunkArray(csvData, itemsPerPage || 5); // Fallback de 5 si no se define
+    const paginatedData = chunkArray(newsData, itemsPerPage || 5); // Fallback de 5 si no se define
+    //const paginatedData = chunkArray(csvData, itemsPerPage || 5); // Fallback de 5 si no se define
 
     // Controladores de navegación de páginas
     const goToPreviousPage = () => {
@@ -96,7 +106,8 @@ function NewsReader() {
 
     return (
         <Box m="auto" w="100%" maxW="100%" overflow="auto" p={4}>
-            {csvData.length > 0 && (
+            {newsData.length > 0 && (
+            //{csvData.length > 0 && (
                 <Box position="relative">
                     <Box position="absolute" top="10px" right="10px">
                         <Tooltip label="Información de la Sección de Noticias" fontSize={{ md: "xs" }}>
