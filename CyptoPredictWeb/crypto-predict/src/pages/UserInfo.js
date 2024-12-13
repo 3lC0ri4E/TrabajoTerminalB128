@@ -119,10 +119,9 @@ export default function UserInfo() {
 				<Skeleton isLoaded={!loading}>
 					<Text
 						fontWeight={450}
-						fontSize={{ base: 18, xl: 20 }} 	>
+						fontSize={{ base: 18, xl: 20 }}>
 						Información de Perfil
 					</Text>
-
 				</Skeleton>
 				<form
 					id='settings-form'
@@ -193,7 +192,6 @@ export default function UserInfo() {
 
 						<FormControl isInvalid={errors.lastname}>
 							<Skeleton isLoaded={!loading}>
-
 								<FormLabel
 									htmlFor='lastname'
 									fontSize={{ base: 12 }}
@@ -225,7 +223,6 @@ export default function UserInfo() {
 
 						<FormControl isInvalid={errors.username}>
 							<Skeleton isLoaded={!loading}>
-
 								<FormLabel
 									htmlFor='username'
 									fontSize={{ base: 12 }}
@@ -258,21 +255,20 @@ export default function UserInfo() {
 				</form>
 
 				<Box
-				alignContent='center'
-				mt={3}
-			>
-				<Button
-					mt={3}
-					fontSize={{ md: 12, lg: 15 }}
-					bg='#FFA000'
-					w={{ base: '40vw', md: '15vw', lg: '17vw' }}
-					h={{ base: '35' }	}
-					_hover={{ bg: '#D84226' }}
-					form='settings-form'
-					onClick={onOpen}>
-					Guardar Cambios
-				</Button>
-			</Box>
+					alignContent='center'
+					mt={3}>
+					<Button
+						mt={3}
+						fontSize={{ md: 12, lg: 15 }}
+						bg='#FFA000'
+						w={{ base: '40vw', md: '15vw', lg: '17vw' }}
+						h={{ base: '35' }}
+						_hover={{ bg: '#D84226' }}
+						form='settings-form'
+						onClick={onOpen}>
+						Guardar Cambios
+					</Button>
+				</Box>
 				<AlertDialog
 					isOpen={isOpen}
 					onClose={onClose}
@@ -293,8 +289,8 @@ export default function UserInfo() {
 								Confirmar Cambios
 							</AlertDialogHeader>
 							<AlertDialogBody>
-								¿Estás seguro de que deseas guardar los cambios realizados en
-								tu perfil?
+								¿Estás seguro de que deseas guardar los cambios realizados en tu
+								perfil?
 							</AlertDialogBody>
 							<AlertDialogFooter>
 								<Button
@@ -318,7 +314,6 @@ export default function UserInfo() {
 					</AlertDialogOverlay>
 				</AlertDialog>
 			</Box>
-
 		</>
 	);
 }

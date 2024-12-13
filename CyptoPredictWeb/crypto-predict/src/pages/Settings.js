@@ -1,14 +1,7 @@
 /** @format */
 
 import React from 'react';
-import {
-	Box,
-	Tabs,
-	TabList,
-	Tab,
-	TabPanels,
-	TabPanel,
-} from '@chakra-ui/react';
+import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import SideBar from './Sidebar.js';
 import UserInfo from './UserInfo.js';
 import ChangePassword from './ChangePassword.js';

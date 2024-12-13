@@ -27,7 +27,6 @@ import { getUser } from "../supabase/supabase_functions";
 import TechnicalAnalysis from "./RNN.js";
 import PricePrediction from "./PricePrediction.js";
 import FundamentalAnalysis from "./BERT.js";
-import { set } from "date-fns";
 
 export default function Dashboard() {
   initMercadoPago("YOUR_PUBLIC_KEY");
@@ -38,12 +37,13 @@ export default function Dashboard() {
     isOpen: isTechnicalModalOpen,
     onOpen: onTechnicalOpen,
     onClose: onTechnicalClose,
-  } = useDisclosure(); // Modal de "Información Técnica"
+	} = useDisclosure(); 
+	
   const {
     isOpen: isFundamentalModalOpen,
     onOpen: onFundamentalOpen,
     onClose: onFundamentalClose,
-  } = useDisclosure(); // Modal de "Información Fundamental"
+	} = useDisclosure(); 
 
   const [overlay, setOverlay] = useState(null);
 
@@ -51,7 +51,7 @@ export default function Dashboard() {
     const fetchUser = async () => {
       const userData = await getUser();
       if (userData) {
-        if (userData.user_metadata.num_visita >= 5) {
+        if (userData.user_metadata.num_visita >= 100) {
           const Overlay = () => (
             <Box
               position="absolute"
@@ -73,34 +73,40 @@ export default function Dashboard() {
     };
     fetchUser();
   }, [onOpen]);
-
-	// Análisis de Sentimientos
-	const [newsData, setNewsData] = useState([]);
-	const [probability, setProbability] = useState(0);
 	
-	// Obtener las noticias de la base de datos y combinar los campos
-	useEffect(() => {
-		const fetchNews = async () => {
-			const data = await getNews();
-			await combineFields(data);
-			if (data) {
-				setNewsData(data);
-			}
-		};
-		fetchNews();
-	}, []);
+	const [sentiment, setSentiment] = useState(null);
 
-	// Obtener las noticias de la fecha actual
-	useEffect(() => {
-		const fetchCurrentNews = async () => {
-			const currentNews = await getCurrentNews(newsData);
-			if (currentNews) {
-				const sentiment = await getCurrentSentiment(currentNews);
-				setProbability(sentiment);
+	const getSentiment = async () => {
+		try {
+			const getnews = await getNews();
+			if (!getnews || !Array.isArray(getnews)) {
+				console.error('getNews returned an invalid response:', getnews);
+				return;
 			}
-		};
-		fetchCurrentNews();
-	}, [newsData]);
+			
+			const combinedFields = combineFields(getnews);
+			if (!combinedFields) {
+				console.error('combineFields returned an invalid response:', combinedFields);
+				return;
+			}
+			
+			const currentNews = await getCurrentNews(combinedFields);
+			if (!currentNews || !Array.isArray(currentNews)) {
+				console.error('getCurrentNews returned an invalid response:', currentNews);
+				return;
+			}
+			
+			const currentSentiment = await getCurrentSentiment(currentNews);
+			setSentiment(currentSentiment);
+		} catch (error) {
+			console.error('Error in getSentiment:', error);
+		}
+	};
+
+	useEffect(() => {
+		getSentiment();
+	}, []); // Evitar bucles infinitos eliminando 'sentiment' de las dependencias
+
 
 
   return (
@@ -213,7 +219,7 @@ export default function Dashboard() {
                 />
               </Tooltip>
             </Box>
-            <FundamentalAnalysis probability={probability} />
+            <FundamentalAnalysis probability={sentiment} />
           </WrapItem>
         </Wrap>
 

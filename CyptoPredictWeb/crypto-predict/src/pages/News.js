@@ -1,12 +1,9 @@
 /** @format */
 
 import React from 'react';
-import {
-	Box
-} from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import SideBar from './Sidebar.js';
 import NewsReader from './NewsReader.js';
-
 
 export default function News() {
 	return (
@@ -31,7 +28,6 @@ export default function News() {
 					flexDirection='column'
 					justifyContent='space-between'
 					alignContent='center'>
-
 					<NewsReader />
 				</Box>
 			</Box>
