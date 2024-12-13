@@ -1,4 +1,6 @@
 /** @format */
+import { Box, Stat, StatLabel } from '@chakra-ui/react';
+import ProbabilitySpeedometer from './Speedometer';
 
 const FundamentalAnalysis = ({ probability }) => { 
 
