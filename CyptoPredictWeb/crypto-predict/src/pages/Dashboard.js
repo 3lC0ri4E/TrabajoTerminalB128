@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 
+
 import {
 	Box,
 	Wrap,
@@ -20,7 +21,9 @@ import { useNavigate } from 'react-router-dom';
 import SideBar from './Sidebar.js';
 import Bitcoinchart from './Bitcoinchart.js';
 import { getUser } from '../supabase/supabase_functions';
-import RNNPrediction from './RNN.js';
+import TechnicalAnalysis from './RNN.js';
+import PricePrediction from './PricePrediction.js';
+import FundamentalAnalysis from './BERT.js';
 
 export default function Dashboard() {
 	initMercadoPago('YOUR_PUBLIC_KEY');
@@ -83,7 +86,7 @@ export default function Dashboard() {
 						justifyContent="space-between"
 						alignContent="center"
 					>
-						<RNNPrediction />
+						<PricePrediction/>
 					</WrapItem>
 
 					<WrapItem
@@ -109,7 +112,9 @@ export default function Dashboard() {
 						flexDirection="column"
 						justifyContent="space-between"
 						alignContent="center"
-					></WrapItem>
+					>
+						<TechnicalAnalysis />
+					</WrapItem>
 
 					<WrapItem
 						borderRadius="30px"
@@ -121,7 +126,9 @@ export default function Dashboard() {
 						justifyContent="space-between"
 						alignContent="center"
 						mb={{ base: 5, lg: 0 }}
-					></WrapItem>
+					>
+						<FundamentalAnalysis/>						
+					</WrapItem>
 				</Wrap>
 				<Modal
 					isOpen={isOpen}

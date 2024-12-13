@@ -1,46 +1,42 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
-import Speedometer from "react-d3-speedometer";
+import ReactSpeedometer from "react-d3-speedometer"
 
-const ProbabilitySpeedometer = ({ upwardProbability, texts }) => {
+const ProbabilitySpeedometer = ({ probability, texts }) => {
   return (
-      <Speedometer
-        // fluidWidth={true}
-          height={200}
-          width={350}
+      <ReactSpeedometer
+        height={150}
+        width={250}
         minValue={0}
         maxValue={100}
-        value={upwardProbability}
-        segments={3}
-        segmentColors={["#d83744", "#f7931a", "#089981"]} 
+        value={probability}
+        segments={2}
+        segmentColors={["#d83744", "#089981"]} 
         customSegmentLabels={[
-            {
+        {
             text: texts.down,
-            position:"INSIDE", 
-            color: "#FFFFFF", 
-            fontSize: "10px",
+            position: "OUTSIDE",
+            color: "#FFFFFF",
+            fontSize: "12px",
         },
         {
             text: texts.up,
-            position: "INSIDE",
+            position: "OUTSIDE",
             color: "#FFFFFF",
-            fontSize: "10px",
-        },
-        {
-            text: texts.middle,
-            position: "INSIDE",
-            color: "#FFFFFF",
-            fontSize: "10px",
+            fontSize: "12px",
         },
     ]}
+    paddingVertical={1}
+    paddingHorizontal={1}
     needleColor="#FFFFFF" 
     needleTransition="easeElastic"
+    needleTransitionDuration={5000}
     needleHeightRatio={0.8}
-    ringWidth={40}
+    ringWidth={30}
     textColor="#FFFFFF" 
-    // labelFontSize="14" 
-    // valueTextFontSize="20" 
-    // forceRender={true}
+    currentValueText={texts.label}
+    labelFontSize="14" 
+    valueTextFontSize="10" 
+    forceRender={true}
     />
   );
 };

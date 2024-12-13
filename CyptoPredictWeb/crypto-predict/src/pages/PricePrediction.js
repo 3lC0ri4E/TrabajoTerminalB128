@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Stat, StatLabel, Text } from "@chakra-ui/react";
+import { Box, Text, VStack, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from "@chakra-ui/react";
 import * as tf from "@tensorflow/tfjs";
-import ProbabilitySpeedometer from "./Speedometer";
 import { saveTA } from '../supabase/supabase_functions';
 
-const TechnicalAnalysis = () => {
-
-  const [probabilities, setProbabilities] = useState(null);
+const PricePrediction = () => {
+  const [prices, setPrices] = useState([]);
+  const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [model, setModel] = useState(null);
 
@@ -49,6 +48,7 @@ const fetchPricesAndPredict = async () => {
 
     // Extraer precios de cierre
     const closingPrices = data.map((entry) => parseFloat(entry[4]));
+    setPrices(closingPrices);
 
     const minPrice = Math.min(...closingPrices);
     const maxPrice = Math.max(...closingPrices);
@@ -69,14 +69,13 @@ const fetchPricesAndPredict = async () => {
       // Transformar a escala original
       const originalPrediction =
         predictionValue[0] * (maxPrice - minPrice) + minPrice;
-   
+      setPrediction(originalPrediction);
 
       // Calcular probabilidades
-      const { upwardProbability, downwardProbability } = calculateProbabilities(
+      const { upwardProbability } = calculateProbabilities(
         closingPrices,
         originalPrediction
       );
-      setProbabilities({ upwardProbability, downwardProbability });
 
       // Determinar el label (Up o Down)
       const label = originalPrediction > closingPrices[closingPrices.length - 1] ? "Up" : "Down";
@@ -112,13 +111,26 @@ const fetchPricesAndPredict = async () => {
     <Box m={'auto'}
     overflow={'auto'}
     >
-       {error && <Text color="red.500">{error}</Text>}
-      <Stat>
-        <StatLabel fontSize={{base : 20}}>Análisis Técnico</StatLabel>
-        {probabilities && <ProbabilitySpeedometer probability={probabilities.upwardProbability} texts={{down :'Bajista',middle: 'Lateral', up: 'Alcista', label: 'Tendencia del Mercado'}} />}
-       </Stat>
+        {error && <Text color="red.500">{error}</Text>}
+          {prediction !== null && prices.length > 0 && (
+            <Stat>
+              <StatLabel fontSize={{base:25}}>Predicción de Precio</StatLabel>
+              <StatNumber fontSize={{base:30}}>$ {prediction.toFixed(2)}</StatNumber>
+              <StatHelpText>
+                <StatArrow  type={prediction > prices[prices.length - 1] ? 'increase' : 'decrease'} />
+                        <Text as="span" fontSize={{ base: 20 }} fontWeight="bold">
+                            $ {(Math.abs(prediction - prices[prices.length - 1])).toFixed(2)}*
+                        </Text>
+                    <VStack spacing={1} align="center">
+                        <Text as="span" fontSize={{ base: 12 }}>
+                            *Comparado con el último precio registrado de $ {(Math.abs(prices[prices.length - 1])).toFixed(2)}
+                        </Text>
+                    </VStack>
+              </StatHelpText> 
+            </Stat>
+        )}
     </Box>
   );
 };
 
-export default TechnicalAnalysis;
+export default PricePrediction;
