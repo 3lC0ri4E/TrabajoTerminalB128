@@ -27,6 +27,7 @@ import { getUser } from "../supabase/supabase_functions";
 import TechnicalAnalysis from "./RNN.js";
 import PricePrediction from "./PricePrediction.js";
 import FundamentalAnalysis from "./BERT.js";
+import { set } from "date-fns";
 
 export default function Dashboard() {
   initMercadoPago("YOUR_PUBLIC_KEY");
@@ -72,21 +73,34 @@ export default function Dashboard() {
     };
     fetchUser();
   }, [onOpen]);
+
+	// Análisis de Sentimientos
+	const [newsData, setNewsData] = useState([]);
+	const [probability, setProbability] = useState(0);
 	
-	// Función para realizar el análisis de sentimientos
-	const [sentiment, setSentiment] = useState(null);
-	
-	const getSentiment = async () => {
-		const getnews = await getNews();
-		const combinedFileds = combineFields(getnews);
-		const currentNews = await getCurrentNews(combinedFileds);
-		const currentSentiment = await getCurrentSentiment(currentNews);
-		setSentiment(currentSentiment);
-	};
-	
+	// Obtener las noticias de la base de datos y combinar los campos
 	useEffect(() => {
-		getSentiment();
-	}, [sentiment]);
+		const fetchNews = async () => {
+			const data = await getNews();
+			await combineFields(data);
+			if (data) {
+				setNewsData(data);
+			}
+		};
+		fetchNews();
+	}, []);
+
+	// Obtener las noticias de la fecha actual
+	useEffect(() => {
+		const fetchCurrentNews = async () => {
+			const currentNews = await getCurrentNews(newsData);
+			if (currentNews) {
+				const sentiment = await getCurrentSentiment(currentNews);
+				setProbability(sentiment);
+			}
+		};
+		fetchCurrentNews();
+	}, [newsData]);
 
 
   return (
@@ -199,7 +213,7 @@ export default function Dashboard() {
                 />
               </Tooltip>
             </Box>
-            <FundamentalAnalysis percentage={sentiment} />
+            <FundamentalAnalysis probability={probability} />
           </WrapItem>
         </Wrap>
 
