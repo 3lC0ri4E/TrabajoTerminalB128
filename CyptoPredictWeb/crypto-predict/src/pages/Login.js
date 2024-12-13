@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import {
 	Input,
@@ -39,7 +41,6 @@ export default function LogIn() {
 		onSubmit
 	);
 
-
 	async function onSubmit() {
 		if (isForgotPassword) {
 			const toastId = toast({
@@ -53,26 +54,25 @@ export default function LogIn() {
 			try {
 				const { error } = await sendResetPasswordEmail(values.email);
 				if (error) {
-
 					toast.update(toastId, {
 						title: 'Error al enviar el correo',
-						description: 'No se pudo enviar el correo de recuperación. Intenta nuevamente.',
+						description:
+							'No se pudo enviar el correo de recuperación. Intenta nuevamente.',
 						status: 'error',
 						duration: 5000,
 						isClosable: true,
 					});
 				} else {
-
 					toast.update(toastId, {
 						title: 'Correo enviado',
-						description: 'Revisa tu bandeja de entrada para restablecer tu contraseña.',
+						description:
+							'Revisa tu bandeja de entrada para restablecer tu contraseña.',
 						status: 'success',
 						duration: 5000,
 						isClosable: true,
 					});
 					setIsForgotPassword(false); // Regresa al formulario de login después de enviar el correo
 				}
-
 			} catch (error) {
 				toast.update(toastId, {
 					title: 'Error Recuperar Contraseña',
@@ -82,10 +82,7 @@ export default function LogIn() {
 					isClosable: true,
 				});
 			}
-
-
 		} else {
-
 			const toastId = toast({
 				title: 'Iniciando Sesión',
 				description: 'Por favor, espera...',
@@ -124,27 +121,33 @@ export default function LogIn() {
 					isClosable: true,
 				});
 			}
-
-
 		}
 	}
 
 	return (
-		<Box display={'flex'} flexDirection={{ base: 'column', md: 'row' }} h='100vh'>
+		<Box
+			display={'flex'}
+			flexDirection={{ base: 'column', md: 'row' }}
+			h='100vh'>
 			<Box
 				display={{ md: 'flex' }}
 				borderRadius='30px'
 				h='85vh'
 				w='85%'
 				p={4}
-				justifyContent="space-between"
-				alignItems="center"
+				justifyContent='space-between'
+				alignItems='center'
 				alignContent='center'
 				m='auto'
 				bg='#3d3d3d'
-				overflow='auto'
-			>
-				<Box flexShrink={0} flex='1' textAlign='center' justifyContent='center' m='auto' p={[5]}>
+				overflow='auto'>
+				<Box
+					flexShrink={0}
+					flex='1'
+					textAlign='center'
+					justifyContent='center'
+					m='auto'
+					p={[5]}>
 					<Image
 						src='/images/Logo.jpg'
 						alt='CryptoPredict Logo'
@@ -154,70 +157,87 @@ export default function LogIn() {
 						m='auto'
 						onClick={() => navigate('/')}
 					/>
-					<Text fontWeight={450} fontSize={{ base: 25, md: 30, xl: 40 }} m={[3, 3, 4, 5]}>
+					<Text
+						fontWeight={450}
+						fontSize={{ base: 25, md: 30, xl: 40 }}
+						m={[3, 3, 4, 5]}>
 						¡Bienvenido!
 					</Text>
-					<Text fontSize={{ base: 15, md: 20, xl: 25 }} fontWeight={450} m={[1, 2, 4, 5]}>
-						{isForgotPassword ? 'Recupera tu contraseña' : 'Por favor, inicia sesión para continuar'}
+					<Text
+						fontSize={{ base: 15, md: 20, xl: 25 }}
+						fontWeight={450}
+						m={[1, 2, 4, 5]}>
+						{isForgotPassword
+							? 'Recupera tu contraseña'
+							: 'Por favor, inicia sesión para continuar'}
 					</Text>
 				</Box>
 
-				<Box flex='1' p={{ md: 10 }} display='flex' flexDirection='column' justifyContent="center">
-					<Text fontSize={{ base: 18, xl: 20 }} fontWeight={450} mb={[2, 2, 3, 3]}>
+				<Box
+					flex='1'
+					p={{ md: 10 }}
+					display='flex'
+					flexDirection='column'
+					justifyContent='center'>
+					<Text
+						fontSize={{ base: 18, xl: 20 }}
+						fontWeight={450}
+						mb={[2, 2, 3, 3]}>
 						{isForgotPassword ? 'Recuperar Contraseña' : 'Iniciar Sesión'}
 					</Text>
 					<Divider />
 					<form id='login-form'>
-						<Stack pl={'10%'} pr={'10%'}>
-							<FormControl isInvalid={errors.email || (!isForgotPassword && errors.password)}>
+						<Stack
+							pl={'10%'}
+							pr={'10%'}>
+							<FormControl
+								isInvalid={
+									errors.email || (!isForgotPassword && errors.password)
+								}>
 								<FormLabel
-									htmlFor="email"
+									htmlFor='email'
 									mt={[3, 5, 10, 10]}
-									fontSize={{ base: 12, md: 15}}
-								>
+									fontSize={{ base: 12, md: 15 }}>
 									Correo Electrónico
 								</FormLabel>
 								<Input
 									size={{ base: 'sm' }}
-									padding="15px"
-									variant="flushed"
-									name="email"
-									id="login_email"
-									type="email"
-									placeholder="ejemplo@ejemplo.com"
+									padding='15px'
+									variant='flushed'
+									name='email'
+									id='login_email'
+									type='email'
+									placeholder='ejemplo@ejemplo.com'
 									onChange={handleChange}
 									value={values.email}
 									mb={[2, 2, 5, 5]}
 								/>
 								{errors.email && (
 									<FormErrorMessage
-										mt={{ base: "-5px", md: '-15px' }}
-										mb="10px"
-										ml="10px"
-										fontSize={{ base: 10, md: 15 }}
-									>
+										mt={{ base: '-5px', md: '-15px' }}
+										mb='10px'
+										ml='10px'
+										fontSize={{ base: 10, md: 15 }}>
 										{errors.email}
 									</FormErrorMessage>
 								)}
 								{!isForgotPassword && (
 									<>
 										<FormLabel
-											htmlFor="password"
+											htmlFor='password'
 											mt={1}
-											fontSize={{ base: 12, md: 15}}
-											
-										>
+											fontSize={{ base: 12, md: 15 }}>
 											Contraseña
 										</FormLabel>
 										<InputGroup>
 											<Input
 												size={['xs', 'xs', 'sm', 'md']}
-												padding="15px"
-												variant="flushed"
-												name="password"
-												id="login_password"
+												padding='15px'
+												variant='flushed'
+												name='password'
+												id='login_password'
 												type={show ? 'text' : 'password'}
-												placeholder="*********"
+												placeholder='*********'
 												value={values.password}
 												onChange={handleChange}
 												mb={[2, 2, 5, 5]}
@@ -229,19 +249,17 @@ export default function LogIn() {
 													onClick={handleClick}
 													bg='#3d3d3d'
 													color='#ffffff'
-													_hover={{ bg: '#505967' }}
-												>
+													_hover={{ bg: '#505967' }}>
 													{show ? 'Esconder' : 'Mostrar'}
 												</Button>
 											</InputRightElement>
 										</InputGroup>
 										{errors.password && (
 											<FormErrorMessage
-												mt={{ base: "-5px", md: '-15px' }}
-												mb="10px"
-												ml="10px"
-												fontSize={{ base: 10, md: 15 }}
-											>
+												mt={{ base: '-5px', md: '-15px' }}
+												mb='10px'
+												ml='10px'
+												fontSize={{ base: 10, md: 15 }}>
 												{errors.password}
 											</FormErrorMessage>
 										)}
@@ -256,15 +274,13 @@ export default function LogIn() {
 							fontSize={{ base: 12, lg: 15 }}
 							color='#FFA000'
 							cursor='pointer'
-							onClick={() => setIsForgotPassword(false)}
-						>
+							onClick={() => setIsForgotPassword(false)}>
 							Volver a Iniciar Sesión
 						</Text>
 					) : (
 						<Box>
-
 							<Text
-								my={{ base : 4 }}
+								my={{ base: 4 }}
 								fontSize={{ base: 14 }}>
 								¿No tienes cuenta?&nbsp;
 								<Box
@@ -282,23 +298,23 @@ export default function LogIn() {
 								fontSize={{ base: 14 }}
 								color='#c0c0c0'
 								cursor='pointer'
-								onClick={() => setIsForgotPassword(true)}
-							>
+								onClick={() => setIsForgotPassword(true)}>
 								Olvidé mi Contraseña
 							</Text>
 						</Box>
 					)}
-					<Box alignContent='center' mt={4}>
+					<Box
+						alignContent='center'
+						mt={4}>
 						<Button
 							mt={3}
-							fontSize={{ md: 12, lg: 15}}
+							fontSize={{ md: 12, lg: 15 }}
 							bg='#FFA000'
-							w={{ base:'40vw', md: '15vw', lg: '17vw' }}
+							w={{ base: '40vw', md: '15vw', lg: '17vw' }}
 							h={{ base: '35' }}
 							_hover={{ bg: '#D84226' }}
-							form="login-form"
-							onClick={handleSubmit}
-						>
+							form='login-form'
+							onClick={handleSubmit}>
 							{isForgotPassword ? 'Enviar Correo' : 'Iniciar Sesión'}
 						</Button>
 					</Box>

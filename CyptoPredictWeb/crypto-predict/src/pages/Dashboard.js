@@ -37,12 +37,13 @@ export default function Dashboard() {
     isOpen: isTechnicalModalOpen,
     onOpen: onTechnicalOpen,
     onClose: onTechnicalClose,
-  } = useDisclosure(); // Modal de "Información Técnica"
+	} = useDisclosure(); 
+	
   const {
     isOpen: isFundamentalModalOpen,
     onOpen: onFundamentalOpen,
     onClose: onFundamentalClose,
-  } = useDisclosure(); // Modal de "Información Fundamental"
+	} = useDisclosure(); 
 
   const [overlay, setOverlay] = useState(null);
 
@@ -50,7 +51,7 @@ export default function Dashboard() {
     const fetchUser = async () => {
       const userData = await getUser();
       if (userData) {
-        if (userData.user_metadata.num_visita >= 5) {
+        if (userData.user_metadata.num_visita >= 100) {
           const Overlay = () => (
             <Box
               position="absolute"
@@ -73,20 +74,39 @@ export default function Dashboard() {
     fetchUser();
   }, [onOpen]);
 	
-	// Función para realizar el análisis de sentimientos
 	const [sentiment, setSentiment] = useState(null);
-	
+
 	const getSentiment = async () => {
-		const getnews = await getNews();
-		const combinedFileds = combineFields(getnews);
-		const currentNews = await getCurrentNews(combinedFileds);
-		const currentSentiment = await getCurrentSentiment(currentNews);
-		setSentiment(currentSentiment);
+		try {
+			const getnews = await getNews();
+			if (!getnews || !Array.isArray(getnews)) {
+				console.error('getNews returned an invalid response:', getnews);
+				return;
+			}
+			
+			const combinedFields = combineFields(getnews);
+			if (!combinedFields) {
+				console.error('combineFields returned an invalid response:', combinedFields);
+				return;
+			}
+			
+			const currentNews = await getCurrentNews(combinedFields);
+			if (!currentNews || !Array.isArray(currentNews)) {
+				console.error('getCurrentNews returned an invalid response:', currentNews);
+				return;
+			}
+			
+			const currentSentiment = await getCurrentSentiment(currentNews);
+			setSentiment(currentSentiment);
+		} catch (error) {
+			console.error('Error in getSentiment:', error);
+		}
 	};
-	
+
 	useEffect(() => {
 		getSentiment();
-	}, [sentiment]);
+	}, []); // Evitar bucles infinitos eliminando 'sentiment' de las dependencias
+
 
 
   return (

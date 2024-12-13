@@ -103,13 +103,11 @@ export default function ChangePassword() {
 		<Box
 			h={{ base: '60vh', md: '70vh' }}
 			alignContent='center'
-	justifyItems="space-between"
-		>
+			justifyItems='space-between'>
 			<Text
 				fontWeight={450}
 				fontSize={{ base: 18, xl: 20 }}
-				mb={3}
-			>
+				mb={3}>
 				Cambiar Contraseña
 			</Text>
 
@@ -170,7 +168,7 @@ export default function ChangePassword() {
 							/>
 							<InputRightElement width='4.5rem'>
 								<Button
-									h={{ base: '20px', sm : '10px', xl: '20px' }}
+									h={{ base: '20px', sm: '10px', xl: '20px' }}
 									size='xs'
 									onClick={handleClick}
 									bg='#3d3d3d'
@@ -216,8 +214,7 @@ export default function ChangePassword() {
 									mt={{ base: '2px', md: '5px' }}
 									mb='10px'
 									ml='10px'
-									fontSize={{ base: 10, md: 12 }}	
-								>
+									fontSize={{ base: 10, md: 12 }}>
 									{errors.confirmpassword}
 								</FormErrorMessage>
 							)}
@@ -228,14 +225,13 @@ export default function ChangePassword() {
 
 			<Box
 				alignContent='center'
-				mt={3}
-			>
+				mt={3}>
 				<Button
 					mt={3}
 					fontSize={{ md: 12, lg: 15 }}
 					bg='#FFA000'
 					w={{ base: '40vw', md: '15vw', lg: '17vw' }}
-					h={{ base: '35' }	}
+					h={{ base: '35' }}
 					_hover={{ bg: '#D84226' }}
 					form='password-form'
 					onClick={onOpen}>

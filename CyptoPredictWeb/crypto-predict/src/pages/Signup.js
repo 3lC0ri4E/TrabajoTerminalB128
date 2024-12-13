@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import {
 	Input,
@@ -12,7 +14,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	useToast,
-	Link
+	Link,
 } from '@chakra-ui/react';
 import useValidation from '../hooks/useValidation';
 import validateSignupForm from '../hooks/validation/SignupForm';
@@ -68,7 +70,8 @@ export default function SignUp() {
 			// Notificar que el correo de verificación fue enviado
 			toast.update(toastId, {
 				title: 'Correo de confirmación enviado',
-				description: 'Por favor, confirma tu correo para completar el registro.',
+				description:
+					'Por favor, confirma tu correo para completar el registro.',
 				status: 'success',
 				duration: 5000,
 				isClosable: true,
@@ -76,7 +79,6 @@ export default function SignUp() {
 
 			setIsAwaitingVerification(true); // Estado para mostrar mensaje de espera
 			checkVerificationStatus(values); // Iniciar la verificación periódica
-
 		} catch (error) {
 			toast.update(toastId, {
 				title: 'Error al registrar usuario',
@@ -89,16 +91,12 @@ export default function SignUp() {
 	}
 
 	function checkVerificationStatus(values) {
-
 		const intervalId = setInterval(async () => {
 			// Reautenticamos al usuario para obtener el estado actualizado
-			const { data } = await signIn(
-				values.email,
-				values.password,
-			);
+			const { data } = await signIn(values.email, values.password);
 			const user = data?.user;
 			if (user && user.confirmed_at) {
-				clearInterval(intervalId); 
+				clearInterval(intervalId);
 				toast({
 					title: 'Cuenta confirmada',
 					description: '¡Tu cuenta ha sido confirmada exitosamente!',
@@ -107,26 +105,34 @@ export default function SignUp() {
 					isClosable: true,
 					position: 'top',
 				});
-				navigate('/dashboard'); 
+				navigate('/dashboard');
 			}
 		}, 3000);
 	}
 	return (
-			<Box display={'flex'} flexDirection={{ base: 'column', md: 'row' }} h='100vh'>
+		<Box
+			display={'flex'}
+			flexDirection={{ base: 'column', md: 'row' }}
+			h='100vh'>
 			<Box
 				display={{ md: 'flex' }}
 				borderRadius='30px'
 				h='85vh'
 				w='85%'
 				p={4}
-				justifyContent="space-between"
+				justifyContent='space-between'
 				alignItems='center'
 				alignContent='center'
 				m='auto'
 				bg='#3d3d3d'
-				overflow='auto'
-			>
-				<Box flexShrink={0} flex='1' textAlign='center' justifyContent='center' m='auto' p={[5]}>
+				overflow='auto'>
+				<Box
+					flexShrink={0}
+					flex='1'
+					textAlign='center'
+					justifyContent='center'
+					m='auto'
+					p={[5]}>
 					<Image
 						src='/images/Logo.jpg'
 						alt='CryptoPredict Logo'
@@ -136,25 +142,40 @@ export default function SignUp() {
 						m='auto'
 						onClick={() => navigate('/')}
 					/>
-					<Text fontWeight={450} fontSize={{ base: 25, md: 30, xl: 40 }}  m={[3, 3, 4, 5]}>
-						¡Bienvenido a CryptoPredict! 
+					<Text
+						fontWeight={450}
+						fontSize={{ base: 25, md: 30, xl: 40 }}
+						m={[3, 3, 4, 5]}>
+						¡Bienvenido a CryptoPredict!
 					</Text>
 				</Box>
-				<Box flex='1' display='flex' flexDirection='column' justifyContent='center'>
+				<Box
+					flex='1'
+					display='flex'
+					flexDirection='column'
+					justifyContent='center'>
 					{isAwaitingVerification ? (
-						<Text fontSize={{ base: 25, md: 30, xl: 40 }}  fontWeight={450} textAlign='center' color='yellow.400'>
+						<Text
+							fontSize={{ base: 25, md: 30, xl: 40 }}
+							fontWeight={450}
+							textAlign='center'
+							color='yellow.400'>
 							Revisa tu correo para confirmar tu cuenta antes de iniciar sesión.
 						</Text>
 					) : (
 						<>
-							<Text  fontSize={{ base: 18, xl: 20 }}  fontWeight={450} mb={[2, 2, 3, 3]}>
+							<Text
+								fontSize={{ base: 18, xl: 20 }}
+								fontWeight={450}
+								mb={[2, 2, 3, 3]}>
 								Crear Cuenta
 							</Text>
 							<Divider />
 							<form id='signup-form'>
-								<Stack pl='10%' pr='10%'>
+								<Stack
+									pl='10%'
+									pr='10%'>
 									<FormControl isInvalid={errors.email || errors.password}>
-
 										<Input
 											mt={3}
 											size={{ base: 'sm' }}
@@ -194,8 +215,7 @@ export default function SignUp() {
 												mt={{ base: '-5px', md: '-15px' }}
 												mb='10px'
 												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}
-												>
+												fontSize={{ base: 10, md: 12, xl: 15 }}>
 												{errors.lastname}
 											</FormErrorMessage>
 										)}
@@ -257,13 +277,12 @@ export default function SignUp() {
 											/>
 											<InputRightElement width='4.5rem'>
 												<Button
-													h={{ base: '20px', sm : '10px', xl: '20px' }}
+													h={{ base: '20px', sm: '10px', xl: '20px' }}
 													size='xs'
 													onClick={handleClick}
 													bg='#3d3d3d'
 													color='#ffffff'
-													_hover={{ bg: '#505967' }}
-													>
+													_hover={{ bg: '#505967' }}>
 													{show ? 'Esconder' : 'Mostrar'}
 												</Button>
 											</InputRightElement>
@@ -301,12 +320,10 @@ export default function SignUp() {
 									</FormControl>
 								</Stack>
 							</form>
-							<Box
-								alignContent='center'
-								>
-									<Text
-										mt={{ base: 4 }}
-										fontSize={{ base: 14}}>
+							<Box alignContent='center'>
+								<Text
+									mt={{ base: 4 }}
+									fontSize={{ base: 14 }}>
 									¿Tienes una cuenta?&nbsp;
 									<Box
 										as='span'
@@ -314,7 +331,7 @@ export default function SignUp() {
 										<Link
 											key={1}
 											onClick={() => navigate('/login')}
-										// color='#085799'
+											// color='#085799'
 										>
 											Entrar
 										</Link>
@@ -324,8 +341,8 @@ export default function SignUp() {
 									mt={3}
 									fontSize={{ md: 12, lg: 15 }}
 									bg='#FFA000'
-									w={{ base:'35vw', md: '15vw', lg: '17vw' }}
-									h={{ base: '35' }	}
+									w={{ base: '35vw', md: '15vw', lg: '17vw' }}
+									h={{ base: '35' }}
 									_hover={{
 										bg: '#D84226',
 									}}
@@ -341,34 +358,3 @@ export default function SignUp() {
 		</Box>
 	);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
