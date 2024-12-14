@@ -310,7 +310,7 @@ export default function SignUp() {
 										/>
 										{errors.confirmpassword && (
 											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
+												mt={{ base: '5px', md: '10px' }}
 												mb='10px'
 												ml='10px'
 												fontSize={{ base: 10, md: 12, xl: 15 }}>
