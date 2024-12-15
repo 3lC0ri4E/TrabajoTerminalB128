@@ -190,13 +190,15 @@ export default function SignUp() {
 											mb={[2, 2, 5, 5]}
 										/>
 										{errors.name && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.name}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.name}
+												</FormErrorMessage>
+											</Box>
 										)}
 										<Input
 											size={{ base: 'sm' }}
@@ -211,13 +213,15 @@ export default function SignUp() {
 											mb={[2, 2, 5, 5]}
 										/>
 										{errors.lastname && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.lastname}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.lastname}
+												</FormErrorMessage>
+											</Box>
 										)}
 										<Input
 											size={{ base: 'sm' }}
@@ -232,13 +236,15 @@ export default function SignUp() {
 											mb={[2, 2, 5, 5]}
 										/>
 										{errors.username && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.username}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.username}
+												</FormErrorMessage>
+											</Box>
 										)}
 										<Input
 											size={{ base: 'sm' }}
@@ -253,13 +259,15 @@ export default function SignUp() {
 											mb={[2, 2, 5, 5]}
 										/>
 										{errors.email && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.email}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.email}
+												</FormErrorMessage>
+											</Box>
 										)}
 										<InputGroup>
 											<Input
@@ -288,13 +296,15 @@ export default function SignUp() {
 											</InputRightElement>
 										</InputGroup>
 										{errors.password && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.password}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.password}
+												</FormErrorMessage>
+											</Box>
 										)}
 										<Input
 											size={{ base: 'sm' }}
@@ -309,13 +319,15 @@ export default function SignUp() {
 											onChange={handleChange}
 										/>
 										{errors.confirmpassword && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 12, xl: 15 }}>
-												{errors.confirmpassword}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '5px', md: '10px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 12, xl: 15 }}>
+													{errors.confirmpassword}
+												</FormErrorMessage>
+											</Box>
 										)}
 									</FormControl>
 								</Stack>

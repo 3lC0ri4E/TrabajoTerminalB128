@@ -150,13 +150,15 @@ export default function UserInfo() {
 								/>
 							</Skeleton>
 							{errors.email && (
-								<FormErrorMessage
-									mt={{ base: '2px', md: '5px' }}
-									mb='10px'
-									ml='10px'
-									fontSize={{ base: 10, md: 15 }}>
-									{errors.email}
-								</FormErrorMessage>
+								<Box textAlign='left'>
+									<FormErrorMessage
+										mt={{ base: '2px', md: '5px' }}
+										mb='10px'
+										ml='10px'
+										fontSize={{ base: 10, md: 12 }}>
+										{errors.email}
+									</FormErrorMessage>
+								</Box>
 							)}
 						</FormControl>
 						<FormControl isInvalid={errors.name}>
@@ -180,13 +182,15 @@ export default function UserInfo() {
 								/>
 							</Skeleton>
 							{errors.name && (
-								<FormErrorMessage
-									mt={{ base: '2px', md: '5px' }}
-									mb='10px'
-									ml='10px'
-									fontSize={{ base: 10, md: 15 }}>
-									{errors.name}
-								</FormErrorMessage>
+								<Box textAlign='left'>
+									<FormErrorMessage
+										mt={{ base: '2px', md: '5px' }}
+										mb='10px'
+										ml='10px'
+										fontSize={{ base: 10, md: 12 }}>
+										{errors.name}
+									</FormErrorMessage>
+								</Box>
 							)}
 						</FormControl>
 
@@ -211,13 +215,15 @@ export default function UserInfo() {
 								/>
 							</Skeleton>
 							{errors.lastname && (
-								<FormErrorMessage
-									mt={{ base: '2px', md: '5px' }}
-									mb='10px'
-									ml='10px'
-									fontSize={{ base: 10, md: 12 }}>
-									{errors.lastname}
-								</FormErrorMessage>
+								<Box textAlign='left'>
+									<FormErrorMessage
+										mt={{ base: '2px', md: '5px' }}
+										mb='10px'
+										ml='10px'
+										fontSize={{ base: 10, md: 12 }}>
+										{errors.lastname}
+									</FormErrorMessage>
+								</Box>
 							)}
 						</FormControl>
 
@@ -242,13 +248,15 @@ export default function UserInfo() {
 								/>
 							</Skeleton>
 							{errors.username && (
-								<FormErrorMessage
-									mt={{ base: '2px', md: '5px' }}
-									mb='10px'
-									ml='10px'
-									fontSize={{ base: 10, md: 15 }}>
-									{errors.username}
-								</FormErrorMessage>
+								<Box textAlign='left'>
+									<FormErrorMessage
+										mt={{ base: '2px', md: '5px' }}
+										mb='10px'
+										ml='10px'
+										fontSize={{ base: 10, md: 12 }}>
+										{errors.username}
+									</FormErrorMessage>
+								</Box>
 							)}
 						</FormControl>
 					</Stack>

@@ -1,12 +1,46 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import Navbar from './Navbar';
-
+import TAnalysis from './RNNFunctions';
 import BitcoinLineChart from './Bitcoinlinechart';
+import { getLastTAnalysis, saveTA } from '../supabase/supabase_functions';
 
 export default function Main() {
+	const { probability, predictedPrice, realPrice } = TAnalysis();
+	//Realizas tu recoleccion de noticias y tu analisis de Sentimientos
+	const [hasSaved, setHasSaved] = useState(false);
+
+	useEffect(() => {
+		const fetchMaxData = async () => {
+			const { data } = await getLastTAnalysis();
+			// Obtienes tu ultimo registro de Analisis Fundamental de la BD
+			if (data && data.created_at) {
+				const today = new Date().toISOString().split('T')[0];
+				const createdDate = new Date(data.created_at)
+					.toISOString()
+					.split('T')[0];
+				console.log(today);
+				console.log(createdDate);
+				if (today !== createdDate && probability && !hasSaved) {
+					const label = predictedPrice > realPrice ? 'Up' : 'Down';
+					await saveTA(label, probability, predictedPrice, realPrice);
+					// Guardas tu nuevo Analisis Fundamental en la BD
+					setHasSaved(true);
+				}
+			} else if (!hasSaved) {
+				if (probability) {
+					const label = predictedPrice > realPrice ? 'Up' : 'Down';
+					await saveTA(label, probability, predictedPrice, realPrice);
+					// Guardas tu nuevo Analisis Fundamental en la BD
+					setHasSaved(true);
+				}
+			}
+		};
+		fetchMaxData();
+	}, [probability, hasSaved]);
+
 	return (
 		<Box>
 			<Navbar />
@@ -23,13 +57,12 @@ export default function Main() {
 							fontSize={{ base: 25, md: 35 }}
 							p={[1, 2, 4, 5]}
 							textAlign='left'>
-							El futuro de las
+							Innovación que transforma tus
 							<Box
 								as='span'
 								color='#64e400 '>
-								&nbsp;inversiones&nbsp;
+								&nbsp;desiciones&nbsp;
 							</Box>
-							está aquí
 						</Text>
 						<Text
 							fontSize={{ base: 15, xl: 20 }}

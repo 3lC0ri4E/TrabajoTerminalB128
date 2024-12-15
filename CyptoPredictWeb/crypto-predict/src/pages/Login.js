@@ -213,13 +213,15 @@ export default function LogIn() {
 									mb={[2, 2, 5, 5]}
 								/>
 								{errors.email && (
-									<FormErrorMessage
-										mt={{ base: '-5px', md: '-15px' }}
-										mb='10px'
-										ml='10px'
-										fontSize={{ base: 10, md: 15 }}>
-										{errors.email}
-									</FormErrorMessage>
+									<Box textAlign='left'>
+										<FormErrorMessage
+											mt={{ base: '-5px', md: '-15px' }}
+											mb='10px'
+											ml='10px'
+											fontSize={{ base: 10, md: 15 }}>
+											{errors.email}
+										</FormErrorMessage>
+									</Box>
 								)}
 								{!isForgotPassword && (
 									<>
@@ -255,13 +257,15 @@ export default function LogIn() {
 											</InputRightElement>
 										</InputGroup>
 										{errors.password && (
-											<FormErrorMessage
-												mt={{ base: '-5px', md: '-15px' }}
-												mb='10px'
-												ml='10px'
-												fontSize={{ base: 10, md: 15 }}>
-												{errors.password}
-											</FormErrorMessage>
+											<Box textAlign='left'>
+												<FormErrorMessage
+													mt={{ base: '-5px', md: '-15px' }}
+													mb='10px'
+													ml='10px'
+													fontSize={{ base: 10, md: 15 }}>
+													{errors.password}
+												</FormErrorMessage>
+											</Box>
 										)}
 									</>
 								)}

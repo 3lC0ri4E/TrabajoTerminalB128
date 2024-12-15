@@ -136,19 +136,21 @@ export default function ChangePassword() {
 							value={values.email}
 						/>
 						{errors.email && (
-							<FormErrorMessage
-								mt={{ base: '2px', md: '5px' }}
-								mb='10px'
-								ml='10px'
-								fontSize={{ base: 10, md: 12 }}>
-								{errors.email}
-							</FormErrorMessage>
+							<Box textAlign='left'>
+								<FormErrorMessage
+									mt={{ base: '2px', md: '5px' }}
+									mb='10px'
+									ml='10px'
+									fontSize={{ base: 10, md: 12 }}>
+									{errors.email}
+								</FormErrorMessage>
+							</Box>
 						)}
 					</FormControl>
 
 					<FormControl isInvalid={errors.password}>
 						<FormLabel
-							mt={3}
+							// mt={3}
 							htmlFor='password'
 							fontSize={{ base: 12 }}
 							fontWeight='normal'>
@@ -179,37 +181,40 @@ export default function ChangePassword() {
 							</InputRightElement>
 						</InputGroup>
 						{errors.password && (
-							<FormErrorMessage
-								mt={{ base: '2px', md: '5px' }}
-								mb='10px'
-								ml='10px'
-								fontSize={{ base: 10, md: 12 }}>
-								{errors.password}
-							</FormErrorMessage>
+							<Box textAlign='left'>
+								<FormErrorMessage
+									mt={{ base: '2px', md: '5px' }}
+									mb='10px'
+									ml='10px'
+									fontSize={{ base: 10, md: 12 }}>
+									{errors.password}
+								</FormErrorMessage>
+							</Box>
 						)}
 					</FormControl>
 
 					<FormControl isInvalid={errors.confirmpassword}>
 						<FormLabel
-							mt={3}
+							// mt={3}
 							htmlFor='confirmpassword'
 							fontSize={{ base: 12 }}
 							fontWeight='normal'>
 							Confirmar Nueva Contraseña
 						</FormLabel>
-						<InputGroup>
-							<Input
-								size={{ base: 'sm' }}
-								padding='15px'
-								variant='flushed'
-								name='confirmpassword'
-								id='confirmpassword'
-								type={show ? 'text' : 'password'}
-								placeholder='Confirmar Nueva Contraseña'
-								onChange={handleChange}
-								value={values.confirmpassword}
-							/>
-							{errors.confirmpassword && (
+
+						<Input
+							size={{ base: 'sm' }}
+							padding='15px'
+							variant='flushed'
+							name='confirmpassword'
+							id='confirmpassword'
+							type={show ? 'text' : 'password'}
+							placeholder='Confirmar Nueva Contraseña'
+							onChange={handleChange}
+							value={values.confirmpassword}
+						/>
+						{errors.confirmpassword && (
+							<Box textAlign='left'>
 								<FormErrorMessage
 									mt={{ base: '2px', md: '5px' }}
 									mb='10px'
@@ -217,8 +222,8 @@ export default function ChangePassword() {
 									fontSize={{ base: 10, md: 12 }}>
 									{errors.confirmpassword}
 								</FormErrorMessage>
-							)}
-						</InputGroup>
+							</Box>
+						)}
 					</FormControl>
 				</Stack>
 			</form>

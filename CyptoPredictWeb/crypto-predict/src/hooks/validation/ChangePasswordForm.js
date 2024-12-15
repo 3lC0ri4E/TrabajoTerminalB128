@@ -2,27 +2,31 @@
 export default function validateChangePasswordForm(values) {
 	const errors = {};
 
-	// Validate email
+	// Validar email
 	if (!values.email) {
 		errors.email = 'El correo es obligatorio';
 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-		errors.user_email = 'Correo no válido';
+		errors.email = 'El correo debe tener un formato válido';
 	}
 
-	// Validate password
+	// Validar nueva contraseña
 	if (!values.password) {
-		errors.password = 'La contraseña es obligatoria';
-	} else if (values.password.length < 6) {
-		errors.password = 'La contraseña debe ser de al menos 6 caracteres';
+		errors.password = 'La nueva contraseña es obligatoria';
+	} else if (values.password.length < 8) {
+		errors.password = 'La contraseña debe tener al menos 8 caracteres';
+	} else if (
+		!/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
+			values.password
+		)
+	) {
+		errors.password =
+			'La contraseña debe incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial';
 	}
 
-	// Validate password
+	// Validar confirmación de la contraseña
 	if (!values.confirmpassword) {
-		errors.confirmpassword = 'Confirme su contraseñas';
-	} else if (values.password.length < 6) {
-		errors.confirmpassword = 'La contraseña debe ser de al menos 6 caracteres';
-	}
-	if (values.password !== values.confirmpassword) {
+		errors.confirmpassword = 'Debe confirmar la nueva contraseña';
+	} else if (values.password !== values.confirmpassword) {
 		errors.confirmpassword = 'Las contraseñas no coinciden';
 	}
 

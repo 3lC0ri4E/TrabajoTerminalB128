@@ -157,9 +157,8 @@ const Navbar = () => {
 								spacing={{ md: '5', lg: '12', xl: '18' }}
 								flexDirection='row'>
 								{menuItems.map((item, index) => (
-									<Box>
+									<Box key={index}>
 										<Link
-											key={index}
 											fontSize={{ md: 12, lg: 15 }}
 											href={item.link}>
 											{item.name}
