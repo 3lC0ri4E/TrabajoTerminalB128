@@ -183,12 +183,12 @@ async function saveData(newsData) {
 setInterval(async () => {
 	const newsData = await fetchNews();
 	await saveData(newsData);
-	await analyzeSentiment();
+	// await analyzeSentiment();
 }, 28800000);
 
 // Ejecutar una vez al principio
 (async () => {
 	const newsData = await fetchNews();
 	await saveData(newsData);
-	await analyzeSentiment();
+	// await analyzeSentiment();
 })();
