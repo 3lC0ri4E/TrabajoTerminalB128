@@ -2,25 +2,19 @@
 
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import fs from 'fs';
 import moment from 'moment';
+import fs from 'fs';
 import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
 import {
 	uploadnews,
 	getnews,
 	updateNewsAnalysisId,
 	getNewsAnalysisId,
-} from './supabase/supabase_functions.js';
-import {
-	getNews,
-	combineFields,
-	getCurrentNews,
-	getCurrentSentiment,
-} from './sentimentNews.js';
+} from '../supabase/supabase_functions.js';
 
 // URL de las páginas de noticias
 const urls = {
-	CoinTelegraph: 'https://cointelegraph.com/rss/tag/bitcoin',
+	'CoinTelegraph': 'https://cointelegraph.com/rss/tag/bitcoin',
 	'Bitcoin Magazine': 'https://bitcoinmagazine.com/.rss/full/',
 	'Crypto Slate': 'https://cryptoslate.com/feed/',
 	'Crypto News': 'https://cryptonews.com/news/feed/',
@@ -178,17 +172,17 @@ async function saveData(newsData) {
       await saveDataToCSV(newsData);
     }
     
-    run();*/
+    run();
+
 // Ejecutar el flujo cada 8 horas
 setInterval(async () => {
 	const newsData = await fetchNews();
 	await saveData(newsData);
-	await analyzeSentiment();
 }, 28800000);
 
 // Ejecutar una vez al principio
 (async () => {
 	const newsData = await fetchNews();
 	await saveData(newsData);
-	await analyzeSentiment();
 })();
+*/

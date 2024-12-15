@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getNewsFromDatabase } from '../supabase/supabase_functions.js';
+
 import {
 	Table,
 	Thead,
@@ -34,7 +35,14 @@ function NewsReader() {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
+	/*
+	const asyncFetchNews = async () => {
+		try {
+			const newsData = await fetchNews();
+		} catch (error) {
+			console.error('Error al obtener las noticias:', error);
+		}
+	};*/
 	// Función para leer el archivo CSV localmente
 	useEffect(() => {
 		const fetchData = async () => {
@@ -67,9 +75,9 @@ function NewsReader() {
                 skipEmptyLines: true,
             });*/
 		};
-
 		fetchData();
 	}, []);
+
 
 	const handleRowClick = (link) => {
 		window.open(link, '_blank');
