@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { getNewsFromDatabase } from '../supabase/supabase_functions.js';
-
 import {
 	Table,
 	Thead,
@@ -33,11 +32,12 @@ function NewsReader() {
 	const [isLoading, setIsLoading] = useState(true);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	// Función para leer el archivo CSV localmente
+	// Función para leer las noticias de la base de datos
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true);
 			const { data, error } = await getNewsFromDatabase();
+			console.log('Noticias obtenidas:', data);
 			if (error) {
 				console.error(
 					'Error al obtener las noticias de la base de datos:',
@@ -45,6 +45,7 @@ function NewsReader() {
 				);
 			} else {
 				setNewsData(data);
+				console.log('Noticias obtenidas:', data);
 			}
 			setIsLoading(false);
 		};

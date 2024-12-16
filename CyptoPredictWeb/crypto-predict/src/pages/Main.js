@@ -6,6 +6,8 @@ import Navbar from './Navbar';
 import TAnalysis from './RNNFunctions';
 import BitcoinLineChart from './Bitcoinlinechart';
 import { getLastTAnalysis, saveTA } from '../supabase/supabase_functions';
+import { fetchNews, saveDataToSupabase } from './newsCollection';
+import { getNews, getCurrentSentiment, combineFields } from './sentimentNews';
 
 export default function Main() {
 	const { probability, predictedPrice, realPrice } = TAnalysis();
@@ -41,6 +43,34 @@ export default function Main() {
 		fetchMaxData();
 	}, [probability, hasSaved]);
 
+	/*
+	// Análisis de sentimientos
+	const [sentiment, setSentiment] = useState(null);
+
+	useEffect(() => {
+		const getSentiment = async () => {
+			const getnews = await getNews();
+			if (!getnews || !Array.isArray(getnews)) {
+				console.error('getNews returned an invalid response:', getnews);
+				return;
+			}
+
+			const combinedFields = combineFields(getnews);
+			if (!combinedFields) {
+				console.error(
+					'combineFields returned an invalid response:',
+					combinedFields
+				);
+				return;
+			}
+			const currentSentiment = await getCurrentSentiment(combinedFields);
+			setSentiment(currentSentiment);
+		};
+
+		getSentiment();
+	}, []);*/
+
+	
 	return (
 		<Box>
 			<Navbar />

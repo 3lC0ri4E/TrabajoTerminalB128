@@ -123,7 +123,12 @@ export async function getNewsFromDatabase() {
 		.select('*')
 		.order('pubDate', { ascending: false })
 		.limit(100);
-	return { data, error };
+	if (error) {
+        console.error('Error fetching news:', error);
+        return { data: null, error };
+    }
+
+    return { data, error: null };
 }
 
 // Insertar label de sentimiento y valor de probabilidad
