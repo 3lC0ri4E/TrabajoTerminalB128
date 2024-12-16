@@ -6,8 +6,8 @@ import Navbar from './Navbar';
 import TAnalysis from './RNNFunctions';
 import BitcoinLineChart from './Bitcoinlinechart';
 import { getLastTAnalysis, saveTA } from '../supabase/supabase_functions';
-import { fetchNews, saveDataToSupabase } from './newsCollection';
 import { getNews, getCurrentSentiment, combineFields } from './sentimentNews';
+import { set } from 'date-fns';
 
 export default function Main() {
 	const { probability, predictedPrice, realPrice } = TAnalysis();
@@ -43,7 +43,7 @@ export default function Main() {
 		fetchMaxData();
 	}, [probability, hasSaved, predictedPrice, realPrice]);
 
-	/*
+	
 	// Análisis de sentimientos
 	const [sentiment, setSentiment] = useState(null);
 
@@ -66,9 +66,8 @@ export default function Main() {
 			const currentSentiment = await getCurrentSentiment(combinedFields);
 			setSentiment(currentSentiment);
 		};
-
 		getSentiment();
-	}, []);*/
+	}, []);
 
 	
 	return (
