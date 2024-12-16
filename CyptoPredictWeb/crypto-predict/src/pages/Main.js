@@ -44,8 +44,6 @@ export default function Main() {
 
 	
 	// Análisis de sentimientos
-	const [sentiment, setSentiment] = useState(null);
-
 	useEffect(() => {
 		const getSentiment = async () => {
 			const getnews = await getNews();
@@ -62,8 +60,7 @@ export default function Main() {
 				);
 				return;
 			}
-			const currentSentiment = await getCurrentSentiment(combinedFields);
-			setSentiment(currentSentiment);
+			await getCurrentSentiment(combinedFields);
 		};
 		getSentiment();
 	}, []);
