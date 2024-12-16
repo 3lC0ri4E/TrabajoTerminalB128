@@ -118,12 +118,17 @@ export async function getnews(currentDate) {
 
 // Obtener las primeras 100 noticias de la base de datos de forma descendente
 export async function getNewsFromDatabase() {
-	const { data, error } = await supabase
+	let { data, error } = await supabase
 		.from('news')
 		.select('*')
 		.order('pubDate', { ascending: false })
 		.limit(100);
-	return { data, error };
+	if (error) {
+        console.error('Error fetching news:', error);
+        return { data: null, error };
+    }
+
+    return { data, error: null };
 }
 
 // Insertar label de sentimiento y valor de probabilidad
@@ -172,4 +177,63 @@ export async function saveTA(label, probability, predictedPrice, realPrice) {
 	} catch (err) {
 		return { data: null, error: err };
 	}
+}
+
+// Obtener último análisis fundamental
+export async function getLastFA() {
+	const { data, error } = await supabase
+		.from('analisis_fundamental')
+		.select('*')
+		.order('id', { ascending: false })
+		.limit(1);
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	if (data && data.length > 0) {
+		return { data, error: null };
+	}
+
+	// Caso en que no hay registros
+	return { data: null, error: null };
+}
+
+// Actualizar analisis_id en la base de datos
+export async function updateNewsAnalisisId(newsId, analisisId) {
+	const { data, error } = await supabase
+		.from('news')
+		.update({ analisis_id: analisisId })
+		.eq('id', newsId);
+		
+	return { data, error };
+}
+
+// Almacenar análisis y actualizar news
+export async function saveSentimentAndUpdateNews(newsId, label, probability) {
+	const created_at = new Date(); // Fecha actual
+
+	// Insertar el análisis fundamental
+	const { data: analisisData, error: analisisError } = await insertSentiment(
+		created_at,
+		label,
+		probability
+	);
+
+	if (analisisError) {
+		console.error('Error al insertar análisis:', analisisError.message);
+		return;
+	}
+
+	console.log('Análisis insertado:', analisisData);
+
+	// Actualizar la tabla news con el analisis_id
+	const { error: updateError } = await updateNewsAnalisisId(newsId, analisisData.id);
+
+	if (updateError) {
+		console.error('Error al actualizar news:', updateError.message);
+		return;
+	}
+
+	console.log(`News con ID ${newsId} actualizado con analisis_id: ${analisisData.id}`);
 }

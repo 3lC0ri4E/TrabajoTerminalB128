@@ -3,13 +3,9 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import moment from 'moment';
-import fs from 'fs';
-import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
 import {
 	uploadnews,
-	getnews,
-	updateNewsAnalysisId,
-	getNewsAnalysisId,
+	getnews
 } from '../supabase/supabase_functions.js';
 
 // URL de las páginas de noticias
@@ -19,19 +15,6 @@ const urls = {
 	'Crypto Slate': 'https://cryptoslate.com/feed/',
 	'Crypto News': 'https://cryptonews.com/news/feed/',
 };
-
-// Ruta del archivo CSV
-const csvFile = 'news_data_js.csv';
-
-// Cargar datos previos si el archivo existe
-let existingData = [];
-if (fs.existsSync(csvFile)) {
-	const csvData = fs.readFileSync(csvFile, 'utf8');
-	existingData = csvData
-		.split('\n')
-		.slice(1)
-		.map((line) => line.split(','));
-}
 
 // Función para extraer noticias
 async function fetchNews() {
@@ -93,32 +76,6 @@ async function fetchNews() {
 	return newsData;
 }
 
-// Guardar datos en el archivo CSV
-async function saveDataToCSV(newsData) {
-	const csvWriter = createCsvWriter({
-		path: csvFile,
-		header: [
-			{ id: 'site', title: 'site' },
-			{ id: 'title', title: 'title' },
-			{ id: 'puDdate', title: 'pubDate' },
-			{ id: 'link', title: 'link' },
-			{ id: 'description', title: 'description' },
-			{ id: 'content', title: 'content' },
-		],
-		append: true, // Append to existing CSV
-	});
-
-	// Combina los nuevos datos con los existentes y elimina duplicados
-	const allData = [...existingData, ...newsData];
-	const uniqueData = Array.from(new Set(allData.map((item) => item.title))).map(
-		(title) => allData.find((item) => item.title === title)
-	);
-
-	// Escribir en CSV
-	await csvWriter.writeRecords(uniqueData);
-	console.log('Data saved to CSV.');
-}
-
 // Guardar noticias en supabase
 async function saveDataToSupabase(newsData) {
 	// Obtener fecha actual en formato YYYY-MM-DD
@@ -161,28 +118,4 @@ async function saveDataToSupabase(newsData) {
 	}
 }
 
-async function saveData(newsData) {
-	//await saveDataToCSV(newsData);
-	await saveDataToSupabase(newsData);
-}
-
-// Ejecutar el flujo
-/*async function run() {
-      const newsData = await fetchNews();
-      await saveDataToCSV(newsData);
-    }
-    
-    run();
-
-// Ejecutar el flujo cada 8 horas
-setInterval(async () => {
-	const newsData = await fetchNews();
-	await saveData(newsData);
-}, 28800000);
-
-// Ejecutar una vez al principio
-(async () => {
-	const newsData = await fetchNews();
-	await saveData(newsData);
-})();
-*/
+export { fetchNews, saveDataToSupabase };

@@ -2,7 +2,7 @@
 
 import fetch from 'node-fetch';
 import { format } from 'date-fns';
-import { getnews, insertSentiment } from '../supabase/supabase_functions.js';
+import { getnews, insertSentiment } from '../supabase/supabase_functions';
 
 // Función para obtener la fecha actual y formatearla
 function getCurrentDate() {
@@ -117,7 +117,7 @@ async function getCurrentSentiment(newsData) {
 				if (attempt === 4) {
 					throw error; // Si es el último intento, lanza el error
 				}
-				await sleep(1000); // Espera 51 segundo antes de reintentar
+				await sleep(1000); // Espera 1 segundo antes de reintentar
 			}
 		}
 	}
@@ -244,4 +244,4 @@ async function getCurrentSentiment(newsData) {
 	return percentage;
 }
 
-export { getNews, combineFields , getCurrentSentiment };
+export { getNews, combineFields, getCurrentSentiment };

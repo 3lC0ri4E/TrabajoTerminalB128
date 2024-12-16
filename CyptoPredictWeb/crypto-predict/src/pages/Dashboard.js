@@ -1,12 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-// import {
-// 	getNews,
-// 	combineFields,
-// 	getCurrentSentiment,
-// } from './sentimentNews.js';
-import { getLastTAnalysis } from '../supabase/supabase_functions';
+import { getLastTAnalysis , getLastFA } from '../supabase/supabase_functions';
 import {
 	Box,
 	Wrap,
@@ -34,6 +29,7 @@ import FundamentalAnalysis from './BERT.js';
 export default function Dashboard() {
 	const navigate = useNavigate();
 	const [lastTAnalysis, setLastTAnalysis] = useState(null);
+	const [lastFAnalysis, setLastFAnalysis] = useState(null);
 	const [TAerror, setTAError] = useState(null);
 
 	const { isOpen, onClose } = useDisclosure(); // Modal de "Visitas Excedidas"
@@ -62,6 +58,19 @@ export default function Dashboard() {
 		fetchLastAnalysis();
 	}, []);
 
+	useEffect(() => {
+		const fetchLastFAnalysis = async () => {
+			const { data, error } = await getLastFA();
+			if (error) {
+				setTAError(error.message);
+			} else if (data) {
+				setLastFAnalysis(data[0].probability);
+			}
+		};
+
+		fetchLastFAnalysis();
+	}, []);
+
 	// useEffect(() => {
 	// 	const fetchUser = async () => {
 	// 		const userData = await getUser();
@@ -88,44 +97,6 @@ export default function Dashboard() {
 	// 	};
 	// 	fetchUser();
 	// }, [onOpen]);
-
-	// const [sentiment, setSentiment] = useState(null);
-
-	// const getSentiment = async () => {
-	// 	try {
-	// 		const getnews = await getNews();
-	// 		if (!getnews || !Array.isArray(getnews)) {
-	// 			console.error('getNews returned an invalid response:', getnews);
-	// 			return;
-	// 		}
-
-	// 		const combinedFields = combineFields(getnews);
-	// 		if (!combinedFields) {
-	// 			console.error(
-	// 				'combineFields returned an invalid response:',
-	// 				combinedFields
-	// 			);
-	// 			return;
-	// 		}
-	// 		/*
-	// 		const currentNews = await getCurrentNews(combinedFields);
-	// 		if (!currentNews || !Array.isArray(currentNews)) {
-	// 			console.error('getCurrentNews returned an invalid response:', currentNews);
-	// 			return;
-	// 		}*/
-	// 		setIsLoading(true);
-	// 		const currentSentiment = await getCurrentSentiment(combinedFields);
-	// 		setSentiment(currentSentiment);
-	// 		setIsLoading(false);
-	// 	} catch (error) {
-	// 		setIsLoading(false);
-	// 		console.error('Error in getSentiment:', error);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	getSentiment();
-	// }, []); // Evitar bucles infinitos eliminando 'sentiment' de las dependencias
 
 	return (
 		<Box
@@ -257,7 +228,8 @@ export default function Dashboard() {
 								/>
 							</Tooltip>
 						</Box>
-						<FundamentalAnalysis FAprobability={75} />
+						<FundamentalAnalysis
+							FAprobability={lastFAnalysis}/>
 					</WrapItem>
 				</Wrap>
 
