@@ -9,37 +9,42 @@ import { getLastTAnalysis, saveTA } from '../supabase/supabase_functions';
 
 export default function Main() {
 	const { probability, predictedPrice, realPrice } = TAnalysis();
-	//Realizas tu recoleccion de noticias y tu analisis de Sentimientos
+	// Realizas tu recoleccion de noticias y tu analisis de Sentimientos
 	const [hasSaved, setHasSaved] = useState(false);
 
 	useEffect(() => {
 		const fetchMaxData = async () => {
+			// console.log('Step 1: Fetching last analysis...');
 			const { data } = await getLastTAnalysis();
-			// Obtienes tu ultimo registro de Analisis Fundamental de la BD
-			if (data && data.created_at) {
-				const today = new Date().toISOString().split('T')[0];
-				const createdDate = new Date(data.created_at)
+			// console.log('Step 2: Data fetched:', data);
+
+			const today = new Date().toISOString().split('T')[0];
+			// console.log("Step 3: Today's date:", today);
+
+			// Check if data exists and has a valid created_at
+			if (data && data[0]?.created_at) {
+				const createdDate = new Date(data[0].created_at)
 					.toISOString()
 					.split('T')[0];
-				console.log(today);
-				console.log(createdDate);
-				if (today !== createdDate && probability && !hasSaved) {
-					const label = predictedPrice > realPrice ? 'Up' : 'Down';
-					await saveTA(label, probability, predictedPrice, realPrice);
-					// Guardas tu nuevo Analisis Fundamental en la BD
-					setHasSaved(true);
+				// console.log('Step 4: Last saved date:', createdDate);
+
+				if (today === createdDate) {
+					// console.log('Step 5: Data already saved today. Skipping save.');
+					return; // Exit if data for today already exists
 				}
-			} else if (!hasSaved) {
-				if (probability) {
-					const label = predictedPrice > realPrice ? 'Up' : 'Down';
-					await saveTA(label, probability, predictedPrice, realPrice);
-					// Guardas tu nuevo Analisis Fundamental en la BD
-					setHasSaved(true);
-				}
+			}
+
+			// If no record for today exists and not yet saved in this session
+			if (!hasSaved && probability && predictedPrice && realPrice) {
+				// console.log('Step 6: Saving new data...');
+				const label = predictedPrice > realPrice ? 'Up' : 'Down';
+				await saveTA(label, probability, predictedPrice, realPrice);
+				setHasSaved(true); // Mark as saved
+				// console.log('Step 7: Data saved successfully.');
 			}
 		};
 		fetchMaxData();
-	}, [probability, hasSaved, predictedPrice, realPrice]);
+	}, [probability, predictedPrice, realPrice, hasSaved]);
 
 	return (
 		<Box>

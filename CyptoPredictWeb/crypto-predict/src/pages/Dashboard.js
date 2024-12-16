@@ -170,7 +170,7 @@ export default function Dashboard() {
 									mr={2}
 									mt={1}
 									_hover={{ opacity: '0.5' }}
-									onClick={onTechnicalOpen} // Abrir modal al hacer clic
+									onClick={onTechnicalOpen}
 								/>
 							</Tooltip>
 						</Box>
@@ -218,7 +218,7 @@ export default function Dashboard() {
 									mr={2}
 									mt={1}
 									_hover={{ opacity: '0.5' }}
-									onClick={onTechnicalOpen} // Abrir modal al hacer clic
+									onClick={onTechnicalOpen}
 								/>
 							</Tooltip>
 						</Box>
