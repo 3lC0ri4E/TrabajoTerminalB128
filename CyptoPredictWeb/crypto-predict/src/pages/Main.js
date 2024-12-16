@@ -7,7 +7,6 @@ import TAnalysis from './RNNFunctions';
 import BitcoinLineChart from './Bitcoinlinechart';
 import { getLastTAnalysis, saveTA } from '../supabase/supabase_functions';
 import { getNews, getCurrentSentiment, combineFields } from './sentimentNews';
-import { set } from 'date-fns';
 
 export default function Main() {
 	const { probability, predictedPrice, realPrice } = TAnalysis();
@@ -68,7 +67,6 @@ export default function Main() {
 		};
 		getSentiment();
 	}, []);
-
 	
 	return (
 		<Box>
