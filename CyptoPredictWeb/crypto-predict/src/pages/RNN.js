@@ -10,10 +10,13 @@ const TechnicalAnalysis = ({ lastTAnalysis, TAerror }) => {
 		<Box
 			m={'auto'}
 			overflow={'auto'}>
+			{/* Mostrar mensaje de error si existe */}
 			{TAerror && <Text color='red.500'>{TAerror}</Text>}
+
 			<Stat>
 				<StatLabel fontSize={{ base: 20 }}>Análisis Técnico</StatLabel>
-				{lastTAnalysis.probability && (
+
+				{lastTAnalysis && lastTAnalysis.probability !== undefined ? (
 					<ProbabilitySpeedometer
 						probability={lastTAnalysis.probability}
 						texts={{
@@ -23,6 +26,8 @@ const TechnicalAnalysis = ({ lastTAnalysis, TAerror }) => {
 							label: 'Tendencia del Mercado',
 						}}
 					/>
+				) : (
+					<Text>Cargando análisis técnico...</Text>
 				)}
 			</Stat>
 		</Box>

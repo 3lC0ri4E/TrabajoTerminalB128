@@ -39,7 +39,7 @@ export default function Main() {
 			}
 		};
 		fetchMaxData();
-	}, [probability, hasSaved]);
+	}, [probability, hasSaved, predictedPrice, realPrice]);
 
 	return (
 		<Box>

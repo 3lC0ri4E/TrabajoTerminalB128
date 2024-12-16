@@ -1,12 +1,11 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import {
-	getNews,
-	combineFields,
-	getCurrentSentiment,
-} from './sentimentNews.js';
+// import {
+// 	getNews,
+// 	combineFields,
+// 	getCurrentSentiment,
+// } from './sentimentNews.js';
 import { getLastTAnalysis } from '../supabase/supabase_functions';
 import {
 	Box,
@@ -24,24 +23,20 @@ import {
 	Tooltip,
 	UnorderedList,
 	ListItem,
-	Spinner,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import SideBar from './Sidebar.js';
 import Bitcoinchart from './Bitcoinchart.js';
-import { getUser } from '../supabase/supabase_functions';
 import TechnicalAnalysis from './RNN.js';
 import PricePrediction from './PricePrediction.js';
 import FundamentalAnalysis from './BERT.js';
 
 export default function Dashboard() {
 	const navigate = useNavigate();
-	const [isLoading, setIsLoading] = useState(false);
-	const [overlay, setOverlay] = useState(null);
 	const [lastTAnalysis, setLastTAnalysis] = useState(null);
 	const [TAerror, setTAError] = useState(null);
 
-	const { isOpen, onOpen, onClose } = useDisclosure(); // Modal de "Visitas Excedidas"
+	const { isOpen, onClose } = useDisclosure(); // Modal de "Visitas Excedidas"
 	const {
 		isOpen: isTechnicalModalOpen,
 		onOpen: onTechnicalOpen,
@@ -145,8 +140,6 @@ export default function Dashboard() {
 				justifyItems='center'
 				overflow='auto'
 				position='relative'>
-				{isOpen && overlay}
-
 				<Wrap
 					align='center'
 					justify='center'
@@ -264,18 +257,7 @@ export default function Dashboard() {
 								/>
 							</Tooltip>
 						</Box>
-						{isLoading ? (
-							<Box
-								display='flex'
-								alignItems='center'
-								justifyContent='center'
-								height='100%'
-								width='100%'>
-								<Spinner size='xl' />
-							</Box>
-						) : (
-							<FundamentalAnalysis FAprobability={75} />
-						)}
+						<FundamentalAnalysis FAprobability={75} />
 					</WrapItem>
 				</Wrap>
 
@@ -310,10 +292,6 @@ export default function Dashboard() {
 								colorScheme='blue'>
 								Suscribirse
 							</Button>
-							<Wallet
-								initialization={{ preferenceId: '<PREFERENCE_ID>' }}
-								customization={{ texts: { valueProp: 'smart_option' } }}
-							/>
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
