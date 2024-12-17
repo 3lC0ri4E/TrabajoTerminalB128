@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-import { getLastTAnalysis , getLastFA } from '../supabase/supabase_functions';
+import { getLastTAnalysis , getLastFA, /*uploadNewsWithLastAnalisis*/ } from '../supabase/supabase_functions';
 import {
 	Box,
 	Wrap,
@@ -71,6 +71,13 @@ export default function Dashboard() {
 		fetchLastFAnalysis();
 	}, []);
 
+	/*useEffect(() => {
+		const updateIdNews = async () => {
+			await uploadNewsWithLastAnalisis();
+			console.log('Noticias actualizadas con éxito');
+		};
+		updateIdNews();
+	}, []);*/
 	// useEffect(() => {
 	// 	const fetchUser = async () => {
 	// 		const userData = await getUser();

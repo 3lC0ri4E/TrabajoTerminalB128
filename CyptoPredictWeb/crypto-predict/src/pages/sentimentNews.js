@@ -65,7 +65,7 @@ async function getCurrentNews(newsData) {
 // Función para obtener el sentimiento general de las noticias de la fecha actual
 async function getCurrentSentiment(newsData) {
 	const currentNews = await getCurrentNews(newsData);
-	if (currentNews.length === 0) {
+	if (!Array.isArray(currentNews) || currentNews.length === 0) {
 		return;
 	}
 	// Token de autenticación de Hugging Face

@@ -199,41 +199,82 @@ export async function getLastFA() {
 	return { data: null, error: null };
 }
 
-// Actualizar analisis_id en la base de datos
-export async function updateNewsAnalisisId(newsId, analisisId) {
-	const { data, error } = await supabase
-		.from('news')
-		.update({ analisis_id: analisisId })
-		.eq('id', newsId);
-		
-	return { data, error };
+export async function getLastAnalisisId() {
+    const { data, error } = await supabase
+        .from('analisis_fundamental')
+        .select('id')
+        .order('created_at', { ascending: false })  // Ordenar de más reciente a más antiguo
+        .limit(1);  // Solo traemos el último
+
+    if (error) {
+        console.error('Error al obtener el último análisis:', error);
+        return { id: null, error };
+    }
+
+    return { id: data[0]?.id, error };  // Retornamos el id del último análisis
 }
 
-// Almacenar análisis y actualizar news
-export async function saveSentimentAndUpdateNews(newsId, label, probability) {
-	const created_at = new Date(); // Fecha actual
+// Actualizar noticias con el último análisis
+export async function updateNewsWithAnalisisId(news, analisisId) {
+    const idsToUpdate = news.map(n => n.id); // Extraer los IDs de las noticias a actualizar
+    const { data, error } = await supabase
+        .from('news')
+        .update({ analisis_id: analisisId }) // Actualizar el campo analisis_id
+        .in('id', idsToUpdate); // Filtrar las noticias por ID
 
-	// Insertar el análisis fundamental
-	const { data: analisisData, error: analisisError } = await insertSentiment(
-		created_at,
-		label,
-		probability
-	);
+    if (error) {
+        console.error('Error al actualizar las noticias:', error.message);
+        return { data: null, error };
+    }
 
-	if (analisisError) {
-		console.error('Error al insertar análisis:', analisisError.message);
-		return;
-	}
+    return { data, error };
+}
 
-	console.log('Análisis insertado:', analisisData);
+export async function uploadNewsWithLastAnalisis() {
+    const currentDate = new Date().toISOString().split('T')[0];
+    console.log('Fecha actual:', currentDate);
+    
+    // Obtener el último id del análisis
+    const { id: lastAnalisisId, error: analisisError } = await getLastAnalisisId();
 
-	// Actualizar la tabla news con el analisis_id
-	const { error: updateError } = await updateNewsAnalisisId(newsId, analisisData.id);
+    if (analisisError || !lastAnalisisId) {
+        console.error('No se encontró un análisis para asociar las noticias');
+        return { news: null, error: analisisError };
+    }
+    
+    // Obtener las noticias más recientes de la base de datos
+    const { data: news, error: newsError } = await getnews(currentDate);
+    if (newsError) {
+        console.error('Error al obtener las noticias de la base de datos:', newsError.message);
+        return { news: null, error: newsError };
+    }
+    console.log('Noticias obtenidas:', news.length);
 
-	if (updateError) {
-		console.error('Error al actualizar news:', updateError.message);
-		return;
-	}
+    // Actualizar analisis_id en la base de datos
+    const updates = news.map(async (item) => {
+        const { error } = await supabase
+            .from('news')
+            .update({ analisis_id: lastAnalisisId }) // Actualizamos el analisis_id
+            .eq('id', item.id); // Donde el id coincide con el de la noticia
 
-	console.log(`News con ID ${newsId} actualizado con analisis_id: ${analisisData.id}`);
+        if (error) {
+            console.error(`Error al actualizar la noticia con ID ${item.id}:`, error.message);
+            return null;
+        }
+
+        return item.id; // Retornamos los IDs actualizados
+    });
+
+    // Ejecutar todas las actualizaciones
+    const updatedIds = await Promise.all(updates);
+
+    // Filtrar las actualizaciones exitosas
+    if (updatedIds.length === 0) {
+        console.log('No se han actualizado noticias con éxito');
+        return { news: null, error: null };
+    }
+    const successfulUpdates = updatedIds.filter((id) => id !== null);
+    console.log('Noticias actualizadas con éxito:', successfulUpdates.length);
+
+    return { news: successfulUpdates, error: null };
 }
