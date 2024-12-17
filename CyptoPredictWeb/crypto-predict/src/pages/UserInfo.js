@@ -142,7 +142,7 @@ export default function UserInfo() {
 									padding='15px'
 									variant='flushed'
 									name='email'
-									id='email'
+									id='info_email'
 									type='email'
 									placeholder='Correo Electrónico'
 									onChange={handleChange}

@@ -23,8 +23,14 @@ const PricePrediction = ({ lastTAnalysis, TAerror }) => {
 			{/* Renderizar el análisis solo si existe */}
 			{lastTAnalysis && (
 				<Stat>
-					<StatLabel fontSize={{ base: 25 }}>Predicción de Precio</StatLabel>
-					<StatNumber fontSize={{ base: 30 }}>
+					<StatLabel fontSize={{ base: 20 }}>
+						Predicción de Precio {<br />}
+						<Text fontSize={'md'}>{lastTAnalysis.created_at}</Text>
+					</StatLabel>
+
+					<StatNumber
+						color='#e8eaed'
+						fontSize={{ base: 30 }}>
 						$
 						{lastTAnalysis.predictedPrice
 							? lastTAnalysis.predictedPrice.toLocaleString('en-US', {
