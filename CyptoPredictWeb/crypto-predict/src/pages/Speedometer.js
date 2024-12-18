@@ -3,14 +3,14 @@
 import React from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 
-const ProbabilitySpeedometer = ({ probability, texts }) => {
+const ProbabilitySpeedometer = ({ probability = 0, texts }) => {
 	return (
 		<ReactSpeedometer
 			height={150}
 			width={250}
 			minValue={0}
 			maxValue={100}
-			value={probability}
+			value={probability || 0} // Asegura un valor predeterminado
 			segments={2}
 			segmentColors={['#d83744', '#089981']}
 			customSegmentLabels={[
@@ -38,7 +38,6 @@ const ProbabilitySpeedometer = ({ probability, texts }) => {
 			currentValueText={texts.label}
 			labelFontSize='14'
 			valueTextFontSize='10'
-			// forceRender={true}
 		/>
 	);
 };

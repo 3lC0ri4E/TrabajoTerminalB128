@@ -160,7 +160,7 @@ const Navbar = () => {
 									<Box key={index}>
 										<Link
 											fontSize={{ md: 12, lg: 15 }}
-											href={item.link}>
+											onClick={() => navigate(item.link)}>
 											{item.name}
 										</Link>
 									</Box>
