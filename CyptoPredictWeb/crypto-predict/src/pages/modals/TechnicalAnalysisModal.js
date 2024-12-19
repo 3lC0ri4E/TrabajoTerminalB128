@@ -83,6 +83,26 @@ const TechnicalAnalysisModal = ({ isOpen, onClose }) => {
 					<Text
 						fontWeight='bold'
 						my='1rem'>
+						Resultados del Modelo
+					</Text>
+					<UnorderedList>
+						<ListItem>
+							<strong>Precisión General (Accuracy):</strong> 71.2%
+						</ListItem>
+						<ListItem>
+							<strong>Precisión (Precision):</strong> 74.1%
+						</ListItem>
+						<ListItem>
+							<strong>Exhaustividad (Recall):</strong> 71.0%
+						</ListItem>
+						<ListItem>
+							<strong>Puntaje F1 (F1-Score):</strong> 72.5%
+						</ListItem>
+					</UnorderedList>
+
+					<Text
+						fontWeight='bold'
+						my='1rem'>
 						Nota de Transparencia
 					</Text>
 					<Text>

@@ -90,13 +90,16 @@ const FundamentalAnalysisModal = ({ isOpen, onClose }) => {
 							<strong>Promedio General:</strong>
 							<UnorderedList pl='1.5rem'>
 								<ListItem>
-									<strong>Precisión:</strong> 97%
+									<strong>Accuracy:</strong> 99.51%
 								</ListItem>
 								<ListItem>
-									<strong>Recall:</strong> 97%
+									<strong>Precisión:</strong> 99.72%
 								</ListItem>
 								<ListItem>
-									<strong>F1-Score:</strong> 97%
+									<strong>Recall:</strong> 98.21%
+								</ListItem>
+								<ListItem>
+									<strong>F1-Score:</strong> 98.95%
 								</ListItem>
 							</UnorderedList>
 						</ListItem>

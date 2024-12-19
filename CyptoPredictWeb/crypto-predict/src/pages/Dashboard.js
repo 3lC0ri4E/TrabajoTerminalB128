@@ -18,6 +18,10 @@ import Bitcoinchart from './Bitcoinchart.js';
 import TechnicalAnalysis from './RNN.js';
 import PricePrediction from './PricePrediction.js';
 import FundamentalAnalysis from './BERT.js';
+import TAHelp from './modals/TAHelp.js';
+import PriceHelp from './modals/PriceHelp.js';
+import PricePredictionModal from './modals/PricePredictionModal.js';
+import FAHelp from './modals/FAHelp.js';
 
 export default function Dashboard() {
 	const [lastTAnalysis, setLastTAnalysis] = useState(null);
@@ -37,8 +41,32 @@ export default function Dashboard() {
 		onClose: onFundamentalClose,
 	} = useDisclosure();
 
+	const {
+		isOpen: isPriceModalOpen,
+		onOpen: onPriceModalOpen,
+		onClose: onPriceModalClose,
+	} = useDisclosure();
+
+	const {
+		isOpen: isTAHelpModalOpen,
+		onOpen: onTAHelpModalOpen,
+		onClose: onTAHelpModalClose,
+	} = useDisclosure();
+
+	const {
+		isOpen: isPriceHelpModalOpen,
+		onOpen: onPriceHelpModalOpen,
+		onClose: onPriceHelpModalClose,
+	} = useDisclosure();
+
+	const {
+		isOpen: isFAHelpModalOpen,
+		onOpen: onFAHelpModalOpen,
+		onClose: onFAHelpModalClose,
+	} = useDisclosure();
+
 	useEffect(() => {
-		const fetchLastAnalysis = async () => {
+		const fetchLastTAnalysis = async () => {
 			const { data, error } = await getLastTAnalysis();
 			if (error) {
 				setTAError(error.message);
@@ -47,7 +75,7 @@ export default function Dashboard() {
 			}
 		};
 
-		fetchLastAnalysis();
+		fetchLastTAnalysis();
 	}, []);
 
 	useEffect(() => {
@@ -63,40 +91,7 @@ export default function Dashboard() {
 		fetchLastFAnalysis();
 	}, []);
 
-	/*useEffect(() => {
-		const updateIdNews = async () => {
-			await uploadNewsWithLastAnalisis();
-			console.log('Noticias actualizadas con éxito');
-		};
-		updateIdNews();
-	}, []);*/
-	// useEffect(() => {
-	// 	const fetchUser = async () => {
-	// 		const userData = await getUser();
-	// 		if (userData) {
-	// 			if (userData.user_metadata.num_visita >= 100) {
-	// 				const Overlay = () => (
-	// 					<Box
-	// 						position='absolute'
-	// 						top='0'
-	// 						left='0'
-	// 						right='0'
-	// 						bottom='0'
-	// 						bg='rgba(0, 0, 0, 0.7)'
-	// 						backdropFilter='blur(10px)'
-	// 						display='flex'
-	// 						flexDirection={{ base: 'column', md: 'row' }}
-	// 						zIndex='1'
-	// 					/>
-	// 				);
-	// 				setOverlay(<Overlay />);
-	// 				onOpen();
-	// 			}
-	// 		}
-	// 	};
-	// 	fetchUser();
-	// }, [onOpen]);
-
+	console.log(lastTAnalysis);
 	return (
 		<Box
 			display='flex'
@@ -140,7 +135,26 @@ export default function Dashboard() {
 									mr={2}
 									mt={1}
 									_hover={{ opacity: '0.5' }}
-									onClick={onTechnicalOpen}
+									onClick={onPriceModalOpen}
+								/>
+							</Tooltip>
+						</Box>
+						<Box
+							position='absolute'
+							top='10px'
+							left='15px'>
+							<Tooltip
+								label='¿Cómo intepreto estos resultados?'
+								fontSize={{ md: 'xs' }}>
+								<Image
+									src='/icons/info.png'
+									alt='Información del Modelo'
+									w={{ base: '6vw', md: '2vw' }}
+									display='block'
+									mr={2}
+									mt={1}
+									_hover={{ opacity: '0.5' }}
+									onClick={onPriceHelpModalOpen}
 								/>
 							</Tooltip>
 						</Box>
@@ -192,6 +206,25 @@ export default function Dashboard() {
 								/>
 							</Tooltip>
 						</Box>
+						<Box
+							position='absolute'
+							top='10px'
+							left='15px'>
+							<Tooltip
+								label='¿Cómo intepreto estos resultados?'
+								fontSize={{ md: 'xs' }}>
+								<Image
+									src='/icons/info.png'
+									alt='Información del Modelo'
+									w={{ base: '6vw', md: '2vw' }}
+									display='block'
+									mr={2}
+									mt={1}
+									_hover={{ opacity: '0.5' }}
+									onClick={onTAHelpModalOpen}
+								/>
+							</Tooltip>
+						</Box>
 						<TechnicalAnalysis
 							lastTAnalysis={lastTAnalysis}
 							TAerror={TAerror}
@@ -227,6 +260,25 @@ export default function Dashboard() {
 								/>
 							</Tooltip>
 						</Box>
+						<Box
+							position='absolute'
+							top='10px'
+							left='15px'>
+							<Tooltip
+								label='¿Cómo intepreto estos resultados?'
+								fontSize={{ md: 'xs' }}>
+								<Image
+									src='/icons/info.png'
+									alt='Información del Modelo'
+									w={{ base: '6vw', md: '2vw' }}
+									display='block'
+									mr={2}
+									mt={1}
+									_hover={{ opacity: '0.5' }}
+									onClick={onFAHelpModalOpen}
+								/>
+							</Tooltip>
+						</Box>
 						<FundamentalAnalysis FAprobability={lastFAnalysis} />
 					</WrapItem>
 				</Wrap>
@@ -242,6 +294,23 @@ export default function Dashboard() {
 				<FundamentalAnalysisModal
 					isOpen={isFundamentalModalOpen}
 					onClose={onFundamentalClose}
+				/>
+				<PricePredictionModal
+					isOpen={isPriceModalOpen}
+					onClose={onPriceModalClose}
+				/>
+				<TAHelp
+					isOpen={isTAHelpModalOpen}
+					onClose={onTAHelpModalClose}
+				/>
+				<FAHelp
+					isOpen={isFAHelpModalOpen}
+					onClose={onFAHelpModalClose}
+				/>
+				<PriceHelp
+					isOpen={isPriceHelpModalOpen}
+					onClose={onPriceHelpModalClose}
+					data={lastTAnalysis}
 				/>
 			</Box>
 		</Box>
