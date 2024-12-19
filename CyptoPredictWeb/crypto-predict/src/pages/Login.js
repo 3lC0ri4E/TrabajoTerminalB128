@@ -190,10 +190,7 @@ export default function LogIn() {
 						<Stack
 							pl={'10%'}
 							pr={'10%'}>
-							<FormControl
-								isInvalid={
-									errors.email || (!isForgotPassword && errors.password)
-								}>
+							<FormControl isInvalid={errors.email}>
 								<FormLabel
 									htmlFor='email'
 									mt={[3, 5, 10, 10]}
@@ -218,58 +215,49 @@ export default function LogIn() {
 											mt={{ base: '-5px', md: '-15px' }}
 											mb='10px'
 											ml='10px'
-											fontSize={{ base: 10, md: 15 }}>
+											fontSize={{ base: 10, md: 12, xl: 15 }}>
 											{errors.email}
 										</FormErrorMessage>
 									</Box>
 								)}
-								{!isForgotPassword && (
-									<>
-										<FormLabel
-											htmlFor='password'
-											mt={1}
-											fontSize={{ base: 12, md: 15 }}>
-											Contraseña
-										</FormLabel>
-										<InputGroup>
-											<Input
-												size={['xs', 'xs', 'sm', 'md']}
-												padding='15px'
-												variant='flushed'
-												name='password'
-												id='login_password'
-												type={show ? 'text' : 'password'}
-												placeholder='*********'
-												value={values.password}
-												onChange={handleChange}
-												mb={[2, 2, 5, 5]}
-											/>
-											<InputRightElement width='4.5rem'>
-												<Button
-													h={{ base: '20px', xl: '35px' }}
-													size='xs'
-													onClick={handleClick}
-													bg='#3d3d3d'
-													color='#ffffff'
-													_hover={{ bg: '#505967' }}>
-													{show ? 'Esconder' : 'Mostrar'}
-												</Button>
-											</InputRightElement>
-										</InputGroup>
-										{errors.password && (
-											<Box textAlign='left'>
-												<FormErrorMessage
-													mt={{ base: '-5px', md: '-15px' }}
-													mb='10px'
-													ml='10px'
-													fontSize={{ base: 10, md: 15 }}>
-													{errors.password}
-												</FormErrorMessage>
-											</Box>
-										)}
-									</>
-								)}
 							</FormControl>
+
+							{!isForgotPassword && (
+								<FormControl isInvalid={errors.password}>
+									<FormLabel
+										htmlFor='password'
+										mt={1}
+										fontSize={{ base: 12, md: 15 }}>
+										Contraseña
+									</FormLabel>
+									<InputGroup>
+										<Input
+											size={['xs', 'xs', 'sm', 'md']}
+											padding='15px'
+											variant='flushed'
+											name='password'
+											id='login_password'
+											type={show ? 'text' : 'password'}
+											placeholder='*********'
+											value={values.password}
+											onChange={handleChange}
+											mb={[2, 2, 5, 5]}
+										/>
+										<InputRightElement width='4.5rem'>
+											<Button
+												h={{ base: '20px', xl: '35px' }}
+												size='xs'
+												onClick={handleClick}
+												bg='#3d3d3d'
+												color='#ffffff'
+												_hover={{ bg: '#505967' }}>
+												{show ? 'Esconder' : 'Mostrar'}
+											</Button>
+										</InputRightElement>
+									</InputGroup>
+									<FormErrorMessage>{errors.password}</FormErrorMessage>
+								</FormControl>
+							)}
 						</Stack>
 					</form>
 					{isForgotPassword ? (

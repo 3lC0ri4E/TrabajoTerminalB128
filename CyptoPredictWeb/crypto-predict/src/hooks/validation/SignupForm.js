@@ -42,15 +42,14 @@ export default function validateSignupForm(values) {
 		errors.password = 'La contraseña es obligatoria';
 	} else if (values.password.length < 8) {
 		errors.password = 'La contraseña debe ser de al menos 8 caracteres';
+	} else if (
+		!/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
+			values.password
+		)
+	) {
+		errors.password =
+			'La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial';
 	}
-	// else if (
-	// 	!/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
-	// 		values.password
-	// 	)
-	// ) {
-	// 	errors.password =
-	// 		'La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial';
-	// }
 
 	// Validate confirm password
 	if (!values.confirmpassword) {

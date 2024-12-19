@@ -19,15 +19,14 @@ export default function validateLoginForm(
 			errors.password = 'La contraseña es obligatoria';
 		} else if (values.password.length < 6) {
 			errors.password = 'La contraseña debe tener al menos 6 caracteres';
+		} else if (
+			!/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
+				values.password
+			)
+		) {
+			errors.password =
+				'La contraseña debe incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial';
 		}
-		// else if (
-		// 	!/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
-		// 		values.password
-		// 	)
-		// ) {
-		// 	errors.password =
-		// 		'La contraseña debe incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial';
-		// }
 	}
 
 	return errors;

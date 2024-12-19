@@ -175,7 +175,7 @@ export default function SignUp() {
 								<Stack
 									pl='10%'
 									pr='10%'>
-									<FormControl isInvalid={errors.email || errors.password}>
+									<FormControl isInvalid={errors.name}>
 										<Input
 											mt={3}
 											size={{ base: 'sm' }}
@@ -200,6 +200,8 @@ export default function SignUp() {
 												</FormErrorMessage>
 											</Box>
 										)}
+									</FormControl>
+									<FormControl isInvalid={errors.lastname}>
 										<Input
 											size={{ base: 'sm' }}
 											padding='15px'
@@ -223,6 +225,8 @@ export default function SignUp() {
 												</FormErrorMessage>
 											</Box>
 										)}
+									</FormControl>
+									<FormControl isInvalid={errors.username}>
 										<Input
 											size={{ base: 'sm' }}
 											padding='15px'
@@ -246,6 +250,8 @@ export default function SignUp() {
 												</FormErrorMessage>
 											</Box>
 										)}
+									</FormControl>
+									<FormControl isInvalid={errors.email}>
 										<Input
 											size={{ base: 'sm' }}
 											padding='15px'
@@ -269,6 +275,8 @@ export default function SignUp() {
 												</FormErrorMessage>
 											</Box>
 										)}
+									</FormControl>
+									<FormControl isInvalid={errors.password}>
 										<InputGroup>
 											<Input
 												size={{ base: 'sm' }}
@@ -306,6 +314,8 @@ export default function SignUp() {
 												</FormErrorMessage>
 											</Box>
 										)}
+									</FormControl>
+									<FormControl isInvalid={errors.confirmpassword}>
 										<Input
 											size={{ base: 'sm' }}
 											padding='15px'
