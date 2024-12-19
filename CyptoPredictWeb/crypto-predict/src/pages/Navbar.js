@@ -34,7 +34,7 @@ const menuItems = [
 const Navbar = () => {
 	const [user, setUser] = useState();
 	const boxRef = useRef();
-	const { isOpen, onClose } = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isDialogOpen,
 		onOpen: onDialogOpen,
@@ -262,9 +262,17 @@ const Navbar = () => {
 								<>
 									{/* Íconos para usuario autenticado */}
 									<Image
+										src='/icons/more.png'
+										alt='More'
+										w='12vw'
+										mr={4}
+										_hover={{ opacity: '0.5' }}
+										onClick={isOpen ? onClose : onOpen}
+									/>
+									<Image
 										src='/icons/dashboard.png'
 										alt='Dashboard'
-										w='20vw'
+										w='12vw'
 										mr={4}
 										_hover={{ opacity: '0.5' }}
 										onClick={() => navigate('/dashboard')}
@@ -272,7 +280,7 @@ const Navbar = () => {
 									<Image
 										src='/icons/logout.png'
 										alt='Sign Out'
-										w='20vw'
+										w='12vw'
 										_hover={{ opacity: '0.5' }}
 										onClick={signout}
 									/>
