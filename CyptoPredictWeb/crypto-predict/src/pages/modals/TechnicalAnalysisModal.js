@@ -31,9 +31,10 @@ const TechnicalAnalysisModal = ({ isOpen, onClose }) => {
 					<Text>
 						Nuestro sistema utiliza algoritmos avanzados de inteligencia
 						artificial para analizar datos históricos del mercado de
-						criptomonedas y predecir tendencias futuras. Este modelo está
-						diseñado para ayudar a los usuarios a tomar decisiones más
-						informadas y estratégicas en sus inversiones.
+						criptomonedas de los últimos 7 días y predecir tendencias futuras.
+						Este modelo está diseñado para ayudar a los usuarios a tomar
+						decisiones más informadas y estratégicas en sus inversiones,
+						basándose en patrones recientes del mercado.
 					</Text>
 
 					<Text

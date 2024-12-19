@@ -32,9 +32,8 @@ const TAHelp = ({ isOpen, onClose }) => {
 				<ModalBody>
 					<Text>
 						El análisis técnico presentado permite identificar tendencias
-						generales del mercado basado en predicciones realizadas utilizando
-						datos de los últimos 7 días, ofreciendo tres posibles escenarios
-						basados en patrones y métricas técnicas.
+						generales del mercado, ofreciendo tres posibles escenarios basados
+						en patrones y métricas técnicas.
 					</Text>
 
 					<Text
