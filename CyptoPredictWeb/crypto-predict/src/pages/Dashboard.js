@@ -63,13 +63,6 @@ export default function Dashboard() {
 		fetchLastFAnalysis();
 	}, []);
 
-	/*useEffect(() => {
-		const updateIdNews = async () => {
-			await uploadNewsWithLastAnalisis();
-			console.log('Noticias actualizadas con éxito');
-		};
-		updateIdNews();
-	}, []);*/
 	// useEffect(() => {
 	// 	const fetchUser = async () => {
 	// 		const userData = await getUser();

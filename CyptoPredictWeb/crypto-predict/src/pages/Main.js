@@ -69,6 +69,14 @@ export default function Main() {
 		};
 		getSentiment();
 	}, []);
+
+	/*useEffect(() => {
+		const updateIdNews = async () => {
+			await uploadNewsWithLastAnalisis();
+			console.log('Noticias actualizadas con éxito');
+		};
+		updateIdNews();
+	}, []);*/
 	
 	return (
 		<Box>
