@@ -289,6 +289,14 @@ const Navbar = () => {
 								<>
 									{/* Íconos para usuario no autenticado */}
 									<Image
+										src='/icons/more.png'
+										alt='More'
+										w='12vw'
+										mr={4}
+										_hover={{ opacity: '0.5' }}
+										onClick={isOpen ? onClose : onOpen}
+									/>
+									<Image
 										src='/icons/login.png'
 										alt='Login'
 										w='20vw'
