@@ -297,20 +297,20 @@ const Navbar = () => {
 										onClick={isOpen ? onClose : onOpen}
 									/>
 									<Image
-										src='/icons/login.png'
-										alt='Login'
-										w='20vw'
-										mr={4}
-										_hover={{ opacity: '0.5' }}
-										onClick={() => navigate('/login')}
-									/>
-									<Image
 										src='/icons/signup.png'
 										alt='Sign Up'
-										w='20vw'
+										w='12vw'
 										mr={4}
 										_hover={{ opacity: '0.5' }}
 										onClick={() => navigate('/signup')}
+									/>
+									<Image
+										src='/icons/login.png'
+										alt='Login'
+										w='12vw'
+										// mr={4}
+										_hover={{ opacity: '0.5' }}
+										onClick={() => navigate('/login')}
 									/>
 								</>
 							)}

@@ -255,7 +255,17 @@ export default function LogIn() {
 											</Button>
 										</InputRightElement>
 									</InputGroup>
-									<FormErrorMessage>{errors.password}</FormErrorMessage>
+									{errors.password && (
+										<Box textAlign='left'>
+											<FormErrorMessage
+												mt={{ base: '-5px', md: '-15px' }}
+												mb='10px'
+												ml='10px'
+												fontSize={{ base: 10, md: 12, xl: 15 }}>
+												{errors.password}
+											</FormErrorMessage>
+										</Box>
+									)}
 								</FormControl>
 							)}
 						</Stack>
