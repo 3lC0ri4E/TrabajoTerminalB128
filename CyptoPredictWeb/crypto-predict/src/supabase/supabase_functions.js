@@ -96,7 +96,7 @@ export async function signIn(email, password) {
 
 export async function sendResetPasswordEmail(email) {
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: 'http://localhost:3000/ajustes',
+		redirectTo: 'https://gentle-grass-0bd11bf10.5.azurestaticapps.net/ajustes',
 	});
 	return { error };
 }
@@ -124,11 +124,11 @@ export async function getNewsFromDatabase() {
 		.order('pubDate', { ascending: false })
 		.limit(100);
 	if (error) {
-        console.error('Error fetching news:', error);
-        return { data: null, error };
-    }
+		console.error('Error fetching news:', error);
+		return { data: null, error };
+	}
 
-    return { data, error: null };
+	return { data, error: null };
 }
 
 // Insertar label de sentimiento y valor de probabilidad
@@ -200,81 +200,88 @@ export async function getLastFA() {
 }
 
 export async function getLastAnalisisId() {
-    const { data, error } = await supabase
-        .from('analisis_fundamental')
-        .select('id')
-        .order('created_at', { ascending: false })  // Ordenar de más reciente a más antiguo
-        .limit(1);  // Solo traemos el último
+	const { data, error } = await supabase
+		.from('analisis_fundamental')
+		.select('id')
+		.order('created_at', { ascending: false }) // Ordenar de más reciente a más antiguo
+		.limit(1); // Solo traemos el último
 
-    if (error) {
-        console.error('Error al obtener el último análisis:', error);
-        return { id: null, error };
-    }
+	if (error) {
+		console.error('Error al obtener el último análisis:', error);
+		return { id: null, error };
+	}
 
-    return { id: data[0]?.id, error };  // Retornamos el id del último análisis
+	return { id: data[0]?.id, error }; // Retornamos el id del último análisis
 }
 
 // Actualizar noticias con el último análisis
 export async function updateNewsWithAnalisisId(news, analisisId) {
-    const idsToUpdate = news.map(n => n.id); // Extraer los IDs de las noticias a actualizar
-    const { data, error } = await supabase
-        .from('news')
-        .update({ analisis_id: analisisId }) // Actualizar el campo analisis_id
-        .in('id', idsToUpdate); // Filtrar las noticias por ID
+	const idsToUpdate = news.map((n) => n.id); // Extraer los IDs de las noticias a actualizar
+	const { data, error } = await supabase
+		.from('news')
+		.update({ analisis_id: analisisId }) // Actualizar el campo analisis_id
+		.in('id', idsToUpdate); // Filtrar las noticias por ID
 
-    if (error) {
-        console.error('Error al actualizar las noticias:', error.message);
-        return { data: null, error };
-    }
+	if (error) {
+		console.error('Error al actualizar las noticias:', error.message);
+		return { data: null, error };
+	}
 
-    return { data, error };
+	return { data, error };
 }
 
 export async function uploadNewsWithLastAnalisis() {
-    const currentDate = new Date().toISOString().split('T')[0];
-    console.log('Fecha actual:', currentDate);
-    
-    // Obtener el último id del análisis
-    const { id: lastAnalisisId, error: analisisError } = await getLastAnalisisId();
+	const currentDate = new Date().toISOString().split('T')[0];
+	console.log('Fecha actual:', currentDate);
 
-    if (analisisError || !lastAnalisisId) {
-        console.error('No se encontró un análisis para asociar las noticias');
-        return { news: null, error: analisisError };
-    }
-    
-    // Obtener las noticias más recientes de la base de datos
-    const { data: news, error: newsError } = await getnews(currentDate);
-    if (newsError) {
-        console.error('Error al obtener las noticias de la base de datos:', newsError.message);
-        return { news: null, error: newsError };
-    }
-    console.log('Noticias obtenidas:', news.length);
+	// Obtener el último id del análisis
+	const { id: lastAnalisisId, error: analisisError } =
+		await getLastAnalisisId();
 
-    // Actualizar analisis_id en la base de datos
-    const updates = news.map(async (item) => {
-        const { error } = await supabase
-            .from('news')
-            .update({ analisis_id: lastAnalisisId }) // Actualizamos el analisis_id
-            .eq('id', item.id); // Donde el id coincide con el de la noticia
+	if (analisisError || !lastAnalisisId) {
+		console.error('No se encontró un análisis para asociar las noticias');
+		return { news: null, error: analisisError };
+	}
 
-        if (error) {
-            console.error(`Error al actualizar la noticia con ID ${item.id}:`, error.message);
-            return null;
-        }
+	// Obtener las noticias más recientes de la base de datos
+	const { data: news, error: newsError } = await getnews(currentDate);
+	if (newsError) {
+		console.error(
+			'Error al obtener las noticias de la base de datos:',
+			newsError.message
+		);
+		return { news: null, error: newsError };
+	}
+	console.log('Noticias obtenidas:', news.length);
 
-        return item.id; // Retornamos los IDs actualizados
-    });
+	// Actualizar analisis_id en la base de datos
+	const updates = news.map(async (item) => {
+		const { error } = await supabase
+			.from('news')
+			.update({ analisis_id: lastAnalisisId }) // Actualizamos el analisis_id
+			.eq('id', item.id); // Donde el id coincide con el de la noticia
 
-    // Ejecutar todas las actualizaciones
-    const updatedIds = await Promise.all(updates);
+		if (error) {
+			console.error(
+				`Error al actualizar la noticia con ID ${item.id}:`,
+				error.message
+			);
+			return null;
+		}
 
-    // Filtrar las actualizaciones exitosas
-    if (updatedIds.length === 0) {
-        console.log('No se han actualizado noticias con éxito');
-        return { news: null, error: null };
-    }
-    const successfulUpdates = updatedIds.filter((id) => id !== null);
-    console.log('Noticias actualizadas con éxito:', successfulUpdates.length);
+		return item.id; // Retornamos los IDs actualizados
+	});
 
-    return { news: successfulUpdates, error: null };
+	// Ejecutar todas las actualizaciones
+	const updatedIds = await Promise.all(updates);
+
+	// Filtrar las actualizaciones exitosas
+	if (updatedIds.length === 0) {
+		console.log('No se han actualizado noticias con éxito');
+		return { news: null, error: null };
+	}
+	const successfulUpdates = updatedIds.filter((id) => id !== null);
+	console.log('Noticias actualizadas con éxito:', successfulUpdates.length);
+
+	return { news: successfulUpdates, error: null };
 }

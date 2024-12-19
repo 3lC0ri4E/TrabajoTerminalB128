@@ -32,8 +32,9 @@ const PricePredictionModal = ({ isOpen, onClose }) => {
 				<ModalBody>
 					<Text>
 						Este sistema de predicción de precios utiliza análisis de datos
-						históricos del mercado para estimar tendencias futuras. Está
-						diseñado como una herramienta de apoyo para ayudar a los usuarios a
+						históricos del mercado para estimar tendencias futuras. Las
+						predicciones están basadas en datos de los últimos 7 días y están
+						diseñadas como una herramienta de apoyo para ayudar a los usuarios a
 						comprender mejor las dinámicas del mercado.
 					</Text>
 					<Text
